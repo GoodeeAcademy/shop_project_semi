@@ -21,6 +21,35 @@ public class EmpDao {
 		return check;
 	}
 	
+	// 직원 로그인
+	public Emp selectEmpByIdAndPw(Connection conn, Emp emp) throws Exception{
+		Emp loginEmp = null;
+		String sql = "SELECT emp_code empCode\r\n"
+				+ "		, emp_id empId\r\n"
+				+ "		, emp_pw empPw\r\n"
+				+ "		, emp_name empName\r\n"
+				+ "		, active"
+				+ "		, auth_code authCode"
+				+ "		, createdate, updatedate\r\n"
+				+ "FROM emp\r\n"
+				+ "WHERE emp_id = ? AND emp_pw=PASSWORD(?);";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, emp.getEmpId());
+		stmt.setString(2, emp.getEmpPw());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			loginEmp = new Emp();
+			loginEmp.setEmpId(rs.getString("empId"));
+			loginEmp.setEmpPw(rs.getString("empPw"));
+			loginEmp.setEmpName(rs.getString("empName"));
+			loginEmp.setActive(rs.getString("active"));
+			loginEmp.setAuthCode(rs.getInt("authCode"));
+			loginEmp.setCreatedate(rs.getString("createdate"));
+			loginEmp.setUpdatedate(rs.getString("updatedate"));
+		}
+		return loginEmp;
+	}
+	
 	// 직원 정보 select
 	public Emp selectEmpOne(Connection conn, String empId) throws Exception{
 		Emp emp = new Emp();
@@ -28,7 +57,7 @@ public class EmpDao {
 				+ "		, emp_id empId\r\n"
 				+ "		, emp_pw empPw\r\n"
 				+ "		, emp_name empName\r\n"
-				+ "		, ACTIVE, auth_code, createdate, updatedate\r\n"
+				+ "		, active, auth_code, createdate, updatedate\r\n"
 				+ "FROM emp\r\n"
 				+ "WHERE emp_id = ?;";
 		PreparedStatement stmt = conn.prepareStatement(sql);

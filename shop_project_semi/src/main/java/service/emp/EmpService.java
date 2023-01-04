@@ -37,6 +37,32 @@ public class EmpService {
 		return check;
 	}
 	
+	// 직원 로그인
+	public Emp login(Emp emp) {
+		Emp loginEmp = null;
+		this.empDao = new EmpDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			loginEmp = empDao.selectEmpByIdAndPw(conn, emp);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return loginEmp;
+	}
+	
 	// 직원가입
 	public int addEmp(Emp emp) {
 		int row = 0;
