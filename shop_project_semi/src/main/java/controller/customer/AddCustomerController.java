@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.customer.CustomerService;
 import vo.Customer;
@@ -31,6 +32,13 @@ public class AddCustomerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginCustomer") != null) {
+			response.sendRedirect(request.getContextPath()+"/HomeController");
+			return;
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/customer/addCustomer.jsp").forward(request, response);
 	}
 

@@ -1,6 +1,7 @@
 package service.customer;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import dao.customer.CustomerDao;
 import util.DBUtil;
@@ -57,5 +58,31 @@ public class CustomerService {
 			}
 		}
 		return resultCustomer;
+	}
+	
+	public ArrayList<Customer> getCustomerListByAll() {
+		ArrayList<Customer> list = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.customerDao = new CustomerDao();
+			list = customerDao.customerListByAll(conn);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
 	}
 }

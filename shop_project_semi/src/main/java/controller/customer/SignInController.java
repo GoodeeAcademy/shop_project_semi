@@ -33,6 +33,12 @@ public class SignInController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginCustomer") != null) {
+			response.sendRedirect(request.getContextPath()+"/HomeController");
+			return;
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/customer/signIn.jsp").forward(request, response);
 	}
 
