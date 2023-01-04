@@ -8,10 +8,6 @@
 	</head>
 	
 	<body>
-		<div>
-			<a href="">직원</a>
-			<a href="">물품</a>
-			<a href="">고객</a>
-		</div>
+		
 	</body>
 </html>
