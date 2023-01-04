@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import dao.GoodsDao;
-import dao.GoodsImgDao;
+import dao.goods.GoodsDao;
+import dao.goods.GoodsImgDao;
 import util.DBUtil;
 import vo.Goods;
 import vo.GoodsImg;
