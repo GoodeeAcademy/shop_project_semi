@@ -36,7 +36,7 @@ public class AddEmpController extends HttpServlet {
 		emp.setEmpName(empName);
 		
 		empService = new EmpService();
-		int row = empService.AddEmp(emp);
+		int row = empService.addEmp(emp);
 		
 		if(row != 1) {	// 직원 가입 실패
 			System.out.println("직원 가입 실패");
