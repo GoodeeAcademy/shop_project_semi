@@ -3,14 +3,14 @@ package vo;
 public class Goods {
 	private int goodsCode;
 	private String goodsName;
-	private String goodsPrice;
-	private boolean soldOut;
+	private int goodsPrice;
+	private String soldOut;
 	private String empId;
 	private int hit;
 	private String createdate;
 	private String updatedate;
 	
-	public Goods(int goodsCode, String goodsName, String goodsPrice, boolean soldOut, String empId, int hit,
+	public Goods(int goodsCode, String goodsName, int goodsPrice, String soldOut, String empId, int hit,
 			String createdate, String updatedate) {
 		super();
 		this.goodsCode = goodsCode;
@@ -25,7 +25,6 @@ public class Goods {
 
 	public Goods() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -51,19 +50,19 @@ public class Goods {
 		this.goodsName = goodsName;
 	}
 
-	public String getGoodsPrice() {
+	public int getGoodsPrice() {
 		return goodsPrice;
 	}
 
-	public void setGoodsPrice(String goodsPrice) {
+	public void setGoodsPrice(int goodsPrice) {
 		this.goodsPrice = goodsPrice;
 	}
 
-	public boolean isSoldOut() {
+	public String getSoldOut() {
 		return soldOut;
 	}
 
-	public void setSoldOut(boolean soldOut) {
+	public void setSoldOut(String soldOut) {
 		this.soldOut = soldOut;
 	}
 
@@ -98,6 +97,4 @@ public class Goods {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
-	
-	
 }

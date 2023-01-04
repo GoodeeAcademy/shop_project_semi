@@ -21,7 +21,6 @@ public class GoodsImg {
 	
 	public GoodsImg() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -77,6 +76,4 @@ public class GoodsImg {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
-	
-	
 }
