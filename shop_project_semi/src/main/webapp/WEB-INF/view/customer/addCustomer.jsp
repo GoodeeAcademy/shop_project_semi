@@ -9,9 +9,27 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function() {
-				let 
+				let allCheck = false;
 				$('#submitBtn').click(function() {
+					console.log('submitBtn 클릭');
+					if($('#addId').val().length < 1) {
+						alert('ID를 입력해주세요.');
+					} else if($('#addPw').val().length < 1) {
+						alert('PW를 입력해주세요.');
+					} else if($('#addName').val().length < 1) {
+						alert('이름을 입력해주세요.');
+					} else if($('#addPhone1 option:selected').val().length < 1) {
+						alert('지역번호를 선택해주세요.');
+					} else if($('#addPhone2').val().length < 3 || $('#addPhone3').val().length < 4) {
+						$('#addPhone2').focus();
+						alert('올바른 전화번호를 입력하여 주세요.');
+					} else {
+						allCheck = true;
+					}
 					
+					if(allCheck) {
+						$('#addCustomerForm').submit();
+					}
 				});
 			})
 		</script>
@@ -36,7 +54,14 @@
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td><input type="text" name="addPhone1" id="addPhone1">
+						<td>
+							<select name="addPhone1" id="addPhone1">
+								<option value="">==선택==</option>
+								<option value="010">010</option>
+								<option value="011">011</option>
+								<option value="012">012</option>
+								<option value="013">013</option>
+							</select>
 							-
 							<input type="text" name="addPhone2" id="addPhone2">
 							-
