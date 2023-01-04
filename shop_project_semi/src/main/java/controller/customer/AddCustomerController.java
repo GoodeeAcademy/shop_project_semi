@@ -58,7 +58,7 @@ public class AddCustomerController extends HttpServlet {
 		
 		//addCustomer 서비스 호출
 		this.customerService = new CustomerService();
-		int result = customerService.addCustomerService(paramCustomer);
+		int result = customerService.getAddCustomer(paramCustomer);
 		
 		if(result != 1) {
 			System.out.println("회원가입 실패");
