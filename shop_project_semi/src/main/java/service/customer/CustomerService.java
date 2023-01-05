@@ -85,4 +85,30 @@ public class CustomerService {
 		
 		return list;
 	}
+	
+	public int getModifyCustomer(Customer customer) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.customerDao = new CustomerDao();
+			row = customerDao.modifyCustomer(conn, customer);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
 }

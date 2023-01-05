@@ -57,15 +57,20 @@
 						<td>
 							<select name="addPhone1" id="addPhone1">
 								<option value="">==선택==</option>
+								<option value="010">02</option>
 								<option value="010">010</option>
 								<option value="011">011</option>
-								<option value="012">012</option>
-								<option value="013">013</option>
+								<option value="012">031</option>
+								<option value="013">032</option>
+								<option value="0507">0507</option>
 							</select>
 							-
-							<input type="text" name="addPhone2" id="addPhone2">
+							<input type="text" name="addPhone2" id="addPhone2" maxlength="4" 
+								oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1').replace(/^0[^.]/, '0');">
 							-
-							<input type="text" name="addPhone3" id="addPhone3">
+							<input type="text" name="addPhone3" id="addPhone3" maxlength="4"
+								oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1').replace(/^0[^.]/, '0');">
+							<!-- oninput : 해당 input에 숫자를 제외하고는 입력이 불가능하도록 설정함. number가 아닌 이유는 못생겨서 -->
 						</td>
 					</tr>
 				</table>

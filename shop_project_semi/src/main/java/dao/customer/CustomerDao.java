@@ -65,4 +65,20 @@ public class CustomerDao {
 		stmt.close();
 		return list;
 	}
+	
+	public int modifyCustomer(Connection conn, Customer paramCustomer) throws Exception {
+		int row = 0;
+		String sql = "UPDATE customer SET customer_name = ?, customer_phone = ?, updatedate = NOW()"
+					+ " WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, paramCustomer.getCustomerName());
+		stmt.setString(2, paramCustomer.getCustomerPhone());
+		stmt.setString(3, paramCustomer.getCustomerId());
+		stmt.setString(4, paramCustomer.getCustomerPw());
+		
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		return row;
+	}
 }
