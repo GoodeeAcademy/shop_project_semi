@@ -12,12 +12,17 @@
 			<td>사원번호</td>
 			<td>아이디</td>
 			<td>이름</td>
+			<!-- 관리자 레벨이라면 -->
+			<td>변경</td>
+			<td>삭제</td>
 		</tr>
 		<c:forEach var="e" items="${list}">
 			<tr>
 				<td>${e.empCode}</td>
 				<td>${e.empId}</td>
 				<td>${e.empName}</td>
+				<td><a href="${pageContext.request.contextPath}/modifyEmpController?empId=${e.empId}">변경</a></td>
+				<td><a href="${pageContext.request.contextPath}/RemoveEmpController?empId=${e.empId}">삭제</a></td>
 			</tr>
 		</c:forEach>
 	</table>

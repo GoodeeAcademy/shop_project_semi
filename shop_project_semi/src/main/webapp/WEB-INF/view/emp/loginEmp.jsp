@@ -11,16 +11,13 @@
 		
 		let empId = $('#empId');
 		let empPw = $('#empPw');
-		let msg = "${msg}";
-		console.log(msg);
+		
 		
 		$('#loginEmpBtn').click(function(){
 			if(empId.val().length < 1){
 				alert('아이디를 입력해 주세요');
 			}else if(empPw.val().length < 1){
 				alert('비밀번호를 입력해 주세요');
-			}else if(msg != ""){	// 로그인 실패
-				alert(msg);
 			}else {
 				allCheck = true;
 			}

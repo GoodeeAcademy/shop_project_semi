@@ -116,6 +116,32 @@ public class EmpService {
 		return row;
 	}
 	
+	// 아이디 중복 확인 (true == 중복 아이디 있음 == 사용 불가)
+	public boolean getDuplicatedId(String empId) {
+		boolean check = false;
+		this.empDao = new EmpDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			check = empDao.selectDuplicatedId(conn, empId);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return check;
+	}
+	
 	// 직원 정보 수정
 	public int modifyEmp(Emp loginEmp, String newName) {
 		int row = 0;
@@ -228,6 +254,32 @@ public class EmpService {
 		try {
 			conn = DBUtil.getConnection();
 			row = empDao.deleteEmp(conn, empId);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	// 삭제 지원 outid로
+	public int addOutEmp(String empId) {
+		int row = 0;
+		this.empDao = new EmpDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			row = empDao.insertOutEmp(conn, empId);
 			conn.commit();
 		} catch (Exception e) {
 			try {

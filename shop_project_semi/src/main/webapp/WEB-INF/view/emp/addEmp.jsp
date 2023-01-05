@@ -14,6 +14,7 @@
 		let empPwCk = $('#empPwCk');
 		let empName = $('#empName');
 		
+		
 		$('#addEmpBtn').click(function(){
 			if(empId.val().length < 1 || empId.val().indexOf(' ') != -1){
 				alert('아이디를 올바르게 입력해 주세요');
@@ -34,11 +35,20 @@
 </script>
 </head>
 <body>
+	<script>
+	function checkId(){
+		console.log("중복 확인 클릭");
+		window.open("", "_blank", "width=300px height=100px");
+	}
+	</script>
 	<form method="post" action="${pageContext.request.contextPath}/AddEmpController" id="addEmpForm">
 		<table>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="empId" id="empId"></td>
+				<td>
+					<input type="text" name="empId" id="empId">
+					<button type="button" onclick="checkId();">중복확인</button>
+				</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>

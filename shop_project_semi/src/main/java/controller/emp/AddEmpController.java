@@ -25,6 +25,8 @@ public class AddEmpController extends HttpServlet {
 	// 직원가입 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");	// 한글 인코딩
+
+		empService = new EmpService();
 		
 		String empId = request.getParameter("empId");
 		String empPw = request.getParameter("empPw");
@@ -35,7 +37,6 @@ public class AddEmpController extends HttpServlet {
 		emp.setEmpPw(empPw);
 		emp.setEmpName(empName);
 		
-		empService = new EmpService();
 		int row = empService.addEmp(emp);
 		
 		if(row != 1) {	// 직원 가입 실패

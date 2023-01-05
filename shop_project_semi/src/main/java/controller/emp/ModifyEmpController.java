@@ -1,7 +1,7 @@
 package controller.emp;
 
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,8 +55,11 @@ public class ModifyEmpController extends HttpServlet {
 		boolean check = empService.getPw(loginEmp, empPw);
 		if(!check) {
 			System.out.println("비밀번호 불일치");
-			String msg = URLEncoder.encode("비밀번호를 정확하게 입력해 주세요.", "UTF-8");
-			response.sendRedirect(request.getContextPath()+"/ModifyEmpController?msg="+msg);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('비밀번호를 정확하게 입력해 주세요'); location.href='"+request.getContextPath()+"/ModifyEmpController"+"';</script>"); 
+			writer.close();
+			response.sendRedirect(request.getContextPath()+"/ModifyEmpController");
 			return;
 		}
 		
@@ -66,8 +69,11 @@ public class ModifyEmpController extends HttpServlet {
 		int row = empService.modifyEmp(loginEmp, newName);
 		if(row != 1) {
 			System.out.println("정보 수정 실패");
-			String msg = URLEncoder.encode("정보 수정에 실패했습니다.", "UTF-8");
-			response.sendRedirect(request.getContextPath()+"/ModifyEmpController?msg="+msg);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('정보 수정에 실패했습니다'); location.href='"+request.getContextPath()+"//ModifyEmpController"+"';</script>"); 
+			writer.close();
+			response.sendRedirect(request.getContextPath()+"/ModifyEmpController");
 			return;
 		}
 		

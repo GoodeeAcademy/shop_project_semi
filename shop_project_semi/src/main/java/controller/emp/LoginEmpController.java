@@ -1,6 +1,7 @@
 package controller.emp;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,14 @@ public class LoginEmpController extends HttpServlet {
     EmpService empService;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 로그인 전에만 접근 가능
+		HttpSession session = request.getSession();
+		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		if(loginEmp != null) {
+			response.sendRedirect(request.getContextPath()+"/EmpMainController");
+			return;
+		}
+		
 		// view
 		request.getRequestDispatcher("/WEB-INF/view/emp/loginEmp.jsp").forward(request, response);
 	}
@@ -38,6 +47,10 @@ public class LoginEmpController extends HttpServlet {
 		
 		if(loginEmp == null) {
 			System.out.println("로그인 실패");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('아이디와 비밀번호를 정확히 입력해 주세요'); location.href='"+request.getContextPath()+"/LoginEmpController"+"';</script>"); 
+			writer.close();
 			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
 			return;
 		}

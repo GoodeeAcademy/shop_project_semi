@@ -94,6 +94,25 @@ public class EmpDao {
 		return row;
 	}
 	
+	// 아이디 중복 확인 (true == 중복 아이디 있음 == 사용 불가)
+	public boolean selectDuplicatedId(Connection conn, String empId) throws Exception{
+		boolean check = false;
+		String sql = "SELECT t.id id\r\n"
+				+ "FROM((SELECT emp_id id FROM emp\r\n"
+				+ "		UNION\r\n"
+				+ "		SELECT customer_id id FROM customer)\r\n"
+				+ "		UNION\r\n"
+				+ "		SELECT id FROM outid) t\r\n"
+				+ "WHERE t.id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, empId);	// 로그인 중인 직원아이디
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {	// 일치하는 아이디가 있다면
+			check = true;
+		}
+		return check;
+	}
+	
 	// 직원 정보 수정
 	public int updateEmp(Connection conn, Emp loginEmp, String newName) throws Exception{
 		int row = 0;
@@ -175,4 +194,13 @@ public class EmpDao {
 		return row;
 	}
 	
+	// 삭제 직원 outid로
+	public int insertOutEmp(Connection conn, String empId) throws Exception{
+		int row = 0;
+		String sql = "INSERT INTO outid(id) VALUES(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, empId);
+		row = stmt.executeUpdate();
+		return row;
+	}
 }

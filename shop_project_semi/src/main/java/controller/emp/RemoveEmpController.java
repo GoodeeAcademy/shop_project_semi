@@ -1,7 +1,7 @@
 package controller.emp;
 
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,8 @@ import vo.Emp;
 public class RemoveEmpController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     EmpService empService;
-
+    String targetUrl = "/EmpListController";
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 관리자만 접근 가능
 		HttpSession session = request.getSession();
@@ -27,9 +28,18 @@ public class RemoveEmpController extends HttpServlet {
 			return;
 		}
 		
+		if(request.getParameter("empId") == null) {
+			response.sendRedirect(request.getContextPath()+targetUrl);	// 직원 목록으로
+			return;
+		}
 		String empId = request.getParameter("empId");	// 퇴사 처리할 직원 아이디
+		
+		empService = new EmpService();
 		Emp targetEmp = empService.getEmpOne(empId);
 		request.setAttribute("targetEmp", targetEmp);
+		
+		// view
+		request.getRequestDispatcher("WEB-INF/view/emp/removeEmp.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,8 +58,11 @@ public class RemoveEmpController extends HttpServlet {
 		boolean check = empService.getPw(loginEmp, adminPw);
 		if(!check) {
 			System.out.println("비밀번호 불일치");
-			String msg = URLEncoder.encode("비밀번호를 정확히 입력해 주세요.", "UTF-8");
-			response.sendRedirect(request.getContextPath()+"/RemoveEmpController?empId="+targetEmpId+"&msg="+msg);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('비밀번호를 정확하게 입력해 주세요'); location.href='"+request.getContextPath()+"/RemoveEmpController"+"';</script>"); 
+			writer.close();
+			response.sendRedirect(request.getContextPath()+targetUrl);
 			return;
 		}
 		System.out.println("비밀번호 일치");
@@ -58,13 +71,22 @@ public class RemoveEmpController extends HttpServlet {
 		int row = empService.removeEmp(targetEmpId);
 		if(row != 1) {
 			System.out.println("직원 삭제 실패");
-			String msg = URLEncoder.encode("퇴사 처리에 실패했습니다.", "UTF-8");
-			response.sendRedirect(request.getContextPath()+"/RemoveEmpController?empId="+targetEmpId+"&msg="+msg);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('퇴사 처리에 실패했습니다'); location.href='"+request.getContextPath()+"/RemoveEmpController?empId="+targetEmpId+"';</script>"); 
+			writer.close();
+			response.sendRedirect(request.getContextPath()+targetUrl);
 			return;
+		}
+		// outid로 보내기
+		int outidRow = empService.addOutEmp(targetEmpId);
+		if(outidRow != 1) {
+			System.out.println("탈퇴 아이디 처리 실패");
 		}
 		
 		System.out.println("직원 삭제 성공");
-		response.sendRedirect(request.getContextPath()+"/EmpMainController");
+		System.out.println("탈퇴 아이디 처리 성공");
+		response.sendRedirect(request.getContextPath()+targetUrl);
 	}
 
 }
