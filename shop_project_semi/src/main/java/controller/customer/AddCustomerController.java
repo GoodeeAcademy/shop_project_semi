@@ -55,7 +55,9 @@ public class AddCustomerController extends HttpServlet {
 		String paramPhone = request.getParameter("addPhone1")+"-"
 							+request.getParameter("addPhone2")+"-"
 							+request.getParameter("addPhone3");
-		//String paramAddress = request.getParameter("addAddress1");
+		
+		
+		String paramAddress = request.getParameter("addAddress1");
 		
 		//입력받은 값 -> customer 저장
 		Customer paramCustomer = new Customer();
@@ -66,7 +68,7 @@ public class AddCustomerController extends HttpServlet {
 		
 		//addCustomer 서비스 호출
 		this.customerService = new CustomerService();
-		int result = customerService.getAddCustomer(paramCustomer);
+		int result = customerService.getAddCustomer(paramCustomer, paramAddress);
 		
 		if(result != 1) {
 			System.out.println("회원가입 실패");

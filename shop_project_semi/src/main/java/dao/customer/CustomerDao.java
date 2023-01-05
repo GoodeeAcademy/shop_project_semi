@@ -25,6 +25,24 @@ public class CustomerDao {
 		return row;
 	}
 	
+	public int addCustomerAddress(Connection conn, Customer paramCustomer, String address) throws Exception{
+		int row = 0;
+		String sql ="INSERT INTO customer_address(customer_id, address, createdate, updatedate)"
+				+ " VALUES(?, ?, (SELECT createdate FROM customer WHERE customer_id = ?)"
+				+ ",(SELECT updatedate FROM customer WHERE customer_id = ?))";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, paramCustomer.getCustomerId());
+		stmt.setString(2, address);
+		stmt.setString(3, paramCustomer.getCustomerId());
+		stmt.setString(4, paramCustomer.getCustomerId());
+		
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		
+		return row;
+	}
+	
 	public Customer signIn(Connection conn, Customer paramCustomer) throws Exception {
 		Customer resultCustomer = null;
 		String sql = "SELECT * FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
@@ -123,7 +141,7 @@ public class CustomerDao {
 	
 	public boolean removePwHistory(Connection conn, Customer customer) throws Exception {
 		boolean result = false;
-		String sql = "DELETE * FROM (SELECT * FROM pw_history WHERE customer_id = ? ORDER BY ASC) LIMIT 1";
+		String sql = "DELETE FROM pw_history WHERE customer_id = ? ORDER BY createdate ASC LIMIT 1";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
 		if(stmt.executeUpdate() != 0) {
@@ -156,12 +174,41 @@ public class CustomerDao {
 	
 	public int modifyCustomerPw(Connection conn, Customer customer) throws Exception {
 		int row = 0;
-		String sql = "UPDATE customer SET customer_pw = PASSWORD(?) WHERE customer_id = ?";
+		String sql = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerPw());
 		stmt.setString(2, customer.getCustomerId());
 		row = stmt.executeUpdate();
 		stmt.close();
+		return row;
+	}
+	
+	public int insertPwHistory(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		String sql ="INSERT INTO pw_history(customer_id, pw, createdate) VALUES(?, PASSWORD(?), NOW())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		return row;
+	}
+	
+	public int checkPwById(Connection conn, Customer customer, String passWord) throws Exception {
+		int row = 0;
+		String sql = "SELECT COUNT(*) cnt FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?) ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, passWord);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			row = rs.getInt("cnt");
+		}
+		
+		rs.close();
+		stmt.close();
+		
 		return row;
 	}
 	
@@ -171,6 +218,16 @@ public class CustomerDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
 		stmt.setString(2, customer.getCustomerPw());
+		row = stmt.executeUpdate();
+		stmt.close();
+		return row;
+	}
+	
+	public int addCustomerIdByOutId(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		String sql = "INSERT INTO outid(id, createdate) VALUES(?, NOW())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
 		row = stmt.executeUpdate();
 		stmt.close();
 		return row;

@@ -78,7 +78,7 @@ public class ModifyCustomerPwController extends HttpServlet {
 		paramCustomer.setCustomerPw(request.getParameter("afterPw"));
 		
 		this.customerService = new CustomerService();
-		int result = customerService.getModifyCustomerPw(paramCustomer);
+		int result = customerService.getModifyCustomerPw(paramCustomer, request.getParameter("beforePw"));
 		if(result == 0) {
 			System.out.println("수정 실패");
 			request.setAttribute("modifyFalse", true);

@@ -10,7 +10,7 @@ import vo.Customer;
 public class CustomerService {
 	private CustomerDao customerDao;
 	
-	public int getAddCustomer(Customer paramCustomer) {
+	public int getAddCustomer(Customer paramCustomer, String Address) {
 		int row = 0;
 		Connection conn = null;
 		try {
@@ -21,6 +21,12 @@ public class CustomerService {
 				return row;
 			}
 			row = customerDao.addCustomer(conn, paramCustomer);
+			if(row == 1) {
+				customerDao.addCustomerAddress(conn, paramCustomer, Address);
+				customerDao.insertPwHistory(conn, paramCustomer);
+			} else {
+				throw new Exception();
+			}
 			conn.commit();
 		} catch(Exception e) {
 			try {
@@ -116,7 +122,7 @@ public class CustomerService {
 		return row;
 	}
 	
-	public int getModifyCustomerPw(Customer customer) {
+	public int getModifyCustomerPw(Customer customer, String passWord) {
 		int row = 0;
 		Connection conn = null;
 		try {
@@ -127,30 +133,46 @@ public class CustomerService {
 			 *  > 이전 변경값 조회 -> 중복 값 없을 시 변경
 			 *  > history에도 추가
 			 */
+			
+			//현재 비밀번호랑 입력한 비밀번호 확인?..
+			if(customerDao.checkPwById(conn, customer, passWord) != 1) {
+				System.out.println("현재비밀번호 체크에러");
+				throw new Exception();
+			}
+			
+			
 			int pwHistoryCnt = customerDao.pwHistoryCnt(conn, customer);
 			if(pwHistoryCnt >= 3) {
 				System.out.println("갯수 제한 걸림");
-				for(int i=pwHistoryCnt; i<3;) {
+				while(pwHistoryCnt >= 3) {
 					boolean removePwHistory = customerDao.removePwHistory(conn, customer);
+					System.out.println(removePwHistory);
 					System.out.println("갯수 삭제");
 					if(removePwHistory) {
 						pwHistoryCnt = customerDao.pwHistoryCnt(conn, customer);
 						System.out.println("갯수 재계산");
 					}
 				}
+			} 
+			
+			System.out.println("갯수 제한 통과");
+			boolean dupPw = customerDao.duplicatePw(conn, customer);
+			System.out.println("비밀번호 중복검사");
+			if(dupPw) {
+				new Exception();
+				System.out.println("비밀번호 중복");
 			} else {
-				System.out.println("갯수 제한 통과");
-				boolean dupPw = customerDao.duplicatePw(conn, customer);
-				System.out.println("비밀번호 중복검사");
-				if(dupPw) {
-					new Exception();
-					System.out.println("비밀번호 중복");
-				} else {
-					row = customerDao.modifyCustomerPw(conn, customer);
-					System.out.println("비밀번호 수정완료");
-					//add pw_history
+				row = customerDao.modifyCustomerPw(conn, customer);
+				if(row != 0) {
+					if(customerDao.insertPwHistory(conn, customer) == 0) {
+						System.out.println("변경비밀번호 이력 저장 실패");
+						new Exception();
+					};
 				}
+				System.out.println("비밀번호 수정완료");
+				//add pw_history
 			}
+			
 			conn.commit();
 		} catch(Exception e) {
 			try {
@@ -175,6 +197,13 @@ public class CustomerService {
 			conn = DBUtil.getConnection();
 			this.customerDao = new CustomerDao();
 			row = customerDao.removeCustomer(conn, customer);
+			System.out.println("회원탈퇴");
+			if(row == 1) {
+				customerDao.addCustomerIdByOutId(conn, customer);
+				System.out.println("탈퇴한 id 이력등록");
+			} else {
+				throw new Exception();
+			}
 			conn.commit();
 		} catch(Exception e) {
 			try {
