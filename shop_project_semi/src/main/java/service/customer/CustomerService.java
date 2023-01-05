@@ -16,6 +16,10 @@ public class CustomerService {
 		try {
 			conn = DBUtil.getConnection();
 			this.customerDao = new CustomerDao();
+			String duplicateId = customerDao.duplicateId(conn, paramCustomer);
+			if(duplicateId != null) {
+				return row;
+			}
 			row = customerDao.addCustomer(conn, paramCustomer);
 			conn.commit();
 		} catch(Exception e) {

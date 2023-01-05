@@ -1,7 +1,7 @@
 package dao.customer;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 import vo.Customer;
 
@@ -16,7 +16,7 @@ public class CustomerDao {
 		stmt.setString(2, paramCustomer.getCustomerPw());
 		stmt.setString(3, paramCustomer.getCustomerName());
 		stmt.setString(4, paramCustomer.getCustomerPhone());
-		stmt.setInt(5, row);
+		stmt.setInt(5, 0);
 		
 		row = stmt.executeUpdate();
 		
@@ -80,5 +80,24 @@ public class CustomerDao {
 		
 		stmt.close();
 		return row;
+	}
+	
+	public String duplicateId(Connection conn, Customer customer) throws Exception {
+		String map = null;
+		String sql = "SELECT t.id id"
+				+ " FROM ((SELECT customer_id id FROM customer"
+				+ "		UNION all"
+				+ "		SELECT emp_id id FROM emp)"
+				+ "		UNION all"
+				+ "		SELECT id FROM outid) t"
+				+ " WHERE t.id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			System.out.println(rs.getString("id"));
+			map = rs.getString("id");
+		}
+		return map;
 	}
 }
