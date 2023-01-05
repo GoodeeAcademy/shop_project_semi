@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 // import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import service.goods.GoodsService;
+import vo.Emp;
 import vo.Goods;
 import vo.GoodsImg;
 
@@ -22,12 +24,23 @@ public class AddGoodsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 직원이 아니라면 직원 로그인 창으로 페이지 전환
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginEmp") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginEmpController");
+			return;
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/goods/addGoods.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// HttpSession session = request.getSession();
-		// Emp loginCustomer = (Emp)session.getAttribute("loginCustomer");
+		// 직원이 아니라면 직원 로그인 창으로 페이지 전환
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginEmp") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginEmpController");
+			return;
+		}
 		
 		// 파라미터 수집		
 		request.setCharacterEncoding("utf-8");
@@ -39,7 +52,8 @@ public class AddGoodsController extends HttpServlet {
 		String goodsName = mreq.getParameter("goodsName");
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
 		String soldOut = mreq.getParameter("soldOut");
-		String empId = "goodee";// String empId = mreq.getParameter(loginCustomer.getCustomerId());
+		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		String empId = loginEmp.getEmpId();
 		int hit = Integer.parseInt(mreq.getParameter("hit"));
 		String filename = mreq.getFilesystemName("filename"); // 저장된 이미지 파일 이름
 		String originName = mreq.getOriginalFileName("filename"); // 이미지 원본 이름
