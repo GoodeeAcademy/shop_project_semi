@@ -98,6 +98,82 @@ public class CustomerDao {
 			System.out.println(rs.getString("id"));
 			map = rs.getString("id");
 		}
+		
+		rs.close();
+		stmt.close();
+		
 		return map;
 	}
+	
+	public int pwHistoryCnt(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		String sql = "SELECT COUNT(*) cnt FROM pw_history WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			row = rs.getInt("cnt");
+		}
+		
+		rs.close();
+		stmt.close();
+		
+		return row;
+	}
+	
+	public boolean removePwHistory(Connection conn, Customer customer) throws Exception {
+		boolean result = false;
+		String sql = "DELETE * FROM (SELECT * FROM pw_history WHERE customer_id = ? ORDER BY ASC) LIMIT 1";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		if(stmt.executeUpdate() != 0) {
+			result = true;
+		}
+		stmt.close();
+		return result;
+	}
+	
+	public boolean duplicatePw(Connection conn, Customer customer) throws Exception {
+		boolean dup = false;
+		String sql = "SELECT pw"
+				+ " FROM (SELECT customer_pw pw FROM customer WHERE customer_id = ?"
+				+ "		UNION ALL"
+				+ "		SELECT pw FROM pw_history WHERE customer_id = ?) c"
+				+ " WHERE c.pw = PASSWORD(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerId());
+		stmt.setString(3, customer.getCustomerPw());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			System.out.println("현재 비밀번호 중복");
+			dup = true;
+		}
+		rs.close();
+		stmt.close();
+		return dup;
+	}
+	
+	public int modifyCustomerPw(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		String sql = "UPDATE customer SET customer_pw = PASSWORD(?) WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerPw());
+		stmt.setString(2, customer.getCustomerId());
+		row = stmt.executeUpdate();
+		stmt.close();
+		return row;
+	}
+	
+	public int removeCustomer(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		String sql = "DELETE * FROM customer WHERE customer_id = ? AND customer_pw = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		row = stmt.executeUpdate();
+		stmt.close();
+		return row;
+	}
+
 }

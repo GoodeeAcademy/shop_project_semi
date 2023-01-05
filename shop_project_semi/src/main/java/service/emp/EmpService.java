@@ -3,7 +3,6 @@ package service.emp;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import dao.emp.EmpDao;
 import util.DBUtil;

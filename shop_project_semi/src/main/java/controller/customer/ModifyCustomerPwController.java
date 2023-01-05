@@ -12,17 +12,17 @@ import service.customer.CustomerService;
 import vo.Customer;
 
 /**
- * Servlet implementation class ModifyCustomerController
+ * Servlet implementation class ModifyCustomerPwController
  */
-@WebServlet("/ModifyCustomerController")
-public class ModifyCustomerController extends HttpServlet {
+@WebServlet("/ModifyCustomerPwController")
+public class ModifyCustomerPwController extends HttpServlet {
 	private CustomerService customerService;
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModifyCustomerController() {
+    public ModifyCustomerPwController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,9 +34,8 @@ public class ModifyCustomerController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("loginCustomer") == null) {
-			System.out.println("로그인 안한 상태로 수정페이지 접근");
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		if(loginCustomer == null) {
 			response.sendRedirect(request.getContextPath()+"/SignInController");
 			return;
 		}
@@ -46,31 +45,25 @@ public class ModifyCustomerController extends HttpServlet {
 			modifyFalse = (boolean)request.getAttribute("modifyFalse");
 		}
 		
-		Customer customer = (Customer)session.getAttribute("loginCustomer");
-		String[] splitPhone = customer.getCustomerPhone().split("-");
-		
-		request.setAttribute("customer", customer);
-		request.setAttribute("splitPhone", splitPhone);
 		request.setAttribute("modifyFalse", modifyFalse);
 		
-		request.getRequestDispatcher("/WEB-INF/view/customer/modifyCustomer.jsp").forward(request, response);
 		
-		
+		request.getRequestDispatcher("/WEB-INF/view/customer/modifyCustomerPw.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
+		request.setCharacterEncoding("UTF-8"); 
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
 			System.out.println("로그인 안한 상태로 수정페이지 접근");
 			response.sendRedirect(request.getContextPath()+"/SignInController");
 			return;
 		}
-		if(!request.getParameter("customerPw").equals(request.getParameter("checkPw"))) {
+		
+		if(!request.getParameter("afterPw").equals(request.getParameter("checkPw"))) {
 			System.out.println("비밀번호 체크 틀림");
 			request.setAttribute("modifyFalse",true);
 			
@@ -82,25 +75,18 @@ public class ModifyCustomerController extends HttpServlet {
 		
 		Customer paramCustomer = new Customer();
 		paramCustomer.setCustomerId(loginCustomer.getCustomerId());
-		paramCustomer.setCustomerName(request.getParameter("customerName"));
-		paramCustomer.setCustomerPhone(request.getParameter("modifyPhone1")
-										+"-"
-										+request.getParameter("modifyPhone2")
-										+"-"
-										+request.getParameter("modifyPhone3"));
-		paramCustomer.setCustomerPw(request.getParameter("customerPw"));
+		paramCustomer.setCustomerPw(request.getParameter("afterPw"));
 		
 		this.customerService = new CustomerService();
-		if(customerService.getModifyCustomerName(paramCustomer) == 0) {
-			System.out.println("수정 실패\n 예상 사유:비밀번호");
-			request.setAttribute("modifyFalse",true);
+		int result = customerService.getModifyCustomerPw(paramCustomer);
+		if(result == 0) {
+			System.out.println("수정 실패");
+			request.setAttribute("modifyFalse", true);
 			
 			doGet(request, response);
 			return;
-		} else {
-			loginCustomer = customerService.getSingIn(paramCustomer);
-			session.setAttribute("loginCustomer", loginCustomer);
 		}
+		
 		response.sendRedirect(request.getContextPath()+"/CustomerOneController");
 	}
 
