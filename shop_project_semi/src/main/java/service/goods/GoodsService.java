@@ -46,10 +46,116 @@ public class GoodsService {
 		return list;
 	}
 	// 상품 상세 정보
+	public HashMap<String, Object> getGoodsOne(int goodsCode) {
+		HashMap<String, Object> m = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			goodsDao = new GoodsDao();
+			m = goodsDao.selectGoodsOne(conn, goodsCode);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return m;
+	}
 	
 	// 상품 수정
+	public int modifyGoods(Goods goods, GoodsImg goodsImg, String dir) {
+		int result = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			goodsDao = new GoodsDao();
+			result = goodsDao.updateGoods(conn, goods);
+			
+			// 상품 수정 실패 시 
+			if(result != 1) {
+				System.out.println("GoodsService : updateGoods fail");
+				throw new Exception();
+			}
+			
+			goodsImgDao = new GoodsImgDao();
+			result = goodsImgDao.updateGoodsImg(conn, goodsImg);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+				
+				File file = new File(dir + "\\" + goodsImg.getFilename());
+				if(file.exists()) {
+					file.delete();
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
 	
 	// 상품 삭제
+	public int removeGoods(int goodsCode) {
+		int result = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			goodsImgDao = new GoodsImgDao();
+			result = goodsImgDao.deleteGoodsImg(conn, goodsCode);
+			
+			// 상품 삭제 실패 시
+			if(result != 1) {
+				throw new Exception();
+			}
+			
+			goodsDao = new GoodsDao();
+			result = goodsDao.deleteGoods(conn, goodsCode);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
 	
 	// 상품 추가
 	public int addGoods(Goods goods, GoodsImg goodsImg, String dir) {
@@ -77,7 +183,7 @@ public class GoodsService {
 			try {
 				conn.rollback();
 				
-				File file = new File(dir + "\\" + goodsImg.getFileName());
+				File file = new File(dir + "\\" + goodsImg.getFilename());
 				if(file.exists()) {
 					file.delete();
 				}
