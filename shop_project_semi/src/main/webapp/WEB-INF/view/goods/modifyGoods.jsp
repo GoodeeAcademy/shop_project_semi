@@ -11,7 +11,10 @@
 			<input type="hidden" name="goodsCode" value="${m.goodsCode}">
 			<div>
 				<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200px" height="200px" alt="상품 이미지"/>
-				<input type="file" name="filename" value="${m.filename}" accept="image/jpeg, image/png">
+				<input type="file" name="filename" accept="image/jpeg, image/png">
+			</div>
+			<div>
+				<input type="hidden" name="oldFilename" value="${m.filename}"/>${m.filename}
 			</div>
 			<div>
 				<input type="text" name="goodsName" value="${m.goodsName}"/>

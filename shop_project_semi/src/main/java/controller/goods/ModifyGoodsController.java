@@ -33,6 +33,7 @@ public class ModifyGoodsController extends HttpServlet {
 		// 서비스 호출
 		goodsService = new GoodsService();
 		HashMap<String, Object> m = goodsService.getGoodsOne(goodsCode);
+		m.put("dir", request.getServletContext().getRealPath("/upload"));
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("m", m);
@@ -84,6 +85,12 @@ public class ModifyGoodsController extends HttpServlet {
 			if(result != 1) {
 				System.out.println("ModifyGoodsController: updateGoodsImg fail");
 			}
+			
+			// 수정 완료 시 이전 이미지 파일 삭제
+			File f = new File(dir + "\\" + mreq.getParameter("oldFilename"));
+			if(f.exists()) {
+				f.delete();
+			}
 		} else {
 			System.out.print("*.jpg, *.png파일만 업로드 가능");
 			File f = new File(dir + "\\" + mreq.getFilesystemName("fileName"));
@@ -92,7 +99,7 @@ public class ModifyGoodsController extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/addGoods");
+		response.sendRedirect(request.getContextPath() + "/goodsList");
 	}
 
 }
