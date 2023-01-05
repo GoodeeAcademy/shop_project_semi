@@ -14,7 +14,7 @@
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="text" name="empPw"></td>
+				<td><input type="password" name="empPw"></td>
 			</tr>
 		</table>
 		<button type="submit">로그인</button>

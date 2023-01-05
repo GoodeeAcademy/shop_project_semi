@@ -6,6 +6,6 @@
 <title>직원페이지</title>
 </head>
 <body>
-	
+	<span>${loginEmp.empName}님</span>
 </body>
 </html>

@@ -3,6 +3,7 @@ package dao.emp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import vo.Emp;
 
@@ -39,6 +40,7 @@ public class EmpDao {
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
 			loginEmp = new Emp();
+			loginEmp.setEmpCode(rs.getInt("empCode"));
 			loginEmp.setEmpId(rs.getString("empId"));
 			loginEmp.setEmpPw(rs.getString("empPw"));
 			loginEmp.setEmpName(rs.getString("empName"));
@@ -52,16 +54,30 @@ public class EmpDao {
 	
 	// 직원 정보 select
 	public Emp selectEmpOne(Connection conn, String empId) throws Exception{
-		Emp emp = new Emp();
+		Emp emp = null;
 		String sql = "SELECT emp_code empCode\r\n"
 				+ "		, emp_id empId\r\n"
 				+ "		, emp_pw empPw\r\n"
 				+ "		, emp_name empName\r\n"
-				+ "		, active, auth_code, createdate, updatedate\r\n"
+				+ "		, active"
+				+ "		, auth_code authCode"
+				+ "		, createdate, updatedate\r\n"
 				+ "FROM emp\r\n"
 				+ "WHERE emp_id = ?;";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, empId);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			emp = new Emp();
+			emp.setEmpCode(rs.getInt("empCode"));
+			emp.setEmpId(rs.getString("empId"));
+			emp.setEmpPw(rs.getString("empPw"));
+			emp.setEmpName(rs.getString("empName"));
+			emp.setActive(rs.getString("active"));
+			emp.setAuthCode(rs.getInt("authCode"));
+			emp.setCreatedate(rs.getString("createdate"));
+			emp.setUpdatedate(rs.getString("updatedate"));
+		}
 		return emp;
 	}
 	
@@ -91,10 +107,71 @@ public class EmpDao {
 		return row;
 	}
 	
-	// 직원 삭제
-	public int deleteEmp(Connection conn) {
+	// 직원 비밀번호 수정
+	public int updateEmpPw(Connection conn, Emp loginEmp, String newPw) throws Exception{
 		int row = 0;
-		
+		String sql = "UPDATE emp \r\n"
+				+ "SET emp_pw = PASSWORD(?), updatedate = NOW()\r\n"
+				+ "WHERE emp_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, newPw);
+		stmt.setString(2, loginEmp.getEmpId());
+		row = stmt.executeUpdate();
+		return row;
+	}
+	
+	// 직원 목록
+	public ArrayList<Emp> selectEmpList(Connection conn, int beginRow, int rowPerPage) throws Exception{
+		ArrayList<Emp> list = new ArrayList<Emp>();
+		String sql = "SELECT emp_code empCode\r\n"
+				+ "		, emp_id empId\r\n"
+				+ "		, emp_pw empPw\r\n"
+				+ "		, emp_name empName\r\n"
+				+ "		, active\r\n"
+				+ "		, auth_code authCode\r\n"
+				+ "		, createdate, updatedate\r\n"
+				+ "FROM emp \r\n"
+				+ "ORDER BY createdate DESC \r\n"
+				+ "LIMIT ?, ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Emp e = new Emp();
+			e.setEmpCode(rs.getInt("empCode"));
+			e.setEmpId(rs.getString("empId"));
+			e.setEmpPw(rs.getString("empPw"));
+			e.setEmpName(rs.getString("empName"));
+			e.setActive(rs.getString("active"));
+			e.setAuthCode(rs.getInt("empCode"));
+			e.setCreatedate(rs.getString("createdate"));
+			e.setUpdatedate(rs.getString("updatedate"));
+			list.add(e);
+		}
+		return list;
+	}
+	
+	// 직원 수(마지막 페이지 구하기 위함)
+	public int selectCountEmpList(Connection conn) throws Exception{
+		int count = 0;
+		String sql = "SELECT COUNT(*) FROM emp";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			count = rs.getInt("COUNT(*)");
+		}
+		return count;
+	}
+	
+	// 관리자: 직원 삭제
+	public int deleteEmp(Connection conn, String empId) throws Exception{
+		int row = 0;
+		String sql = "DELETE FROM emp\r\n"
+				+ "WHERE emp_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, empId);
+		row = stmt.executeUpdate();
 		return row;
 	}
 	

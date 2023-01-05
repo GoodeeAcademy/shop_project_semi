@@ -45,7 +45,7 @@ public class AddEmpController extends HttpServlet {
 		}
 		
 		System.out.println("직원 가입 성공");
-		response.sendRedirect(request.getContextPath()+"/AddEmpController");
+		response.sendRedirect(request.getContextPath()+"/LoginEmpController");
 	}
 
 }
