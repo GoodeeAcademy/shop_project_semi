@@ -17,8 +17,13 @@ public class EmpMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 로그인 후에만 접근 가능
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			return;
+		}
 
 		// view
 		request.getRequestDispatcher("WEB-INF/view/emp/empMain.jsp").forward(request, response);
