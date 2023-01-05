@@ -13,7 +13,7 @@
 			<div>goodsPrice : <input type="number" name="goodsPrice"/></div>
 			<div>soldOut : Y<input type="radio" name="soldOut" value="Y"> N<input type="radio" name="soldOut" value="N"></div>
 			<div>hit : <input type="number" name="hit"></div>
-			<div>file : <input type="file" name="filename"></div>
+			<div>file : <input type="file" name="filename" accept="image/jpeg, image/png"></div>
 			<button type="submit">add goods</button>
 		</form>
 	</body>

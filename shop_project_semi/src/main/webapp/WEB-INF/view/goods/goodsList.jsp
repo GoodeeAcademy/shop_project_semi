@@ -10,7 +10,11 @@
 		<h1>goods list</h1>
 		<a href="${pageContext.request.contextPath}/addGoods">add goods</a>
 		<c:forEach var="m" items="${list}">
-			<div><img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200px" height="200px" alt="상품 이미지"/></div>
+			<div>
+				<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
+					<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200px" height="200px" alt="상품 이미지"/>
+				</a>
+			</div>
 			<div>${m.goodsName}</div>
 			<div>${m.goodsPrice}</div>
 		</c:forEach>
