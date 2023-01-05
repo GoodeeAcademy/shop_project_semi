@@ -8,7 +8,9 @@
 	</head>
 	<body>
 		<h1>goods list</h1>
-		<a href="${pageContext.request.contextPath}/addGoods">add goods</a>
+		<c:if test="${not empty loginEmp}">
+			<a href="${pageContext.request.contextPath}/addGoods">add goods</a>
+		</c:if>
 		<c:forEach var="m" items="${list}">
 			<div>
 				<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
