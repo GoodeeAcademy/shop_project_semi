@@ -2,17 +2,17 @@ package vo;
 
 public class GoodsImg {
 	private int goodsCode;
-	private String fileName;
+	private String filename;
 	private String originName;
 	private String contentType;
 	private String createdate;
 	private String updatedate;
 	
-	public GoodsImg(int goodsCode, String fileName, String originName, String contentType, String createdate,
+	public GoodsImg(int goodsCode, String filename, String originName, String contentType, String createdate,
 			String updatedate) {
 		super();
 		this.goodsCode = goodsCode;
-		this.fileName = fileName;
+		this.filename = filename;
 		this.originName = originName;
 		this.contentType = contentType;
 		this.createdate = createdate;
@@ -25,7 +25,7 @@ public class GoodsImg {
 	
 	@Override
 	public String toString() {
-		return "GoodsImg [goodsCode=" + goodsCode + ", fileName=" + fileName + ", originName=" + originName
+		return "GoodsImg [goodsCode=" + goodsCode + ", fileName=" + filename + ", originName=" + originName
 				+ ", contentType=" + contentType + ", createdate=" + createdate + ", updatedate=" + updatedate + "]";
 	}
 
@@ -37,12 +37,12 @@ public class GoodsImg {
 		this.goodsCode = goodsCode;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public String getOriginName() {

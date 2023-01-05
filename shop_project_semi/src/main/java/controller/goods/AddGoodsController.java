@@ -41,9 +41,9 @@ public class AddGoodsController extends HttpServlet {
 		String soldOut = mreq.getParameter("soldOut");
 		String empId = "goodee";// String empId = mreq.getParameter(loginCustomer.getCustomerId());
 		int hit = Integer.parseInt(mreq.getParameter("hit"));
-		String fileName = mreq.getFilesystemName("fileName"); // 저장된 이미지 파일 이름
-		String originName = mreq.getOriginalFileName("fileName"); // 이미지 원본 이름
-		String contentType = mreq.getContentType("fileName"); // 이미지 파일 검사
+		String filename = mreq.getFilesystemName("filename"); // 저장된 이미지 파일 이름
+		String originName = mreq.getOriginalFileName("filename"); // 이미지 원본 이름
+		String contentType = mreq.getContentType("filename"); // 이미지 파일 검사
 		
 		if(contentType.equals("image/jpeg") || contentType.equals("image/png")){			
 			// goods vo
@@ -56,7 +56,7 @@ public class AddGoodsController extends HttpServlet {
 			
 			// goodsImg vo
 			GoodsImg goodsImg = new GoodsImg();
-			goodsImg.setFileName(fileName);
+			goodsImg.setFilename(filename);
 			goodsImg.setOriginName(originName);
 			goodsImg.setContentType(contentType);
 			

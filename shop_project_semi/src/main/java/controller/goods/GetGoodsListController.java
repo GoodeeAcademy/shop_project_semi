@@ -18,9 +18,11 @@ public class GetGoodsListController extends HttpServlet {
 	private GoodsService goodsService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 서비스 호출
 		goodsService = new GoodsService();
 		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList();
 		
+		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsList.jsp").forward(request, response);
 	}
