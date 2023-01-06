@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
-		console.log(${empId});
+		console.log('${empId}');
 		
 		let allCheck = false;
 		
@@ -45,6 +45,8 @@
 </script>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/HomeController">홈</a>
+	<h3>회원가입</h3>
 	<form method="post" action="${pageContext.request.contextPath}/AddEmpController" id="addEmpForm">
 		<table>
 			<tr>
@@ -77,5 +79,6 @@
 		</table>
 		<button type="button" id="addEmpBtn">가입</button>
 	</form>
+	<a href="${pageContext.request.contextPath}/LoginEmpController">로그인</a>
 </body>
 </html>

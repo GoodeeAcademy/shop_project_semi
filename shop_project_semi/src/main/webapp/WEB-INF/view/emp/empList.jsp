@@ -7,6 +7,7 @@
 <title>직원 목록</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/EmpMainController">직원페이지</a>
 	<table>
 		<tr>
 			<td>사원번호</td>

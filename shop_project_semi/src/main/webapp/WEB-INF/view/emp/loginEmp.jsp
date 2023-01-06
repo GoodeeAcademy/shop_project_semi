@@ -29,6 +29,8 @@
 </script>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/HomeController">홈</a>
+	<h3>로그인</h3>
 	<form method="post" action="${pageContext.request.contextPath}/LoginEmpController" id="loginEmpForm">
 		<table>
 			<tr>
@@ -42,5 +44,6 @@
 		</table>
 		<button type="button" id="loginEmpBtn">로그인</button>
 	</form>
+	<a href="${pageContext.request.contextPath}/AddEmpController">회원가입</a>
 </body>
 </html>
