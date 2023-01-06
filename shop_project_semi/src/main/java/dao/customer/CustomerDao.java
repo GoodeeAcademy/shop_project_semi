@@ -6,6 +6,8 @@ import java.util.*;
 import vo.Customer;
 
 public class CustomerDao {
+	
+	//회원가입
 	public int addCustomer(Connection conn, Customer paramCustomer) throws Exception {
 		int row = 0;
 		String sql ="INSERT INTO"
@@ -25,6 +27,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//회원가입(주소)
 	public int addCustomerAddress(Connection conn, Customer paramCustomer, String address) throws Exception{
 		int row = 0;
 		String sql ="INSERT INTO customer_address(customer_id, address, createdate, updatedate)"
@@ -43,6 +46,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//로그인기능
 	public Customer signIn(Connection conn, Customer paramCustomer) throws Exception {
 		Customer resultCustomer = null;
 		String sql = "SELECT * FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
@@ -64,6 +68,7 @@ public class CustomerDao {
 		return resultCustomer;
 	}
 	
+	//모든 회원 리스트 출력
 	public ArrayList<Customer> customerListByAll(Connection conn) throws Exception {
 		ArrayList<Customer> list = new ArrayList<Customer>();
 		String sql = "SELECT * FROM customer ORDER BY createdate DESC";
@@ -84,6 +89,7 @@ public class CustomerDao {
 		return list;
 	}
 	
+	//회원 이름 수정
 	public int modifyCustomer(Connection conn, Customer paramCustomer) throws Exception {
 		int row = 0;
 		String sql = "UPDATE customer SET customer_name = ?, customer_phone = ?, updatedate = NOW()"
@@ -100,6 +106,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//ID 중복 확인(회원가입)
 	public String duplicateId(Connection conn, Customer customer) throws Exception {
 		String map = null;
 		String sql = "SELECT t.id id"
@@ -123,6 +130,7 @@ public class CustomerDao {
 		return map;
 	}
 	
+	//비밀번호 변경 이력 확인
 	public int pwHistoryCnt(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		String sql = "SELECT COUNT(*) cnt FROM pw_history WHERE customer_id = ?";
@@ -139,6 +147,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//비밀번호 변경 이력 삭제(가장 예전)
 	public boolean removePwHistory(Connection conn, Customer customer) throws Exception {
 		boolean result = false;
 		String sql = "DELETE FROM pw_history WHERE customer_id = ? ORDER BY createdate ASC LIMIT 1";
@@ -151,6 +160,19 @@ public class CustomerDao {
 		return result;
 	}
 	
+	public boolean removePwHistoryAll(Connection conn, Customer customer) throws Exception {
+		boolean result = false;
+		String sql = "DELETE FROM pw_history WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		if(stmt.executeUpdate() != 0) {
+			result = true;
+		}
+		stmt.close();
+		return result;
+	}
+	
+	//비밀번호 중복여부 확인(현재 + 변경이력)
 	public boolean duplicatePw(Connection conn, Customer customer) throws Exception {
 		boolean dup = false;
 		String sql = "SELECT pw"
@@ -172,6 +194,7 @@ public class CustomerDao {
 		return dup;
 	}
 	
+	//비밀번호 변경
 	public int modifyCustomerPw(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		String sql = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_id = ?";
@@ -183,6 +206,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//비밀번호 변경시 이력에 추가
 	public int insertPwHistory(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		String sql ="INSERT INTO pw_history(customer_id, pw, createdate) VALUES(?, PASSWORD(?), NOW())";
@@ -195,6 +219,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//현재 비밀번호 맞는지 체크
 	public int checkPwById(Connection conn, Customer customer, String passWord) throws Exception {
 		int row = 0;
 		String sql = "SELECT COUNT(*) cnt FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?) ";
@@ -212,9 +237,10 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//회원 탈퇴
 	public int removeCustomer(Connection conn, Customer customer) throws Exception {
 		int row = 0;
-		String sql = "DELETE * FROM customer WHERE customer_id = ? AND customer_pw = ?";
+		String sql = "DELETE FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
 		stmt.setString(2, customer.getCustomerPw());
@@ -223,6 +249,17 @@ public class CustomerDao {
 		return row;
 	}
 	
+	public int removeCustomerAdd(Connection conn, Customer customer) throws Exception {
+		int row = 0;
+		String sql = "DELETE FROM customer_address WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		row = stmt.executeUpdate();
+		stmt.close();
+		return row;
+	}
+	
+	//회원탈퇴시 ID사용이력에 추가
 	public int addCustomerIdByOutId(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO outid(id, createdate) VALUES(?, NOW())";

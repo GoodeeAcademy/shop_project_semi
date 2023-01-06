@@ -87,5 +87,8 @@
 			</div>
 			<button type="button" id="submitBtn">가입하기</button>
 		</form>
+		<div>
+			<a href="${pageContext.request.contextPath}/SignInController">로그인</a>
+		</div>
 	</body>
 </html>

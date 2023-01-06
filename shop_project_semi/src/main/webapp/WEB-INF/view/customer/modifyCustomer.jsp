@@ -83,5 +83,11 @@
 			</table>
 			<button type="button" id="submitBtn">수정하기</button>
 		</form>
+		
+		<div>
+			<a href="${pageContext.request.contextPath}/ModifyCustomerPwController">회원 비밀번호 수정</a>
+			<a href="${pageContext.request.contextPath}/RemoveCustomerController">회원탈퇴(미적용)</a>
+			<a href="${pageContext.request.contextPath}/CustomerOneController">기본 정보로</a>
+		</div>
 	</body>
 </html>

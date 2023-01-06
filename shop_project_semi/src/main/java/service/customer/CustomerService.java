@@ -196,13 +196,21 @@ public class CustomerService {
 		try {
 			conn = DBUtil.getConnection();
 			this.customerDao = new CustomerDao();
-			row = customerDao.removeCustomer(conn, customer);
+			
 			System.out.println("회원탈퇴");
-			if(row == 1) {
+			/*
+			if(customerDao.removeCustomerAdd(conn, customer) == 1) {
+				customerDao.removeCustomer(conn, customer);
 				customerDao.addCustomerIdByOutId(conn, customer);
 				System.out.println("탈퇴한 id 이력등록");
-			} else {
-				throw new Exception();
+			}
+			*/
+			
+			if(customerDao.removeCustomerAdd(conn, customer) == 1
+				&& customerDao.removePwHistoryAll(conn, customer)
+				&& customerDao.removeCustomer(conn, customer) == 1
+				&& customerDao.addCustomerIdByOutId(conn, customer) == 1) {
+					row = 1;
 			}
 			conn.commit();
 		} catch(Exception e) {

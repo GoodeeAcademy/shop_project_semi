@@ -44,5 +44,8 @@
 			</table>
 			<button type="button" id="submitBtn">SIGN IN</button>
 		</form>
+		<div>
+			<a href="${pageContext.request.contextPath}/AddCustomerController">회원가입</a>
+		</div>
 	</body>
 </html>

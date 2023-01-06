@@ -29,5 +29,9 @@
 				</tr>
 			</table>
 		</div>
+		<div>
+			<a href="${pageContext.request.contextPath}/ModifyCustomerController">회원정보 수정</a>
+			<a href="${pageContext.request.contextPath}/SignOutController">로그아웃</a>
+		</div>
 	</body>
 </html>
