@@ -164,10 +164,13 @@ public class CustomerService {
 			} else {
 				row = customerDao.modifyCustomerPw(conn, customer);
 				if(row != 0) {
-					if(customerDao.insertPwHistory(conn, customer) == 0) {
-						System.out.println("변경비밀번호 이력 저장 실패");
-						new Exception();
-					};
+					if(customerDao.insertPwHistory(conn, customer) != 0) {
+						System.out.println("변경비밀번호 이력 저장 성공");
+						
+					} else {
+						System.out.println("비밀번호 이력 저장 실패");
+						throw new Exception();
+					}
 				}
 				System.out.println("비밀번호 수정완료");
 				//add pw_history
