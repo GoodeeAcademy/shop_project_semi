@@ -34,6 +34,7 @@ public class AddEmpController extends HttpServlet {
 			String empId = request.getParameter("empId");
 			request.setAttribute("empId", empId);
 		}
+		
 		// View
 		request.getRequestDispatcher("/WEB-INF/view/emp/addEmp.jsp").forward(request, response);
 	}

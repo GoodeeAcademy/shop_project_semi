@@ -29,6 +29,12 @@ public class ModifyEmpController extends HttpServlet {
 			return;
 		}
 		
+		boolean check = false;
+		if(request.getAttribute("check") != null) {
+			check = (boolean)request.getAttribute("check");
+		}
+		request.setAttribute("check", check);
+		
 		// view
 		request.getRequestDispatcher("/WEB-INF/view/emp/modifyEmp.jsp").forward(request, response);
 	}
@@ -55,11 +61,8 @@ public class ModifyEmpController extends HttpServlet {
 		boolean check = empService.getPw(loginEmp, empPw);
 		if(!check) {
 			System.out.println("비밀번호 불일치");
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('비밀번호를 정확하게 입력해 주세요'); location.href='"+request.getContextPath()+"/ModifyEmpController"+"';</script>"); 
-			writer.close();
-			response.sendRedirect(request.getContextPath()+"/ModifyEmpController");
+			request.setAttribute("check", true);
+			doGet(request, response);
 			return;
 		}
 		

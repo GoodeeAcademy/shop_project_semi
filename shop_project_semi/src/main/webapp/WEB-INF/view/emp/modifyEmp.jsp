@@ -7,6 +7,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+		let check = ${check};
+		if(check){
+			console.log("체크 true");
+			alert('현재 비밀번호를 확인해 주세요');
+		}
+		
 		let allCheck = false;
 		
 		let newName = $('#newName');

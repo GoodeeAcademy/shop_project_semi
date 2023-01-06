@@ -7,6 +7,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+		let check = ${check};
+		if(check){
+			console.log("체크 true");
+			alert('현재 비밀번호를 확인해 주세요');
+		}
+		
 		let allCheck = false;
 		
 		let currentPw = $('#currentPw');
@@ -35,15 +41,15 @@
 		<table>
 			<tr>
 				<td>현재 비밀번호</td>
-				<td><input type="password" id="currentPw"></td>
+				<td><input type="password" name="currentPw" id="currentPw"></td>
 			</tr>
 			<tr>
 				<td>새 비밀번호</td>
-				<td><input type="password" id="newPw"></td>
+				<td><input type="password" name="newPw" id="newPw"></td>
 			</tr>
 			<tr>
 				<td>새 비밀번호 확인</td>
-				<td><input type="password" id="newPwCk"></td>
+				<td><input type="password" name="newPwCk" id="newPwCk"></td>
 			</tr>
 		</table>
 		<button type="button" id="modifyEmpPwBtn">변경</button>
