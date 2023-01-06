@@ -9,6 +9,7 @@
 	<body>
 		<h1>goods list</h1>
 		<a href="${pageContext.request.contextPath}/HomeController">home</a>
+		<a href="${pageContext.request.contextPath}/cartList">cart</a>
 		<c:if test="${not empty loginEmp}">
 			<a href="${pageContext.request.contextPath}/addGoods">add goods</a>
 		</c:if>

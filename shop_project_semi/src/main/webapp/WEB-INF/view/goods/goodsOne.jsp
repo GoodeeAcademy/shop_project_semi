@@ -12,6 +12,15 @@
 		</div>
 		<div>${m.goodsName}</div>
 		<div>${m.goodsPrice}</div>
+		
+		<form action="${pageContext.request.contextPath}/addCart" method="get">
+			<input type="hidden" name="goodsCode" value="${m.goodsCode}">
+			<div>
+				<span>-</span> <input type="number" name="quantity"> <span>+</span>
+			</div>
+			<button type="submit">ADD CART</button>
+		</form>
+		
 		<c:if test="${not empty loginEmp}">
 			<a href="${pageContext.request.contextPath}/modifyGoods?goodsCode=${m.goodsCode}">수정</a>
 			<a href="${pageContext.request.contextPath}/removeGoods?goodsCode=${m.goodsCode}&filename=${m.filename}">삭제</a>
