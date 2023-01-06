@@ -45,6 +45,7 @@ public class GoodsService {
 		
 		return list;
 	}
+	
 	// 상품 상세 정보
 	public HashMap<String, Object> getGoodsOne(int goodsCode) {
 		HashMap<String, Object> m = null;
