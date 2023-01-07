@@ -44,7 +44,7 @@ public class CartDao {
 	
 	// 장바구니 리스트
 	public ArrayList<HashMap<String, Object>> selectCartList(Connection conn, String customerId) throws Exception {
-		String sql = "SELECT cart_quantity quantity, goods_name goodsName, goods_price goodsPrice, filename"
+		String sql = "SELECT c.goods_code goodsCode, cart_quantity quantity, goods_name goodsName, goods_price goodsPrice, filename"
 				+ " FROM cart c JOIN goods gs ON c.goods_code = gs.goods_code JOIN goods_img gsi ON gs.goods_code = gsi.goods_code"
 				+ " WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -54,6 +54,7 @@ public class CartDao {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<>();
+			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("quantity", rs.getInt("quantity"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("goodsPrice", rs.getInt("goodsPrice"));
@@ -65,5 +66,24 @@ public class CartDao {
 		if(stmt != null) {stmt.close();}
 		
 		return list;
+	}
+	
+	// 장바구니 수정
+	public int updateCart(Connection conn, ArrayList<Cart> list) throws Exception {
+		PreparedStatement stmt = null;
+		int result = 0;
+		
+		for(Cart c : list) {
+			String sql = "UPDATE cart SET cart_quantity = ? WHERE goods_code = ? AND customer_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, c.getCartQuantity());
+			stmt.setInt(2, c.getGoodsCode());
+			stmt.setString(3, c.getCustomerId());
+			result = stmt.executeUpdate();
+		}
+		
+		if(stmt != null) {stmt.close();}
+		
+		return result;
 	}
 }

@@ -74,4 +74,33 @@ public class CartService {
 		
 		return list;
 	}
+	
+	// 장바구니 수정
+	public int modifyCart(ArrayList<Cart> list) {
+		int result = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			cartDao = new CartDao();
+			result = cartDao.updateCart(conn, list);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
 }

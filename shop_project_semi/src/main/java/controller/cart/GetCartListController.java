@@ -22,6 +22,11 @@ public class GetCartListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 파라미터 수집
 		HttpSession session = request.getSession();
+		if(session.getAttribute("loginCustomer") == null) {
+			System.out.println("비로그인 회원: goodsList");
+			response.sendRedirect(request.getContextPath() + "/goodsList");
+			return;
+		}
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
 		
