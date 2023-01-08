@@ -103,4 +103,33 @@ public class CartService {
 		
 		return result;
 	}
+	
+	// 장바구니 삭제
+	public int removeCart(Cart cart) {
+		int result = 0;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			cartDao = new CartDao();
+			result = cartDao.deleteCart(conn, cart);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
 }

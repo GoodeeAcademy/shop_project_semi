@@ -20,9 +20,10 @@ public class ModifyCartController extends HttpServlet {
 	private CartService cartService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 비회원 장바구니 구현 후 수정하기
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") != null) {
-			response.sendRedirect(request.getContextPath()+"/goodsList");
+			response.sendRedirect(request.getContextPath()+"/cartList");
 			return;
 		}
 		

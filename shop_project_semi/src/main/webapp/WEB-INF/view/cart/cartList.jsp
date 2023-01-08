@@ -17,6 +17,7 @@
 						<td>PRICE</td>
 						<td>QUANTITY</td>
 						<td>TOTAL</td>
+						<td>MANAGEMENT</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,6 +35,7 @@
 								<button type="button" class="btn-quantity-up">+</button>
 							</td>
 							<td>${m.goodsPrice * m.quantity}</td>
+							<td><a href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">delete</a></td>
 						</tr>
 					</c:forEach>
 					<tr>

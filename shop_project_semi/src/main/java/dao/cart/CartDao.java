@@ -86,4 +86,17 @@ public class CartDao {
 		
 		return result;
 	}
+	
+	// 장바구니 삭제
+	public int deleteCart(Connection conn, Cart cart) throws Exception {
+		String sql = "DELETE FROM cart WHERE goods_code = ? AND customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, cart.getGoodsCode());
+		stmt.setString(2, cart.getCustomerId());
+		int result = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
+		return result;
+	}
 }
