@@ -46,7 +46,7 @@ public class ModifyGoodsController extends HttpServlet {
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("m", m);
-		request.getRequestDispatcher("/WEB-INF/view/goods/modifyGoods.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/admin/modifyGoods.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

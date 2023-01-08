@@ -31,7 +31,7 @@ public class AddGoodsController extends HttpServlet {
 			return;
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/view/goods/addGoods.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/admin/addGoods.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

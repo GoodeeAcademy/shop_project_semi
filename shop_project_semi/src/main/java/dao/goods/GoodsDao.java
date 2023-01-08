@@ -34,7 +34,9 @@ public class GoodsDao {
 	// 상품 상세 정보
 	public HashMap<String, Object> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		HashMap<String, Object> m = null;
-		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, sold_out soldOut, emp_id empId, hit, filename FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code WHERE gs.goods_code = ?";
+		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, sold_out soldOut, emp_id empId, hit, filename, gs.createdate createdate, gs.updatedate updatedate "
+				+ " FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code "
+				+ " WHERE gs.goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsCode);
 		ResultSet rs = stmt.executeQuery();
@@ -48,6 +50,8 @@ public class GoodsDao {
 			m.put("empId", rs.getString("empId"));
 			m.put("hit", rs.getInt("hit"));
 			m.put("filename", rs.getString("fileName"));
+			m.put("createdate", rs.getString("createdate"));
+			m.put("updatedate", rs.getString("updatedate"));
 		}
 		
 		if(rs != null) {rs.close();}

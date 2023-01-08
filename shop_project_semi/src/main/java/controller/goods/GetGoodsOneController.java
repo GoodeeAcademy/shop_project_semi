@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.goods.GoodsService;
 
@@ -29,6 +30,12 @@ public class GetGoodsOneController extends HttpServlet {
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("m", m);
-		request.getRequestDispatcher("/WEB-INF/view/goods/goodsOne.jsp").forward(request, response);
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginEmp") == null) {
+			request.getRequestDispatcher("/WEB-INF/view/goods/goodsOne.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/WEB-INF/view/admin/goodsOne.jsp").forward(request, response);
+		}
 	}
 }
