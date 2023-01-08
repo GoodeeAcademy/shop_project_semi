@@ -18,11 +18,13 @@
 				<td>가입일</td>
 			</tr>
 			<c:forEach var="c" items="${customerList}">
-				<td>${c.customerId}</td>
-				<td>${c.customerName}</td>
-				<td>${c.customerPhone}</td>
-				<td>${c.point}</td>
-				<td>${c.createdate}</td>
+				<tr>
+					<td>${c.customerId}</td>
+					<td>${c.customerName}</td>
+					<td>${c.customerPhone}</td>
+					<td>${c.point}</td>
+					<td>${c.createdate}</td>
+				</tr>
 			</c:forEach>
 		</table>
 	</body>

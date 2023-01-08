@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import vo.Customer;
+import vo.CustomerAddress;
 
 public class CustomerDao {
 	
@@ -268,6 +269,21 @@ public class CustomerDao {
 		row = stmt.executeUpdate();
 		stmt.close();
 		return row;
+	}
+	
+	public CustomerAddress selectAddress(Connection conn, Customer customer) throws Exception {
+		CustomerAddress result = null;
+		String sql = "SELECT * FROM customer_address WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			result = new CustomerAddress();
+			result.setAddressCode(rs.getInt("address_code"));
+			result.setCustomerId(rs.getString("customer_id"));
+			result.setAddress(rs.getString("address"));
+		}
+		return result;
 	}
 
 }

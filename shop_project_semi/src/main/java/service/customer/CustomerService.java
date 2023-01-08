@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dao.customer.CustomerDao;
 import util.DBUtil;
 import vo.Customer;
+import vo.CustomerAddress;
 
 public class CustomerService {
 	private CustomerDao customerDao;
@@ -232,5 +233,31 @@ public class CustomerService {
 		}
 		
 		return row;
+	}
+	
+	public CustomerAddress getAddress(Customer customer) {
+		CustomerAddress result = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.customerDao = new CustomerDao();
+			result = customerDao.selectAddress(conn, customer);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 }
