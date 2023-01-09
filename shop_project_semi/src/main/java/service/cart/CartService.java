@@ -20,7 +20,7 @@ public class CartService {
 		try {
 			conn = DBUtil.getConnection();
 			cartDao = new CartDao();
-			boolean check = cartDao.selectDuplicateCart(conn, cart); System.out.println(cart.getCustomerId() + cart.getGoodsCode());
+			boolean check = cartDao.selectDuplicateCart(conn, cart);
 			if(check) { // 이미 내 카트에 있는 상품이면 -1 반환
 				return -1;
 			}

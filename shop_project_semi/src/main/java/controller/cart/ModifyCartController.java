@@ -2,6 +2,7 @@ package controller.cart;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,23 +21,37 @@ public class ModifyCartController extends HttpServlet {
 	private CartService cartService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 비회원 장바구니 구현 후 수정하기
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginCustomer") != null) {
-			response.sendRedirect(request.getContextPath()+"/cartList");
-			return;
-		}
-		
 		response.sendRedirect(request.getContextPath()+"/cartList");
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 비로그인 접근 -> goodsList
+		// 비회원 장바구니
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
-			response.sendRedirect(request.getContextPath() + "/goodsList");
+			if(session.getAttribute("list") != null) {
+				ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("list");
+				
+				// 파라미터 수집
+				String[] goodsCode = request.getParameterValues("goodsCode");
+				String[] quantity = request.getParameterValues("quantity");
+				System.out.println(goodsCode.length);
+				
+				// 장바구니(list)에 담긴 상품정보(m) 비교하여 변경
+				for(HashMap<String, Object> m : list) {
+					for(int i = 0; i < goodsCode.length; i++) {
+						if(m.get("goodsCode").equals(goodsCode[i])) {
+							m.put("quantity", quantity[i]);
+						}						
+					}
+				}				
+			}
+			
+			response.sendRedirect(request.getContextPath() + "/cartList");
 			return;
 		}
+		
+		// 회원 장바구니
 		// 파라미터 수집
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
