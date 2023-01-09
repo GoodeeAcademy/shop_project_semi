@@ -161,6 +161,7 @@ public class CustomerDao {
 		return result;
 	}
 	
+	//회원탈퇴 시 비밀번호 변경 이력 전부 삭제
 	public boolean removePwHistoryAll(Connection conn, Customer customer) throws Exception {
 		boolean result = false;
 		String sql = "DELETE FROM pw_history WHERE customer_id = ?";
@@ -250,6 +251,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//회원 탈퇴 시 회원 주소 삭제
 	public int removeCustomerAdd(Connection conn, Customer customer) throws Exception {
 		int row = 0;
 		String sql = "DELETE FROM customer_address WHERE customer_id = ?";
@@ -271,6 +273,7 @@ public class CustomerDao {
 		return row;
 	}
 	
+	//주소 가져오기
 	public CustomerAddress selectAddress(Connection conn, Customer customer) throws Exception {
 		CustomerAddress result = null;
 		String sql = "SELECT * FROM customer_address WHERE customer_id = ?";

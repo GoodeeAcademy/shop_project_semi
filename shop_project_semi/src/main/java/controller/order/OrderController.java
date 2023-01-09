@@ -87,6 +87,7 @@ public class OrderController extends HttpServlet {
 		Orders order = new Orders();
 		order.setAddressCode(cuAdd.getAddressCode());
 		order.setCustomerId(loginCustomer.getCustomerId());
+		//DB 재 설계 후 작업 시작하기
 		
 		
 		order.setCustomerId(loginCustomer.getCustomerId());
