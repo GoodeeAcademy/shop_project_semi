@@ -20,7 +20,9 @@
 			<tr>
 				<td>${q.orderCode}</td>
 				<td>${q.category}</td>
-				<td>${q.questionMemo}</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/QuestionOneController?questionCode=${q.questionCode}">${q.questionMemo}</a>
+				</td>
 				<td>${q.createdate}</td>
 				<!-- 답변 여부에 따라 분기 -->
 				<td>

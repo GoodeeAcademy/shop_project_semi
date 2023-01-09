@@ -20,7 +20,9 @@
 			<tr>
 				<td>${q.orderCode}</td>
 				<td>${q.category}</td>
-				<td>${q.questionMemo}</td>
+				<td>	
+					<a href="${pageContext.request.contextPath}/QuestionOneController?questionCode=${q.questionCode}">${q.questionMemo}</a>
+				</td>
 				<td>${q.createdate}</td>
 				<td>
 					<a href="">답변하기</a>

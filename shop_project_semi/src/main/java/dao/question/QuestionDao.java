@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 import vo.Customer;
 import vo.Question;
+import vo.QuestionComment;
 
 public class QuestionDao {
+	// 1. 문의
 	// 1) 직원
 	// 전체 문의 목록
 	public ArrayList<Question> selectQuestionListForEmp(Connection conn, int beginRow, int rowPerPage)throws Exception{
@@ -129,5 +131,77 @@ public class QuestionDao {
 		row = stmt.executeUpdate();
 		return row;
 	}
+	
+	// 1)2) 공통
+	// 문의 상세보기
+	public Question selectQuestionOne(Connection conn, int questionCode) throws Exception{
+		Question question = new Question();
+		String sql = "SELECT q.question_code questionCode\r\n"
+				+ "		, q.order_code orderCode\r\n"
+				+ "		, q.goods_code goodsCode\r\n"
+				+ "		, q.category category\r\n"
+				+ "		, t.customer_id customerId\r\n"
+				+ "		, q.question_memo questionMemo\r\n"
+				+ "		, q.createdate createdate\r\n"
+				+ "FROM(SELECT o.order_code order_code \r\n"
+				+ "			,c.customer_id customer_id\r\n"
+				+ "			FROM orders o INNER JOIN customer c ON o.customer_id = c.customer_id) t INNER JOIN question q ON t.order_code = q.order_code\r\n"
+				+ "WHERE question_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, questionCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			question.setQuestionCode(rs.getInt("questionCode"));
+			question.setOrderCode(rs.getInt("orderCode"));
+			question.setGoodsCode(rs.getInt("goodsCode"));
+			question.setCategory(rs.getString("category"));
+			question.setCustomerId(rs.getString("customerId"));
+			question.setQuestionMemo(rs.getString("questionMemo"));
+			question.setCreatedate(rs.getString("createdate"));
+		}		
+		return question;
+	}
 
+	
+	// 2. 답변
+	// 1) 직원
+	// 전체 답변 목록
+	public ArrayList<QuestionComment> selectQuestionCommenteListForEmp(Connection conn, int beginRow, int rowPerPage)throws Exception{
+		ArrayList<QuestionComment> list = new ArrayList<QuestionComment>();
+		String sql = "SELECT comment_code commentCode\r\n"
+				+ "		, question_code questionCode\r\n"
+				+ "		, comment_memo commentMemo\r\n"
+				+ "		, createdate\r\n"
+				+ "FROM question_comment\r\n"
+				+ "ORDER BY createdate DESC\r\n"
+				+ "LIMIT ?, ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			QuestionComment c = new QuestionComment();
+			c.setCommentCode(rs.getInt("commentCode"));
+			c.setQuestionCode(rs.getInt("questionCode"));
+			c.setCommentMemo(rs.getString("commentMemo"));
+			c.setCreatedate(rs.getString("createdate"));
+			list.add(c);
+		}
+		return list;
+	}
+	
+	// 답변 총 개수
+	public int selectCountQuestionCommentListForEmp(Connection conn) throws Exception{
+		int count = 0;
+		String sql = "SELECT COUNT(*) FROM question_comment";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			count = rs.getInt("COUNT(*)");
+		}
+		return count;
+	}
+	
+	// 2) 고객
+	// 내 문의 답변
 }

@@ -5,6 +5,7 @@ public class Question {
 	private int orderCode;
 	private int goodsCode;
 	private String category;
+	private String customerId;	// 테이블엔 없지만 문의 상세보기 때문에 추가
 	private String questionMemo;
 	private String createdate;
 	
@@ -31,6 +32,12 @@ public class Question {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	public String getQuestionMemo() {
 		return questionMemo;

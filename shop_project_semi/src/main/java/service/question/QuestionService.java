@@ -8,10 +8,12 @@ import dao.question.QuestionDao;
 import util.DBUtil;
 import vo.Customer;
 import vo.Question;
+import vo.QuestionComment;
 
 public class QuestionService {
 	private QuestionDao questionDao;
 	
+	// 1. 문의
 	// 1) 직원
 	// 전체 문의 목록
 	public ArrayList<Question> getQuestionListForEmp(int beginRow, int rowPerPage){
@@ -169,4 +171,87 @@ public class QuestionService {
 		}
 		return row;
 	}
+	
+	// 2. 답변
+	// 1) 직원
+	// 전체 답변 목록
+	public ArrayList<QuestionComment> getQuestionCommentListForEmp(int beginRow, int rowPerPage){
+		ArrayList<QuestionComment> list = new ArrayList<QuestionComment>();
+		this.questionDao = new QuestionDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			list = questionDao.selectQuestionCommenteListForEmp(conn, beginRow, rowPerPage);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 문의 총 개수
+	public int getCountQuestionCommentListForEmp() {
+		int count = 0;
+		this.questionDao = new QuestionDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			count = questionDao.selectCountQuestionCommentListForEmp(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	// 1)2) 공통
+	// 문의 상세보기
+	public Question getQuestionOne(int questionCode){
+		Question question = new Question();
+		this.questionDao = new QuestionDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			question = questionDao.selectQuestionOne(conn, questionCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return question;
+	}
+	
+	// 2) 고객
 }
