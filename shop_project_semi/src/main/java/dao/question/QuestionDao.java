@@ -204,4 +204,24 @@ public class QuestionDao {
 	
 	// 2) 고객
 	// 내 문의 답변
+	public QuestionComment selectQuestionComment(Connection conn, int questionCode) throws Exception{
+		QuestionComment comment = null;
+		String sql = "SELECT comment_code commentCode\r\n"
+				+ "		, question_code questionCode\r\n"
+				+ "		, comment_memo commentMemo\r\n"
+				+ "		, createdate\r\n"
+				+ "FROM question_comment\r\n"
+				+ "WHERE question_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, questionCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			comment = new QuestionComment();
+			comment.setCommentCode(rs.getInt("commentCode"));
+			comment.setQuestionCode(rs.getInt("questionCode"));
+			comment.setCommentMemo(rs.getString(("commentMemo")));
+			comment.setCreatedate(rs.getString("createdate"));
+		}
+		return comment;
+	}
 }

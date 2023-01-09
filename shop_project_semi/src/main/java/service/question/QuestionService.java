@@ -172,6 +172,33 @@ public class QuestionService {
 		return row;
 	}
 	
+	// 1)2) 공통
+	// 문의 상세보기
+	public Question getQuestionOne(int questionCode){
+		Question question = new Question();
+		this.questionDao = new QuestionDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			question = questionDao.selectQuestionOne(conn, questionCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return question;
+	}
+	
 	// 2. 답변
 	// 1) 직원
 	// 전체 답변 목록
@@ -200,7 +227,7 @@ public class QuestionService {
 		return list;
 	}
 	
-	// 문의 총 개수
+	// 답변 총 개수
 	public int getCountQuestionCommentListForEmp() {
 		int count = 0;
 		this.questionDao = new QuestionDao();
@@ -226,15 +253,16 @@ public class QuestionService {
 		return count;
 	}
 	
-	// 1)2) 공통
-	// 문의 상세보기
-	public Question getQuestionOne(int questionCode){
-		Question question = new Question();
+	
+	// 2) 고객
+	// 내 문의 답변
+	public QuestionComment getQuestionComment(int questionCode) {
+		QuestionComment comment = null;
 		this.questionDao = new QuestionDao();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			question = questionDao.selectQuestionOne(conn, questionCode);
+			comment = questionDao.selectQuestionComment(conn, questionCode);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -250,8 +278,6 @@ public class QuestionService {
 				e.printStackTrace();
 			}
 		}
-		return question;
+		return comment;
 	}
-	
-	// 2) 고객
 }

@@ -33,7 +33,7 @@ public class QuestionCommentListController extends HttpServlet {
 		if(request.getParameter("currentPage") != null){
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int rowPerPage = 5;	// 한 페이지당 보여줄 직원 수
+		int rowPerPage = 5;	// 한 페이지당 보여줄 답변 수
 		int beginRow = (currentPage-1)*rowPerPage;
 		int pageList = 10; // 페이지 10개씩 보여줌
 		int startPage = ((currentPage-1)/pageList)*pageList+1;	// n1
@@ -53,18 +53,6 @@ public class QuestionCommentListController extends HttpServlet {
 		
 		// view
 		request.getRequestDispatcher("/WEB-INF/view/question/commentList.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 직원 로그인 시에만 접근 가능
-		HttpSession session = request.getSession();
-		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
-			return;
-		}
-				
-		request.setCharacterEncoding("UTF-8");	// 한글 인코딩
 	}
 
 }

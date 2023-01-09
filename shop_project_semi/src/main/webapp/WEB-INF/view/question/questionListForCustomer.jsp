@@ -14,7 +14,7 @@
 			<th>분류</th>
 			<th>문의내용</th>
 			<th>날짜</th>
-			<th>답변상태</th>
+			<th>상태</th>
 		</tr>
 		<c:forEach var="q" items="${list}">
 			<tr>
@@ -30,9 +30,7 @@
 					<a href="${pageContext.request.contextPath}/RemoveQuestionController?questionCode=${q.questionCode}">문의 삭제</a>
 				</td>
 				<!--  -->
-				<td>
-					<a href="">답변</a>
-				</td>
+				<td>답변완료</td>
 			</tr>
 		</c:forEach>
 	</table>

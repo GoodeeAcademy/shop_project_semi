@@ -13,6 +13,7 @@ import service.question.QuestionService;
 import vo.Customer;
 import vo.Emp;
 import vo.Question;
+import vo.QuestionComment;
 
 @WebServlet("/QuestionOneController")
 public class QuestionOneController extends HttpServlet {
@@ -29,6 +30,7 @@ public class QuestionOneController extends HttpServlet {
 			return;
 		}
 		
+		// 문의 상세보기
 		if(request.getParameter("questionCode") == null) {
 			if(loginEmp != null) {	// 직원이 보는 상태라면
 				response.sendRedirect(request.getContextPath()+"/QuestionListForEmpController");
@@ -52,6 +54,10 @@ public class QuestionOneController extends HttpServlet {
 				return;
 			}
 		}
+		
+		// 답변
+		QuestionComment comment = questionService.getQuestionComment(questionCode);
+		request.setAttribute("comment", comment);
 		
 		// view
 		request.getRequestDispatcher("/WEB-INF/view/question/questionOne.jsp").forward(request, response);
