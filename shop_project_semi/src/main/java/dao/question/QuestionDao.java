@@ -114,15 +114,18 @@ public class QuestionDao {
 	public int insertQuestion(Connection conn, Question question) throws Exception{
 		int row = 0;
 		String sql = "INSERT INTO question(order_code\r\n"
+				+ "							, goods_code\r\n"
 				+ "							, category\r\n"
 				+ "							, question_memo)\r\n"
 				+ "VALUES(?\r\n"
 				+ "		, ?\r\n"
+				+ "		, ?\r\n"
 				+ "		, ?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, question.getOrderCode());
-		stmt.setString(2, question.getCategory());
-		stmt.setString(3, question.getQuestionMemo());
+		stmt.setInt(2, question.getGoodsCode());
+		stmt.setString(3, question.getCategory());
+		stmt.setString(4, question.getQuestionMemo());
 		row = stmt.executeUpdate();
 		return row;
 	}

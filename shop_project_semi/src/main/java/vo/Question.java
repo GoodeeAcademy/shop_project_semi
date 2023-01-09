@@ -3,6 +3,7 @@ package vo;
 public class Question {
 	private int questionCode;
 	private int orderCode;
+	private int goodsCode;
 	private String category;
 	private String questionMemo;
 	private String createdate;
@@ -18,6 +19,12 @@ public class Question {
 	}
 	public void setOrderCode(int orderCode) {
 		this.orderCode = orderCode;
+	}
+	public int getGoodsCode() {
+		return goodsCode;
+	}
+	public void setGoodsCode(int goodsCode) {
+		this.goodsCode = goodsCode;
 	}
 	public String getCategory() {
 		return category;
