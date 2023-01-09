@@ -22,11 +22,13 @@ public class GetCartListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 파라미터 수집
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginCustomer") == null) {
-			System.out.println("비로그인 회원: goodsList");
-			response.sendRedirect(request.getContextPath() + "/goodsList");
+		if(session.getAttribute("loginCustomer") == null) { // 비회원
+			System.out.println("비회원 장바구니");
+			request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 			return;
 		}
+		
+		// 회원 장바구니
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
 		
