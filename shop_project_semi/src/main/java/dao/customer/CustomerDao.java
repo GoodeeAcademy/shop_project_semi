@@ -5,6 +5,7 @@ import java.util.*;
 
 import vo.Customer;
 import vo.CustomerAddress;
+import vo.Orders;
 
 public class CustomerDao {
 	
@@ -286,7 +287,21 @@ public class CustomerDao {
 			result.setCustomerId(rs.getString("customer_id"));
 			result.setAddress(rs.getString("address"));
 		}
+		rs.close();
+		stmt.close();
 		return result;
+	}
+	
+	// 포인트 수정
+	public int modifyCustomerPoint(Connection conn, Orders order, int point) throws Exception {
+		int row = 0;
+		String sql = "UPDATE customer SET point = point-? WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, row);
+		stmt.setString(2, order.getCustomerId());
+		row = stmt.executeUpdate();
+		stmt.close();
+		return row;
 	}
 
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import service.cart.CartService;
 import service.customer.CustomerService;
+import service.order.OrderService;
 import vo.Customer;
 import vo.CustomerAddress;
 import vo.Orders;
@@ -23,6 +24,7 @@ import java.util.*;
 public class OrderController extends HttpServlet {
 	private CartService cartService;
 	private CustomerService customerService;
+	private OrderService orderService;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -44,6 +46,10 @@ public class OrderController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/SignInController");
 			return;
 		}
+		String orderResult = null;
+		if(request.getAttribute("orderResult") != null) {
+			orderResult = (String)request.getAttribute("orderResult");
+		}
 		
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String[] splitPhone = loginCustomer.getCustomerPhone().split("-");
@@ -61,6 +67,7 @@ public class OrderController extends HttpServlet {
 		request.setAttribute("splitPhone", splitPhone);
 		request.setAttribute("cart", cart);
 		request.setAttribute("address", CustomerAdd);
+		request.setAttribute("orderResult", orderResult);
 		request.getRequestDispatcher("/WEB-INF/view/order/orderPage.jsp").forward(request, response);
 		
 	}
@@ -72,27 +79,40 @@ public class OrderController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginCustomer") != null) {
-			response.sendRedirect(request.getContextPath()+"/SingInController");
+		if(session.getAttribute("loginCustomer") == null) {
+			response.sendRedirect(request.getContextPath()+"/SignInController");
 			return;
 		}
 		
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		CustomerAddress cuAdd = customerService.getAddress(loginCustomer);
 		
 		this.cartService = new CartService();
 		ArrayList<HashMap<String,Object>> cart = cartService.getCartList(loginCustomer.getCustomerId());
+		int orderPrice = 0;
 		
+		for (HashMap<String, Object> m : cart) {
+			orderPrice +=(int)m.get("goodsPrice");
+		}
 		
+		int point = Integer.parseInt(request.getParameter("point"));
+		orderPrice -= point;
+
 		Orders order = new Orders();
-		order.setAddressCode(cuAdd.getAddressCode());
 		order.setCustomerId(loginCustomer.getCustomerId());
-		//DB 재 설계 후 작업 시작하기
+		order.setOrderName(request.getParameter("orderName"));
+		order.setAddress(request.getParameter("address"));
+		order.setOrderPrice(orderPrice);
 		
+		this.orderService = new OrderService();
+		String orderResult = orderService.addOrder(order, cart, point);
+		System.out.println(orderResult);
+		if(orderResult == null) {
+			request.setAttribute("orderResult", orderResult);
+			doGet(request, response);
+			return;
+		}
 		
-		order.setCustomerId(loginCustomer.getCustomerId());
-		
-		//order에 추가
+		response.sendRedirect(request.getContextPath()+"/OrderListController");
 	}
 
 }

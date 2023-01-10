@@ -7,9 +7,26 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>주문페이지</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function() {
+				let allCheck = false;
 				
+				$('#submitBtn').click(function() {
+					if($('#orderName').val().length < 1) {
+						alert('주문자 성함을 입력해주세요.');
+						$('#orderName').focus()
+					} else if($('#address').val().length < 1 ) {
+						alert('주소를 입력해주세요.');
+						$('#address').focus();
+					} else {
+						allCheck = true;
+					}
+					
+					if(allCheck) {
+						$('#orderPage').submit();
+					}
+				})
 			})
 		</script>
 	</head>
@@ -29,39 +46,41 @@
 							<tr>
 								<td>${c['goodsName']}</td>
 								<td>${c['quantity']}</td>
-								<td>${c['goodsPrice']}</td>
+								<td>${c['goodsPrice'] * c['quantity']}</td>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
 			</form>
 			
-			<form method="post" id="orderPage" action="">
+			<form method="post" id="orderPage" action="${pageContext.request.contextPath}/OrderController">
 			<table border="1">
 				<tr>
 					<th>주문자</th>
-					<td><input type="text" name="customerName" value="${loginCustomer.customerName}"></td>
+					<td><input type="text" id="orderName" name="orderName" value="${loginCustomer.customerName}"></td>
 				</tr>
+				<!--  
 				<tr>
 					<th>전화번호</th>
 					<td>
-						<input type="text" name="phone1" value="${splitPhone[0]}">
+						<input type="text" id="phone1" name="phone1" value="${splitPhone[0]}">
 						-
-						<input type="text" name="phone2" value="${splitPhone[1]}">
+						<input type="text" id="phone2" name="phone2" value="${splitPhone[1]}">
 						-
-						<input type="text" name="phone3" value="${splitPhone[2]}">
+						<input type="text" id="phone3" name="phone3" value="${splitPhone[2]}">
 					</td>
 				</tr>
+				-->
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="address" value="${address}"></td>
+					<td><input type="text" id="address" name="address" value="${address}"></td>
 				</tr>
 				<tr>
 					<th>포인트 할인</th>
-					<td><input type="text" name="point">원 할인</td>
+					<td><input type="text" name="point" value="${loginCustomer.point}">원 할인 | <span style="color:red;">${loginCustomer.point}원 사용 가능</span></td>
 				</tr>
 			</table>
-			<button type="button">주문하기</button>
+			<button type="button" id="submitBtn">주문하기</button>
 			</form>
 		</div>
 	</body>
