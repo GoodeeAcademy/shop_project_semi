@@ -34,8 +34,9 @@ public class GoodsDao {
 	// 상품 상세 정보
 	public HashMap<String, Object> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		HashMap<String, Object> m = null;
-		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, sold_out soldOut, emp_id empId, hit, filename, gs.createdate createdate, gs.updatedate updatedate "
-				+ " FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code "
+		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, sold_out soldOut,"
+				+ " emp_id empId, hit, filename, gs.createdate createdate, gs.updatedate updatedate"
+				+ " FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code"
 				+ " WHERE gs.goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsCode);
@@ -58,6 +59,28 @@ public class GoodsDao {
 		if(stmt != null) {stmt.close();}
 		
 		return m;
+	}
+	
+	// 해당 상품 리뷰 리스트
+	public ArrayList<HashMap<String, Object>> selectReviewByGoods(Connection conn, int goodsCode) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		String sql = "SELECT review_memo reviewMemo, star, rv.createdate createdate, customer_id customerId"
+				+ " FROM review rv JOIN orders ods ON rv.order_code = ods.order_code"
+				+ " WHERE goods_code = ?;";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsCode);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<>();
+			m.put("reviewMemo", rs.getString("reviewMemo"));
+			m.put("star", rs.getInt("star"));
+			m.put("createdate", rs.getString("createdate"));
+			m.put("customerId", rs.getString("customerId"));
+			list.add(m);
+		}
+		
+		return list;
 	}
 	
 	// 상품 수정

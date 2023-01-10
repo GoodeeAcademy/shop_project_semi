@@ -23,5 +23,20 @@
 			</div>
 			<button type="submit">ADD CART</button>
 		</form>
+		
+		<h4>리뷰</h4>
+		<c:forEach var="m" items="${list}">
+			<div>
+				<div>
+					<span>${m.customerId}</span>
+					<span>${m.star}</span>
+				</div>
+				<div>
+					<p>
+						${m.reviewMemo}
+					</p>
+				</div>
+			</div>		
+		</c:forEach>
 	</body>
 </html>

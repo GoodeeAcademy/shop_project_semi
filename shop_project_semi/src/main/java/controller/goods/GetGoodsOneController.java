@@ -1,6 +1,7 @@
 package controller.goods;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -27,9 +28,11 @@ public class GetGoodsOneController extends HttpServlet {
 		// 서비스 호출
 		goodsService = new GoodsService();
 		HashMap<String, Object> m = goodsService.getGoodsOne(goodsCode);
+		ArrayList<HashMap<String, Object>> list = goodsService.getReviewByGoods(goodsCode);
 		
 		// 객체 바인딩 후 페이지 이동
-		request.setAttribute("m", m);
+		request.setAttribute("m", m); // 상품 상세 정보
+		request.setAttribute("list", list); // 리뷰 리스트
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginEmp") == null) {
