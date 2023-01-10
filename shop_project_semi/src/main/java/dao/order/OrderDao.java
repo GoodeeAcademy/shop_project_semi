@@ -112,4 +112,36 @@ public class OrderDao {
 		
 		return goodsList;
 	}
+	
+	public ArrayList<HashMap<String, Object>> getGoodsListAllByOrder(Connection conn, String orderCode) throws Exception {
+		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
+		String sql = "	SELECT *\n"
+				+ "	FROM \n"
+				+ "		(SELECT t.goods_code, t.price, t.quantity, t1.goods_name FROM\n"
+				+ "			(SELECT goods_code, order_goods_price price, order_goods_quantity quantity FROM order_goods WHERE order_code = ?)t\n"
+				+ "			INNER join\n"
+				+ "			(SELECT goods_code, goods_name, goods_price FROM goods)t1 ON t.goods_code = t1.goods_code\n"
+				+ "		) a1\n"
+				+ "	INNER JOIN \n"
+				+ "		(select goods_code, filename FROM goods_img)t2\n"
+				+ "	 ON a1.goods_code = t2.goods_code";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, orderCode);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			
+			m.put("goodsCode", rs.getInt("goods_code"));
+			m.put("quantity", rs.getInt("quantity"));
+			m.put("price", rs.getInt("price"));
+			m.put("goodsName", rs.getString("goods_name"));
+			m.put("fileName", rs.getString("filename"));
+			
+			goodsList.add(m);
+		}
+		
+		return goodsList;
+	}
+	
+	
 }

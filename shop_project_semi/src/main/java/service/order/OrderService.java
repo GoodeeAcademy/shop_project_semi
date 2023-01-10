@@ -68,10 +68,12 @@ public class OrderService {
 	}
 	
 	public ArrayList<HashMap<String,Object>> getOrderList(String customerId) {
-		 ArrayList<HashMap<String,Object>> orderList = new ArrayList<HashMap<String,Object>>();
+		ArrayList<HashMap<String,Object>> orderList = null;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
+			orderList = new ArrayList<HashMap<String,Object>>();
+			
 			this.orderDao = new OrderDao();
 			 ArrayList<Orders> list = orderDao.getOrderList(conn, customerId);
 			 for(Orders orders : list) {
@@ -101,5 +103,32 @@ public class OrderService {
 			}
 		}
 		return orderList;
+	}
+	
+	public ArrayList<HashMap<String,Object>> getOrderOne(String orderCode) {
+		ArrayList<HashMap<String,Object>> orderOne = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.orderDao = new OrderDao();
+			orderOne = orderDao.getGoodsListAllByOrder(conn, orderCode);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return orderOne;
+		
 	}
 }

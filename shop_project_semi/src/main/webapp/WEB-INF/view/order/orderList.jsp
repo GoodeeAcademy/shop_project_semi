@@ -24,10 +24,10 @@
 					<td>${m['orderCode']}</td>
 					<td><img src="${pageContext.request.contextPath}/upload/${m['fileName']}" width="50px" height="50px" alt="이미지"></td>
 					<c:if test="${m['quantity'] == 1}">
-						<td>${m['goodsName']}</td>
+						<td><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m['orderCode']}">${m['goodsName']}</a></td>
 					</c:if>
 					<c:if test="${m['quantity'] != 1}">
-						<td>${m['goodsName']} 외 ${m['quantity'] - 1}건</td>
+						<td><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m['orderCode']}">${m['goodsName']} 외 ${m['quantity'] - 1}건</a></td>
 					</c:if>
 					<td>${m['orderPrice']}원</td>
 					<td>${m['orderState']}</td>
