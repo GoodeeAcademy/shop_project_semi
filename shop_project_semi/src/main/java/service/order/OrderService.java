@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import dao.cart.CartDao;
 import dao.customer.CustomerDao;
 import dao.order.OrderDao;
 import util.DBUtil;
@@ -12,6 +13,7 @@ import vo.Orders;
 public class OrderService {
 	private OrderDao orderDao;
 	private CustomerDao customerDao;
+	private CartDao cartDao;
 	
 	//주문하기
 	public String addOrder(Orders order, ArrayList<HashMap<String,Object>> cart, int point) {
@@ -21,6 +23,8 @@ public class OrderService {
 			conn = DBUtil.getConnection();
 			this.customerDao = new CustomerDao();
 			this.orderDao = new OrderDao();
+			this.cartDao = new CartDao();
+			
 			int orderCode = orderDao.addOrder(conn, order);
 			if(orderCode == 0) {
 				throw new Exception();
@@ -37,6 +41,9 @@ public class OrderService {
 					throw new Exception();
 				} else {
 					if(orderDao.addPointHistoryByUse(conn, orderCode, point) == 0) {
+						throw new Exception();
+					}
+					if(cartDao.deleteCartAll(conn, order.getCustomerId()) == 0) {
 						throw new Exception();
 					}
 					row = "주문, 포인트사용 성공";

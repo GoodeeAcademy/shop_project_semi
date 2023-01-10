@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.cart.CartService;
 import service.customer.CustomerService;
+import vo.Cart;
 import vo.Customer;
+import java.util.*;
 
 /**
  * Servlet implementation class SignInController
@@ -17,6 +20,7 @@ import vo.Customer;
 @WebServlet("/SignInController")
 public class SignInController extends HttpServlet {
 	private CustomerService customerService;
+	private CartService cartService;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -52,6 +56,8 @@ public class SignInController extends HttpServlet {
 		paramCustomer.setCustomerId(request.getParameter("loginId"));
 		paramCustomer.setCustomerPw(request.getParameter("loginPw"));
 		
+		
+		
 		this.customerService = new CustomerService();
 		Customer loginCustomer = customerService.getSingIn(paramCustomer);
 		if(loginCustomer == null) {
@@ -61,6 +67,20 @@ public class SignInController extends HttpServlet {
 		}
 		
 		HttpSession session = request.getSession();
+		if(session.getAttribute("list") != null) {
+			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("list");
+			for (HashMap<String, Object> hashMap : list) {
+				Cart cart = new Cart();
+				cart.setGoodsCode(Integer.parseInt((String)hashMap.get("goodsCode")));
+				cart.setCustomerId(loginCustomer.getCustomerId());
+				cart.setCartQuantity(Integer.parseInt((String)hashMap.get("quantity")));
+				this.cartService = new CartService();
+				if(cartService.addCart(cart) == 0) {
+					System.out.println("장바구니 세션 에러");
+				}
+			}
+			
+		}
 		session.setAttribute("loginCustomer", loginCustomer);
 		
 		//추후 homeController로 이동하도록 수정하기!
