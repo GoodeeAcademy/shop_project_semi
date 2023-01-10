@@ -43,6 +43,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<a href="${pageContext.request.contextPath}/OrderController">주문하기</a>
 		</form>
 		
 		<script>

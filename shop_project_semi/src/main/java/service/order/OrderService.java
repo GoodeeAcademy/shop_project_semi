@@ -66,7 +66,7 @@ public class OrderService {
 		}
 		return row;
 	}
-	
+	/*
 	public ArrayList<HashMap<String,Object>> getOrderList(String customerId) {
 		ArrayList<HashMap<String,Object>> orderList = null;
 		Connection conn = null;
@@ -87,6 +87,35 @@ public class OrderService {
 				 
 				 orderList.add(goodsList);
 			}
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return orderList;
+	}
+	*/
+	// 주문 내역 조회 페이지  
+	public ArrayList<HashMap<String,Object>> getOrderList(String customerId) {
+		ArrayList<HashMap<String,Object>> orderList = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			orderList = new ArrayList<HashMap<String,Object>>();
+			
+			this.orderDao = new OrderDao();
+			orderList = orderDao.getOrderList(conn, customerId);
+			 
 			conn.commit();
 		} catch(Exception e) {
 			try {

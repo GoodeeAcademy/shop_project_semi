@@ -8,8 +8,8 @@
 	</head>
 	
 	<body>
-		<h1>주문목록(개인)</h1>
-		<table border="1">
+		<h1>주문내역조회</h1>
+		<%-- <table border="1">
 			<tr>
 				<th>주문번호</th>
 				<th>대표이미지</th>
@@ -34,6 +34,40 @@
 					<td>${m['createdate']}</td>
 				</tr>
 			</c:forEach>
+		</table> --%>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>상품정보</th>
+					<th>주문일자</th>
+					<th>주문번호</th>
+					<th>주문금액(수량)</th>
+					<th>주문상태</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="m" items="${orderList}">
+					<tr>
+						<td>
+							<div>
+								<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="이미지">
+							</div>
+							<div>${m.goodsName}</div>
+						</td>
+						<td>${m.createdate}</td>
+						<td><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m.orderCode}">${m.orderCode}</a></td>
+						<td>
+							<div>${m.orderGoodsPrice}</div>
+							<div>${m.orderGoodsQuantity}개</div>
+						</td>
+						<td>
+							${m.orderState}
+							<a href="#none" target="_blank" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m.orderCode}&goodsCode=${m.goodsCode}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기(조건추가?)</a>
+							<div>(리뷰쓰면 링크 없애고 다른 문구 넣기)</div>
+						</td>
+					</tr>
+				</c:forEach>	
+			</tbody>
 		</table>
 	</body>
 </html>

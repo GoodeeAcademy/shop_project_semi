@@ -58,7 +58,7 @@ public class OrderDao {
 		stmt.close();
 		return row;
 	}
-	
+	/*
 	public ArrayList<Orders> getOrderList(Connection conn, String customerId) throws Exception {
 		ArrayList<Orders> orderList= new ArrayList<Orders>();
 		String sql = "SELECT * FROM orders WHERE customer_id = ?";
@@ -77,6 +77,33 @@ public class OrderDao {
 			orderList.add(order);
 		}
 		return orderList;
+	}
+	*/
+	// 주문 내역 조회
+	public ArrayList<HashMap<String, Object>> getOrderList(Connection conn, String customerId) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		String sql = "SELECT od.order_code orderCode, od.createdate createdate, odg.goods_code goodsCode , odg.order_goods_price orderGoodsPrice, odg.order_goods_quantity orderGoodsQuantity, od.order_state orderState, gs.goods_name goodsName, gsi.filename filename"
+				+ " FROM orders od JOIN order_goods odg ON od.order_code = odg.order_code"
+				+ " JOIN goods gs ON odg.goods_code = gs.goods_code"
+				+ " JOIN goods_img gsi ON gs.goods_code = gsi.goods_code"
+				+ " WHERE customer_id = ?"
+				+ " ORDER BY od.order_code DESC;";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<>();
+			m.put("orderCode", rs.getInt("orderCode"));
+			m.put("createdate", rs.getString("createdate"));
+			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("orderGoodsPrice", rs.getInt("orderGoodsPrice"));
+			m.put("orderGoodsQuantity", rs.getInt("orderGoodsQuantity"));
+			m.put("orderState", rs.getString("orderState"));
+			m.put("goodsName", rs.getString("goodsName"));
+			m.put("filename", rs.getString("filename"));
+			list.add(m);
+		}
+		return list;
 	}
 	
 	public HashMap<String, Object> getGoodsListByOrder(Connection conn, int orderCode) throws Exception {

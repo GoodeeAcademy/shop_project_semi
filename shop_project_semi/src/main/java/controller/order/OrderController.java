@@ -90,10 +90,12 @@ public class OrderController extends HttpServlet {
 		ArrayList<HashMap<String,Object>> cart = cartService.getCartList(loginCustomer.getCustomerId());
 		int orderPrice = 0;
 		
-		for (HashMap<String, Object> m : cart) {
-			orderPrice +=(int)m.get("goodsPrice");
-		}
 		
+		for (HashMap<String, Object> m : cart) {
+			// orderPrice +=(int)m.get("goodsPrice");
+			orderPrice += ( (int)m.get("goodsPrice") * (int)m.get("quantity") ); 
+		}
+				
 		int point = Integer.parseInt(request.getParameter("point"));
 		orderPrice -= point;
 
