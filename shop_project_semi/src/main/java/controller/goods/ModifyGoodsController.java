@@ -93,6 +93,7 @@ public class ModifyGoodsController extends HttpServlet {
 			if(fileMap.get("contentType") == null) {
 				break;
 			}
+			fileMap.put("check", true);	// 기존 이미지 삭제
 			fileList.add(fileMap);
 		}
 		
@@ -138,9 +139,16 @@ public class ModifyGoodsController extends HttpServlet {
 		}
 		
 		// 수정 완료 시 이전 이미지 파일 삭제
-		File f = new File(dir + "\\" + mreq.getParameter("oldFilename"));
-		if(f.exists()) {
-			f.delete();
+		int seq = 0;
+		for(HashMap<String, Object> m : fileList) {
+			if((boolean)m.get("check")) {	// 수정한 이미지 파일이라면	
+				File f = new File(dir + "\\" + mreq.getParameter("oldFilename"+seq));
+				if(f.exists()) {
+					f.delete();
+					System.out.println("기존 파일 삭제 완료");
+				}
+			}
+			seq++;
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/goodsList");
