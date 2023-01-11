@@ -80,6 +80,7 @@ public class ModifyGoodsController extends HttpServlet {
 		ArrayList<HashMap<String, Object>> fileList = new ArrayList<>();
 		Enumeration<?> files = mreq.getFileNames();
 		int fileSeq = 0;
+		int listSize = Integer.parseInt(mreq.getParameter("listSize"));
 		while(files.hasMoreElements()) {
 			HashMap<String, Object> fileMap = new HashMap<String, Object>();
 			
@@ -88,29 +89,34 @@ public class ModifyGoodsController extends HttpServlet {
 			fileMap.put("filename", mreq.getFilesystemName("filename"+fileSeq));	// 저장된 이미지 파일명
 			fileMap.put("originName", mreq.getOriginalFileName("filename"+fileSeq));	// 파일 원본명
 			fileMap.put("contentType", mreq.getContentType("filename"+fileSeq));	// 파일 확장자
-			
+
+			fileMap.put("seq", fileSeq);	//기존 이미지 삭제를 위해 ①
 			fileSeq++;
 			if(fileMap.get("contentType") == null) {
+				continue;
+			}
+			fileMap.put("check", true);	// 기존 이미지 삭제를 위해 ②
+			fileList.add(fileMap);
+			if(fileSeq >= listSize) {
 				break;
 			}
-			fileMap.put("check", true);	// 기존 이미지 삭제
-			fileList.add(fileMap);
 		}
 		
-		Goods goods = null;
+		// goods vo
+		Goods goods = new Goods();
+		goods.setGoodsCode(goodsCode);
+		goods.setGoodsName(goodsName);
+		goods.setGoodsPrice(goodsPrice);
+		goods.setSoldOut(soldOut);
+		goods.setEmpId(empId);
+		goods.setHit(hit);
+		
 		ArrayList<GoodsImg> list = new ArrayList<GoodsImg>();
+		System.out.println(fileList.size()+"<-----수정할 파일 개수");
 		for(HashMap<String, Object> m : fileList) {
 			String contentType = (String)m.get("contentType");
-			if(contentType.equals("image/jpeg") || contentType.equals("image/png")){			
-				// goods vo
-				goods = new Goods();
-				goods.setGoodsCode(goodsCode);
-				goods.setGoodsName(goodsName);
-				goods.setGoodsPrice(goodsPrice);
-				goods.setSoldOut(soldOut);
-				goods.setEmpId(empId);
-				goods.setHit(hit);
-				
+			System.out.println(contentType+"<-------이미지 유형");
+			if(contentType.equals("image/jpeg") || contentType.equals("image/png")){
 				// goodsImg vo
 				GoodsImg goodsImg = new GoodsImg();
 				int goodsImgCode = Integer.parseInt((String)m.get("goodsImgCode"));
@@ -123,7 +129,7 @@ public class ModifyGoodsController extends HttpServlet {
 				
 			} else {
 				System.out.print("*.jpg, *.png파일만 업로드 가능");
-				File f = new File(dir + "\\" + mreq.getFilesystemName("fileName"));
+				File f = new File(dir + "\\" + (String)m.get("filename"));
 				if(f.exists()) {
 					f.delete();
 				}
@@ -139,16 +145,15 @@ public class ModifyGoodsController extends HttpServlet {
 		}
 		
 		// 수정 완료 시 이전 이미지 파일 삭제
-		int seq = 0;
 		for(HashMap<String, Object> m : fileList) {
 			if((boolean)m.get("check")) {	// 수정한 이미지 파일이라면	
-				File f = new File(dir + "\\" + mreq.getParameter("oldFilename"+seq));
+				System.out.println("들어는 옴?");
+				File f = new File(dir + "\\" + mreq.getParameter("oldFilename"+(int)m.get("seq")));
 				if(f.exists()) {
 					f.delete();
-					System.out.println("기존 파일 삭제 완료");
+					System.out.println("ModifyGoodsController : 기존 파일 삭제 완료");
 				}
 			}
-			seq++;
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/goodsList");

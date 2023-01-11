@@ -29,6 +29,7 @@
 								<input type="file" name="filename${i}" accept="image/jpeg, image/png">
 								<input type="hidden" name="oldFilename${i}" value="${imgList[i].filename}"/>${imgList[i].filename}
 								<input type="hidden" name="goodsImgCode${i}" value="${imgList[i].goodsImgCode}"/>
+								<input type="hidden" name="listSize" value="${listSize-1}"/>
 							</div>
 						<td>
 					</tr>
