@@ -24,6 +24,15 @@
 			<button type="submit">ADD CART</button>
 		</form>
 		
+		<!-- 상품 전체 이미지 -->
+		<table>
+			<c:forEach var="gi" items="${imgList}">
+			<tr>
+				<td><img src="${pageContext.request.contextPath}/upload/${gi.filename}" width="100px" height="100px" alt="상품 이미지"/></td>
+			</tr>
+			</c:forEach>
+		</table>
+		
 		<h4>리뷰</h4>
 		<c:forEach var="m" items="${list}">
 			<div>
