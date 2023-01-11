@@ -42,13 +42,19 @@
 							<th>수량</th>
 							<th>금액</th>
 						</tr>
+						<c:set var="totalPrice" value="0"></c:set>
 						<c:forEach var="c" items="${cart}">
 							<tr>
 								<td>${c['goodsName']}</td>
 								<td>${c['quantity']}</td>
 								<td>${c['goodsPrice'] * c['quantity']}</td>
 							</tr>
+							<c:set var="totalPrice" value="${totalPrice+(c['goodsPrice']*c['quantity'])}"></c:set>
 						</c:forEach>
+						<tr>
+							<th colspan="2">총 금액</th>
+							<td><c:out value="${totalPrice}"></c:out></td>
+						</tr>
 					</table>
 				</div>
 			</form>

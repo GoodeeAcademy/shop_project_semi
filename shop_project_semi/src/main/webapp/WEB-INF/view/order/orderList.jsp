@@ -38,9 +38,9 @@
 		<table border="1">
 			<thead>
 				<tr>
+					<th>주문번호</th>
 					<th>상품정보</th>
 					<th>주문일자</th>
-					<th>주문번호</th>
 					<th>주문금액(수량)</th>
 					<th>주문상태</th>
 				</tr>
@@ -48,6 +48,7 @@
 			<tbody>
 				<c:forEach var="m" items="${orderList}">
 					<tr>
+						<td rowspan=""><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m.orderCode}">${m.orderCode}</a></td>
 						<td>
 							<div>
 								<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="이미지">
@@ -55,7 +56,6 @@
 							<div>${m.goodsName}</div>
 						</td>
 						<td>${m.createdate}</td>
-						<td><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m.orderCode}">${m.orderCode}</a></td>
 						<td>
 							<div>${m.orderGoodsPrice}</div>
 							<div>${m.orderGoodsQuantity}개</div>
@@ -66,6 +66,9 @@
 							<div>(리뷰쓰면 링크 없애고 다른 문구 넣기)</div>
 						</td>
 					</tr>
+					<c:forEach begin="0" end="" step="1">
+					
+					</c:forEach>
 				</c:forEach>	
 			</tbody>
 		</table>

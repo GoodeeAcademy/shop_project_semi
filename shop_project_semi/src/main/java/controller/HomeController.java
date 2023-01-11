@@ -26,6 +26,8 @@ public class HomeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().getAttribute("loginCustomer");
+		request.getSession().getAttribute("loginEmp");
 		request.getRequestDispatcher("/WEB-INF/view/main.jsp").forward(request, response);
 	}
 

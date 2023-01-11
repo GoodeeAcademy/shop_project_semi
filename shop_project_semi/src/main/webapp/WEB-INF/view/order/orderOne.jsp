@@ -28,7 +28,7 @@
 			</c:forEach>
 			<tr>
 				<th colspan="4">총 금액</th>
-				<td>금액적기</td>
+				<td>${totalPrice}</td>
 			</tr>
 		</table>
 	</body>

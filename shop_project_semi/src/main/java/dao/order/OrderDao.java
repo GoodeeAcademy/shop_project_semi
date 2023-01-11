@@ -58,7 +58,7 @@ public class OrderDao {
 		stmt.close();
 		return row;
 	}
-	/*
+	/* 사용 X
 	public ArrayList<Orders> getOrderList(Connection conn, String customerId) throws Exception {
 		ArrayList<Orders> orderList= new ArrayList<Orders>();
 		String sql = "SELECT * FROM orders WHERE customer_id = ?";
@@ -106,6 +106,7 @@ public class OrderDao {
 		return list;
 	}
 	
+	/* 사용 X
 	public HashMap<String, Object> getGoodsListByOrder(Connection conn, int orderCode) throws Exception {
 		HashMap<String, Object> goodsList = null;
 		String sql = "SELECT a.goodsCode goodsCode, a.goodsName goodsName, a.fileName fileName, a1.orderQuantity quantity\n"
@@ -139,6 +140,7 @@ public class OrderDao {
 		
 		return goodsList;
 	}
+	*/
 	
 	public ArrayList<HashMap<String, Object>> getGoodsListAllByOrder(Connection conn, String orderCode) throws Exception {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();

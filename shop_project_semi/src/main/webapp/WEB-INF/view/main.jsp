@@ -9,9 +9,13 @@
 	
 	<body>
 		<div>
-			<a href="${pageContext.request.contextPath}/LoginEmpController">직원</a>
+			<c:if test="${loginCustomer == null}">
+				<a href="${pageContext.request.contextPath}/LoginEmpController">직원</a>
+			</c:if>
 			<a href="${pageContext.request.contextPath}/goodsList">물품</a>
-			<a href="${pageContext.request.contextPath}/CustomerListController">고객</a>
+			<c:if test="${loginEmp == null}">
+				<a href="${pageContext.request.contextPath}/CustomerOneController">고객</a>
+			</c:if>
 		</div>
 	</body>
 </html>

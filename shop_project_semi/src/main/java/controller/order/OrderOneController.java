@@ -44,7 +44,16 @@ public class OrderOneController extends HttpServlet {
 		this.orderService = new OrderService();
 		ArrayList<HashMap<String,Object>> orderList = orderService.getOrderOne(orderCode);
 		
-		request.setAttribute("orderList", orderList);
+		
+		
+		int totalPrice = 0;
+		for (HashMap<String, Object> hashMap : orderList) {
+			totalPrice += ((int)hashMap.get("price") * (int)hashMap.get("quantity"));
+		}
+		
+		
+		request.setAttribute("orderList", orderList); // 주문굿즈내용
+		request.setAttribute("totalPrice", totalPrice);
 		
 		request.getRequestDispatcher("/WEB-INF/view/order/orderOne.jsp").forward(request, response);
 	}
