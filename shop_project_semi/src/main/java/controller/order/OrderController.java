@@ -120,6 +120,8 @@ public class OrderController extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
+		loginCustomer.setPoint(loginCustomer.getPoint()-point);
+		session.setAttribute("loginCustomer", loginCustomer);
 		
 		response.sendRedirect(request.getContextPath()+"/OrderListController");
 	}
