@@ -34,7 +34,11 @@
 				</tr>
 				<tr>
 					<th>사진등록</th>
-					<td><input type="file" name="filename" accept="image/jpeg, image/png"></td>
+					<td>
+						<div><input type="file" name="filename1" accept="image/jpeg, image/png"></div>
+						<div><input type="file" name="filename2" accept="image/jpeg, image/png"></div>
+						<div><input type="file" name="filename3" accept="image/jpeg, image/png"></div>
+					</td>
 				</tr>
 			</table>
 			<button type="submit">상품등록</button>

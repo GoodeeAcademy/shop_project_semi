@@ -189,7 +189,7 @@ public class GoodsService {
 	}
 	
 	// 상품 추가
-	public int addGoods(Goods goods, GoodsImg goodsImg, String dir) {
+	public int addGoods(Goods goods, ArrayList<GoodsImg> list, String dir) {
 		int result = 0;
 		Connection conn = null;
 		
@@ -205,18 +205,22 @@ public class GoodsService {
 			}
 			
 			goodsImgDao = new GoodsImgDao();
-			goodsImg.setGoodsCode(m.get("autoKey"));
+			for(GoodsImg goodsImg : list) {				
+				goodsImg.setGoodsCode(m.get("autoKey"));
+			}
 			
-			result = goodsImgDao.insertGoodsImg(conn, goodsImg);
+			result += goodsImgDao.insertGoodsImg(conn, list);
 			
 			conn.commit();
 		} catch (Exception e) {
 			try {
 				conn.rollback();
 				
-				File file = new File(dir + "\\" + goodsImg.getFilename());
-				if(file.exists()) {
-					file.delete();
+				for(GoodsImg goodsImg : list) {		
+					File file = new File(dir + "\\" + goodsImg.getFilename());	// 하나라도 실패
+					if(file.exists()) {
+						file.delete();	// -> 전체 파일 삭제
+					}
 				}
 			} catch (SQLException e1) {
 				e1.printStackTrace();
