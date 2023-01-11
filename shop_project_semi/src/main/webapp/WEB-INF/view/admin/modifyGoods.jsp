@@ -18,15 +18,21 @@
 				</tr>
 				<tr>
 					<th>상품명</th>
-					<td>
-						<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="100px" height="100px" alt="상품 이미지"/>
-						<div>
-							<input type="file" name="filename" accept="image/jpeg, image/png">
-							<input type="hidden" name="oldFilename" value="${m.filename}"/>${m.filename}
-						</div>
-						<input type="text" name="goodsName" value="${m.goodsName}"/>
-					</td>
+					<td><input type="text" name="goodsName" value="${m.goodsName}"/></td>
 				</tr>
+				<c:forEach var="i" begin="0" end="${listSize-1}">
+					<tr>
+						<td>사진</td>
+						<td>
+							<img src="${pageContext.request.contextPath}/upload/${imgList[i].filename}" width="100px" height="100px" alt="상품 이미지"/>
+							<div>
+								<input type="file" name="filename${i}" accept="image/jpeg, image/png">
+								<input type="hidden" name="oldFilename${i}" value="${imgList[i].filename}"/>${imgList[i].filename}
+								<input type="hidden" name="goodsImgCode${i}" value="${imgList[i].goodsImgCode}"/>
+							</div>
+						<td>
+					</tr>
+				</c:forEach>
 				<tr>
 					<th>판매가격</th>
 					<td><input type="text" name="goodsPrice" value="${m.goodsPrice}"/></td>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import service.goods.GoodsService;
+import vo.GoodsImg;
 
 @WebServlet("/goodsOne")
 public class GetGoodsOneController extends HttpServlet {
@@ -28,10 +29,12 @@ public class GetGoodsOneController extends HttpServlet {
 		// 서비스 호출
 		goodsService = new GoodsService();
 		HashMap<String, Object> m = goodsService.getGoodsOne(goodsCode);
+		ArrayList<GoodsImg> imgList = goodsService.getAllGoodsImg(goodsCode);
 		ArrayList<HashMap<String, Object>> list = goodsService.getReviewByGoods(goodsCode);
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("m", m); // 상품 상세 정보
+		request.setAttribute("imgList", imgList);	// 상품 전체 사진
 		request.setAttribute("list", list); // 리뷰 리스트
 		
 		HttpSession session = request.getSession();

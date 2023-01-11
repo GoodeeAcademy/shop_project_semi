@@ -76,6 +76,36 @@ public class GoodsService {
 		return m;
 	}
 	
+	// 상품 전체 사진
+	public ArrayList<GoodsImg> getAllGoodsImg(int goodsCode) {
+		ArrayList<GoodsImg> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			goodsImgDao = new GoodsImgDao();
+			list = goodsImgDao.getAllGoodsImg(conn, goodsCode);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
 	// 해당 상품 리뷰 리스트
 	public ArrayList<HashMap<String, Object>> getReviewByGoods(int goodsCode) {
 		ArrayList<HashMap<String, Object>> list = null;
@@ -107,7 +137,7 @@ public class GoodsService {
 	}
 	
 	// 상품 수정
-	public int modifyGoods(Goods goods, GoodsImg goodsImg, String dir) {
+	public int modifyGoods(Goods goods, ArrayList<GoodsImg> list, String dir) {
 		int result = 0;
 		Connection conn = null;
 		
@@ -122,18 +152,20 @@ public class GoodsService {
 				System.out.println("GoodsService : updateGoods fail");
 				throw new Exception();
 			}
-			
+
 			goodsImgDao = new GoodsImgDao();
-			result = goodsImgDao.updateGoodsImg(conn, goodsImg);
+			result = goodsImgDao.updateGoodsImg(conn, list);
 			
 			conn.commit();
 		} catch (Exception e) {
 			try {
 				conn.rollback();
 				
-				File file = new File(dir + "\\" + goodsImg.getFilename());
-				if(file.exists()) {
-					file.delete();
+				for(GoodsImg goodsImg : list) {		
+					File file = new File(dir + "\\" + goodsImg.getFilename());	// 하나라도 실패
+					if(file.exists()) {
+						file.delete();	// -> 전체 파일 삭제
+					}
 				}
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -162,7 +194,7 @@ public class GoodsService {
 			result = goodsImgDao.deleteGoodsImg(conn, goodsCode);
 			
 			// 상품 삭제 실패 시
-			if(result != 1) {
+			if(result < 1) {
 				throw new Exception();
 			}
 			
@@ -209,7 +241,7 @@ public class GoodsService {
 				goodsImg.setGoodsCode(m.get("autoKey"));
 			}
 			
-			result += goodsImgDao.insertGoodsImg(conn, list);
+			result = goodsImgDao.insertGoodsImg(conn, list);
 			
 			conn.commit();
 		} catch (Exception e) {

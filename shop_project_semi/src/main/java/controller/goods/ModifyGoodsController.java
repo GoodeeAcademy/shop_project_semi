@@ -2,6 +2,8 @@ package controller.goods;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -43,9 +45,12 @@ public class ModifyGoodsController extends HttpServlet {
 		goodsService = new GoodsService();
 		HashMap<String, Object> m = goodsService.getGoodsOne(goodsCode);
 		m.put("dir", request.getServletContext().getRealPath("/upload"));
+		ArrayList<GoodsImg> imgList = goodsService.getAllGoodsImg(goodsCode);
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("m", m);
+		request.setAttribute("imgList", imgList);
+		request.setAttribute("listSize", imgList.size());
 		request.getRequestDispatcher("/WEB-INF/view/admin/modifyGoods.jsp").forward(request, response);
 	}
 
@@ -71,46 +76,71 @@ public class ModifyGoodsController extends HttpServlet {
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		String empId = loginEmp.getEmpId();
 		int hit = Integer.parseInt(mreq.getParameter("hit"));
-		String filename = mreq.getFilesystemName("filename"); // 저장된 이미지 파일 이름
-		String originName = mreq.getOriginalFileName("filename"); // 이미지 원본 이름
-		String contentType = mreq.getContentType("filename"); // 이미지 파일 검사
 		
-		if(contentType.equals("image/jpeg") || contentType.equals("image/png")){			
-			// goods vo
-			Goods goods = new Goods();
-			goods.setGoodsCode(goodsCode);
-			goods.setGoodsName(goodsName);
-			goods.setGoodsPrice(goodsPrice);
-			goods.setSoldOut(soldOut);
-			goods.setEmpId(empId);
-			goods.setHit(hit);
+		ArrayList<HashMap<String, Object>> fileList = new ArrayList<>();
+		Enumeration<?> files = mreq.getFileNames();
+		int fileSeq = 0;
+		while(files.hasMoreElements()) {
+			HashMap<String, Object> fileMap = new HashMap<String, Object>();
 			
-			// goodsImg vo
-			GoodsImg goodsImg = new GoodsImg();
-			goodsImg.setGoodsCode(goodsCode);
-			goodsImg.setFilename(filename);
-			goodsImg.setOriginName(originName);
-			goodsImg.setContentType(contentType);
+			String goodsImgCode = mreq.getParameter("goodsImgCode"+fileSeq);
+			fileMap.put("goodsImgCode", goodsImgCode);
+			fileMap.put("filename", mreq.getFilesystemName("filename"+fileSeq));	// 저장된 이미지 파일명
+			fileMap.put("originName", mreq.getOriginalFileName("filename"+fileSeq));	// 파일 원본명
+			fileMap.put("contentType", mreq.getContentType("filename"+fileSeq));	// 파일 확장자
 			
-			// service 호출
-			GoodsService goodsService = new GoodsService();
-			int result = goodsService.modifyGoods(goods, goodsImg, dir);
-			
-			if(result != 1) {
-				System.out.println("ModifyGoodsController: updateGoodsImg fail");
+			fileSeq++;
+			if(fileMap.get("contentType") == null) {
+				break;
 			}
-			
-			// 수정 완료 시 이전 이미지 파일 삭제
-			File f = new File(dir + "\\" + mreq.getParameter("oldFilename"));
-			if(f.exists()) {
-				f.delete();
-			}
-		} else {
-			System.out.print("*.jpg, *.png파일만 업로드 가능");
-			File f = new File(dir + "\\" + mreq.getFilesystemName("fileName"));
-			if(f.exists()) {
-				f.delete();
-			}
+			fileList.add(fileMap);
+		}
+		
+		Goods goods = null;
+		ArrayList<GoodsImg> list = new ArrayList<GoodsImg>();
+		for(HashMap<String, Object> m : fileList) {
+			String contentType = (String)m.get("contentType");
+			if(contentType.equals("image/jpeg") || contentType.equals("image/png")){			
+				// goods vo
+				goods = new Goods();
+				goods.setGoodsCode(goodsCode);
+				goods.setGoodsName(goodsName);
+				goods.setGoodsPrice(goodsPrice);
+				goods.setSoldOut(soldOut);
+				goods.setEmpId(empId);
+				goods.setHit(hit);
+				
+				// goodsImg vo
+				GoodsImg goodsImg = new GoodsImg();
+				int goodsImgCode = Integer.parseInt((String)m.get("goodsImgCode"));
+				goodsImg.setGoodsImgCode(goodsImgCode);
+				goodsImg.setGoodsCode(goodsCode);
+				goodsImg.setFilename((String)m.get("filename"));
+				goodsImg.setOriginName((String)m.get("originName"));
+				goodsImg.setContentType((String)m.get("contentType"));
+				list.add(goodsImg);
+				
+			} else {
+				System.out.print("*.jpg, *.png파일만 업로드 가능");
+				File f = new File(dir + "\\" + mreq.getFilesystemName("fileName"));
+				if(f.exists()) {
+					f.delete();
+				}
+			}		
+		}
+		
+		// service 호출
+		GoodsService goodsService = new GoodsService();
+		int result = goodsService.modifyGoods(goods, list, dir);
+		
+		if(result < 1) {
+			System.out.println("ModifyGoodsController: updateGoodsImg fail");
+		}
+		
+		// 수정 완료 시 이전 이미지 파일 삭제
+		File f = new File(dir + "\\" + mreq.getParameter("oldFilename"));
+		if(f.exists()) {
+			f.delete();
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/goodsList");

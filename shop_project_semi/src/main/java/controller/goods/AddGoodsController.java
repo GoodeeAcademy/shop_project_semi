@@ -52,6 +52,13 @@ public class AddGoodsController extends HttpServlet {
 		DefaultFileRenamePolicy fp = new DefaultFileRenamePolicy();
 		MultipartRequest mreq = new MultipartRequest(request, dir, maxFileSize, "utf-8", fp);
 
+		String goodsName = mreq.getParameter("goodsName");
+		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
+		String soldOut = mreq.getParameter("soldOut");
+		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		String empId = loginEmp.getEmpId();
+		int hit = Integer.parseInt(mreq.getParameter("hit"));
+
 		ArrayList<HashMap<String, Object>> fileList = new ArrayList<>();
 		Enumeration<?> files = mreq.getFileNames();
 		int fileSeq = 1;
@@ -70,12 +77,6 @@ public class AddGoodsController extends HttpServlet {
 			fileList.add(fileMap);
 		}
 
-		String goodsName = mreq.getParameter("goodsName");
-		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
-		String soldOut = mreq.getParameter("soldOut");
-		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
-		String empId = loginEmp.getEmpId();
-		int hit = Integer.parseInt(mreq.getParameter("hit"));
 		
 		Goods goods = null;
 		ArrayList<GoodsImg> list = new ArrayList<GoodsImg>();
