@@ -297,7 +297,7 @@ public class CustomerDao {
 		int row = 0;
 		String sql = "UPDATE customer SET point = point-? WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, row);
+		stmt.setInt(1, point);
 		stmt.setString(2, order.getCustomerId());
 		row = stmt.executeUpdate();
 		stmt.close();

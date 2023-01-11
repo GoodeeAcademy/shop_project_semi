@@ -23,6 +23,9 @@
 						alert('사용할 포인트를 입력해주세요.');
 						$('#point').val('0');
 						$('#point').focus();
+					} else if($('#point').val() > ${loginCustomer.point}) {
+						alert('보유중인 포인트보다 많습니다.');
+						$('#point').focus();
 					} else {
 						allCheck = true;
 					}

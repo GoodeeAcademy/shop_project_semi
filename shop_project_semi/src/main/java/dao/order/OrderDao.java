@@ -174,9 +174,9 @@ public class OrderDao {
 	
 	public HashMap<String,Object> getOrderInfoByCustomer(Connection conn, String orderCode) throws Exception {
 		HashMap<String,Object> list = new HashMap<String,Object>();
-		String sql = "SELECT a1.ID, a1.orderName, a1.address, a1.orderState, a1.createdate, a1.POINT, c.customer_phone phone\n"
+		String sql = "SELECT a1.ID, a1.orderName, a1.address, a1.orderState, a1.orderPrice, a1.createdate, a1.POINT, c.customer_phone phone\n"
 				+ "FROM\n"
-				+ "(SELECT o.customer_id ID, o.order_name orderName, o.address address, o.order_state orderState, o.createdate createdate, ph.point POINT\n"
+				+ "(SELECT o.customer_id ID, o.order_name orderName, o.address address, o.order_price orderPrice, o.order_state orderState, o.createdate createdate, ph.point POINT\n"
 				+ "	 FROM orders o INNER JOIN point_history ph ON o.order_code = ph.order_code WHERE o.order_code = ?) a1\n"
 				+ "INNER JOIN\n"
 				+ "customer c ON a1.ID = c.customer_id";
@@ -188,6 +188,7 @@ public class OrderDao {
 			list.put("address", rs.getString("a1.address"));
 			list.put("orderName", rs.getString("a1.orderName"));
 			list.put("orderState", rs.getString("a1.orderState"));
+			list.put("orderPrice", rs.getInt("a1.orderPrice"));
 			list.put("createdate", rs.getString("a1.createdate"));
 			list.put("point", rs.getInt("a1.point"));
 			list.put("phone", rs.getString("phone"));

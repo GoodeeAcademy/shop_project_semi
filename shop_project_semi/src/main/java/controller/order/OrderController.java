@@ -85,6 +85,14 @@ public class OrderController extends HttpServlet {
 		}
 		
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		int point = Integer.parseInt(request.getParameter("point"));
+		
+		/*
+		if(point > loginCustomer.getPoint()) {
+			doGet(request, response);
+			return;
+		}
+		*/
 		
 		this.cartService = new CartService();
 		ArrayList<HashMap<String,Object>> cart = cartService.getCartList(loginCustomer.getCustomerId());
@@ -95,8 +103,7 @@ public class OrderController extends HttpServlet {
 			// orderPrice +=(int)m.get("goodsPrice");
 			orderPrice += ( (int)m.get("goodsPrice") * (int)m.get("quantity") ); 
 		}
-				
-		int point = Integer.parseInt(request.getParameter("point"));
+
 		orderPrice -= point;
 
 		Orders order = new Orders();

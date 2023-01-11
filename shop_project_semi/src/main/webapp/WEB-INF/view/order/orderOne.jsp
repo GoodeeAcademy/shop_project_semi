@@ -54,6 +54,10 @@
 					<th>포인트 사용 내역</th>
 					<td>${customerInfo['point']}원</td>
 				</tr>
+				<tr>
+					<th>결제 금액(제품금액 - 포인트사용분)</th>
+					<td>${customerInfo['orderPrice']}원</td>
+				</tr>
 			</table>
 		</div>
 	</body>
