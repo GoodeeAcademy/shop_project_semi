@@ -8,6 +8,22 @@ import java.util.HashMap;
 import vo.Review;
 
 public class ReviewDao {
+	// 리뷰 중복 검사 - 중복:true 중복아님:false
+	public boolean selectDuplicateReview(Connection conn, Review review) throws Exception {
+		boolean check = false;
+		String sql = "SELECT order_code FROM review WHERE order_code = ? AND goods_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, review.getOrderCode());
+		stmt.setInt(2, review.getGoodsCode());
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) { 
+			check = true; // 중복 
+		}
+		
+		return check;
+	}
+	
 	// 리뷰 작성 - 구매한 상품에 한해서
 	public int insertReview(Connection conn, Review review) throws Exception {
 		String sql = "INSERT INTO review(order_code, goods_code, review_memo, star, createdate) VALUES(?, ?, ?, ?, NOW())";

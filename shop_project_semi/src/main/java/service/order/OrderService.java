@@ -7,13 +7,16 @@ import java.util.HashMap;
 import dao.cart.CartDao;
 import dao.customer.CustomerDao;
 import dao.order.OrderDao;
+import dao.review.ReviewDao;
 import util.DBUtil;
 import vo.Orders;
+import vo.Review;
 
 public class OrderService {
 	private OrderDao orderDao;
 	private CustomerDao customerDao;
 	private CartDao cartDao;
+	private ReviewDao reviewDao;
 	
 	//주문하기
 	public String addOrder(Orders order, ArrayList<HashMap<String,Object>> cart, int point) {
@@ -104,7 +107,7 @@ public class OrderService {
 		}
 		return orderList;
 	}
-	*/
+		*/
 	// 주문 내역 조회 페이지  
 	public ArrayList<HashMap<String,Object>> getOrderList(String customerId) {
 		ArrayList<HashMap<String,Object>> orderList = null;
@@ -114,8 +117,27 @@ public class OrderService {
 			orderList = new ArrayList<HashMap<String,Object>>();
 			
 			this.orderDao = new OrderDao();
-			orderList = orderDao.getOrderList(conn, customerId);
-			 
+			orderList = orderDao.getOrderList(conn, customerId); 
+			
+			ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+			for(HashMap<String, Object> m : orderList) {
+				// vo
+				Review review = new Review();
+				review.setOrderCode((int)m.get("orderCode"));
+				review.setGoodsCode((int)m.get("goodsCode"));
+				
+				// 리뷰 중복 검사
+				this.reviewDao = new ReviewDao();
+				boolean check = reviewDao.selectDuplicateReview(conn, review);
+				
+				if(check) { // 리뷰 썼으면
+					m.put("check", "리뷰 작성 완료");
+				}
+				
+				list.add(m);
+			}
+			orderList.addAll(list);
+			
 			conn.commit();
 		} catch(Exception e) {
 			try {

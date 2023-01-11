@@ -107,17 +107,14 @@ public class AddCartController extends HttpServlet {
 			System.out.println("장바구니 추가 성공");
 			out.println("<script>alert('장바구니 추가'); history.back(); </script>"); 
 			out.close();
-			return;
 		} else if(result == -1){
 			System.out.println("장바구니 중복 상품");
 			out.println("<script>alert('이미 장바구니에 존재하는 상품입니다.'); history.back(); </script>"); 
 			out.close();
-			return;
 		} else {
 			System.out.println("장바구니 추가 실패");
 			out.println("<script>alert('장바구니 추가 실패'); history.back(); </script>"); 
 			out.close();
-			return;
 		}
 	}
 }

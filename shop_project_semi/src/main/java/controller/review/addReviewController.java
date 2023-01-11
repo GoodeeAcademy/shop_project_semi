@@ -81,11 +81,13 @@ public class addReviewController extends HttpServlet {
 		
 		if(result == 1) {
 			System.out.println("리뷰 등록 성공");
-			out.println("<script>alert('리뷰 등록 성공'); window.close(); </script>"); 
+			out.println("<script>alert('리뷰 등록 성공'); window.opener.parent.location.reload();</script>");
+			out.println("<script>window.close();</script>");			
 			out.close();
 		} else {
 			System.out.println("리뷰 등록 실패");
-			out.println("<script>alert('리뷰 등록 실패'); window.close(); </script>"); 
+			out.println("<script>alert('리뷰 등록 실패'); window.opener.parent.location.reload();</script>"); 
+			out.println("<script>window.close(); </script>"); 
 			out.close();
 		}
 	}

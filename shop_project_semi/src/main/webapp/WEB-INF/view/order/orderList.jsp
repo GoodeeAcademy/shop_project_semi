@@ -62,8 +62,11 @@
 						</td>
 						<td>
 							${m.orderState}
-							<a href="#none" target="_blank" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m.orderCode}&goodsCode=${m.goodsCode}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기(조건추가?)</a>
-							<div>(리뷰쓰면 링크 없애고 다른 문구 넣기)</div>
+							<c:if test="${empty m.check}">
+								<a href="#none" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m.orderCode}&goodsCode=${m.goodsCode}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기(조건추가?)</a>							
+							</c:if>
+							<c:if test="${not empty m.check}"></c:if>
+							<div>${m.check}</div>
 						</td>
 					</tr>
 					<c:forEach begin="0" end="" step="1">
@@ -72,5 +75,9 @@
 				</c:forEach>	
 			</tbody>
 		</table>
+		
+		<script>
+		
+		</script>
 	</body>
 </html>
