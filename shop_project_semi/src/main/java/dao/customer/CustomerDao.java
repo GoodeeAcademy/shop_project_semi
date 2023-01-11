@@ -303,5 +303,17 @@ public class CustomerDao {
 		stmt.close();
 		return row;
 	}
-
+	
+	// 포인트 적립 (리뷰 작성 시)
+	public int modifySaveCustomerPoint(Connection conn, Customer customer) throws Exception {
+		String sql = "UPDATE customer SET point = point+? WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, customer.getPoint());
+		stmt.setString(2, customer.getCustomerId());
+		int result = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
+		return result;
+	}
 }

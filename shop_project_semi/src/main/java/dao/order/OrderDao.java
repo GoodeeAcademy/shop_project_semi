@@ -3,6 +3,8 @@ package dao.order;
 import java.sql.*;
 
 import vo.Orders;
+import vo.PointHistory;
+
 import java.util.*;
 
 public class OrderDao {
@@ -58,6 +60,22 @@ public class OrderDao {
 		stmt.close();
 		return row;
 	}
+	
+	// 포인트 적립 내역
+	public int insertSavePointHistory(Connection conn, PointHistory pointHistory) throws Exception {
+		String sql = "INSERT INTO point_history(order_code, point_kind, point, createdate)"
+				+ " VALUES(?, '적립', ?, NOW())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, pointHistory.getOrderCode());
+		stmt.setInt(2, pointHistory.getPoint());
+
+		int result = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
+		return result;
+	}
+	
 	/* 사용 X
 	public ArrayList<Orders> getOrderList(Connection conn, String customerId) throws Exception {
 		ArrayList<Orders> orderList= new ArrayList<Orders>();

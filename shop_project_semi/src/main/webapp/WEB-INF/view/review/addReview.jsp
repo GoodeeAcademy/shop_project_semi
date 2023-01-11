@@ -7,13 +7,14 @@
 	</head>
 	<body>
 		<h1>리뷰쓰기</h1>
-		(리뷰 작성 시 포인트 ? 적립)
+		리뷰 작성 시 포인트 ${m.point} 적립
 		<div>
 			<div><img src="${pageContext.request.contextPath}/upload/${m.filename}" alt="상품 이미지" width="100px" height="100px"/></div>
 			<div>${m.goodsName}</div>
 		</div>
 		<div>
 			<form action="${pageContext.request.contextPath}/addReview" method="post">
+				<input type="hidden" name="point" value="${m.point}"/>
 				<input type="hidden" name="orderCode" value="${m.orderCode}">
 				<input type="hidden" name="goodsCode" value="${m.goodsCode}">
 				<div><input type="number" name="star">1~5(임시 -> 자바스크립트)</div>

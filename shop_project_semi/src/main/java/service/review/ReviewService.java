@@ -4,15 +4,23 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
+import dao.customer.CustomerDao;
+import dao.order.OrderDao;
 import dao.review.ReviewDao;
 import util.DBUtil;
+import vo.Customer;
+import vo.PointHistory;
 import vo.Review;
 
 public class ReviewService {
 	private ReviewDao reviewDao;
+	private CustomerDao customerDao;
+	private OrderDao orderDao;
 	
 	// 리뷰 작성
-	public int addReview(Review review) {
+	public int addReview(Review review, Customer customer, PointHistory pointHistory) {
 		int result = 0;
 		Connection conn = null;
 		
@@ -21,6 +29,23 @@ public class ReviewService {
 			
 			reviewDao = new ReviewDao();
 			result = reviewDao.insertReview(conn, review);
+			
+			if(result != 1) { // 리뷰 등록 실패
+				System.out.println("리뷰 등록 실패");
+				throw new Exception();
+			} else { // 리뷰 등록 성공
+				System.out.println("리뷰 등록 성공");
+				customerDao = new CustomerDao();
+				result = customerDao.modifySaveCustomerPoint(conn, customer);
+				if(result != 1) { // 고객 포인트 적립 실패
+					System.out.println("고객 포인트 적립 실패");
+					throw new Exception();
+				} else { // 고객 포인트 적립 성공
+					System.out.println("고객 포인트 적립 성공");
+					orderDao = new OrderDao();
+					result = orderDao.insertSavePointHistory(conn, pointHistory);					
+				}
+			}
 			
 			conn.commit();
 		} catch (Exception e) {
@@ -32,7 +57,7 @@ public class ReviewService {
 			e.printStackTrace();
 		} finally {
 			try {
-				conn.close();
+				if(conn != null) {conn.close();}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
