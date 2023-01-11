@@ -160,4 +160,30 @@ public class OrderService {
 		return orderOne;
 		
 	}
+	
+	public HashMap<String,Object> getOrderOneInfoCustomer(String orderCode) {
+		HashMap<String,Object> orderInfo = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.orderDao = new OrderDao();
+			orderInfo = orderDao.getOrderInfoByCustomer(conn, orderCode);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return orderInfo;
+	}
 }

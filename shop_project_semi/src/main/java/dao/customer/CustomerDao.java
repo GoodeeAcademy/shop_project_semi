@@ -292,7 +292,7 @@ public class CustomerDao {
 		return result;
 	}
 	
-	// 포인트 수정
+	// 포인트 수정(사용)
 	public int modifyCustomerPoint(Connection conn, Orders order, int point) throws Exception {
 		int row = 0;
 		String sql = "UPDATE customer SET point = point-? WHERE customer_id = ?";

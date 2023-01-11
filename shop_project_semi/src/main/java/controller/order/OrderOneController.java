@@ -43,6 +43,7 @@ public class OrderOneController extends HttpServlet {
 		//Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		this.orderService = new OrderService();
 		ArrayList<HashMap<String,Object>> orderList = orderService.getOrderOne(orderCode);
+		HashMap<String,Object> customerInfo = orderService.getOrderOneInfoCustomer(orderCode);
 		
 		
 		
@@ -53,6 +54,7 @@ public class OrderOneController extends HttpServlet {
 		
 		
 		request.setAttribute("orderList", orderList); // 주문굿즈내용
+		request.setAttribute("customerInfo", customerInfo);
 		request.setAttribute("totalPrice", totalPrice);
 		
 		request.getRequestDispatcher("/WEB-INF/view/order/orderOne.jsp").forward(request, response);

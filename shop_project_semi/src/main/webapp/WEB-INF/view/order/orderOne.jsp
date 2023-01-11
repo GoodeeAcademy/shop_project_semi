@@ -15,21 +15,46 @@
 				<th>상품명</th>
 				<th>개별금액</th>
 				<th>수량</th>
-				<th>리뷰</th>
+				<th>합계금액</th>
 			</tr>
 			<c:forEach var="m" items="${orderList}">
 				<tr>
-					<th><img src="${pageContext.request.contextPath}/upload/${m['fileName']}"></th>
-					<th>${m['goodsName']}</th>
-					<th>${m['price']}</th>
-					<th>${m['quantity']}</th>
-					<th>리뷰앵커</th>
+					<td><img src="${pageContext.request.contextPath}/upload/${m['fileName']}"></td>
+					<td><a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m['goodsCode']}">${m['goodsName']}</a></td>
+					<td>${m['price']}원</td>
+					<td>${m['quantity']}개</td>
+					<td>${m['price']*m['quantity']}원</td>
 				</tr>
 			</c:forEach>
 			<tr>
 				<th colspan="4">총 금액</th>
-				<td>${totalPrice}</td>
+				<td>${totalPrice}원</td>
 			</tr>
 		</table>
+		<div>
+			<h3>고객 정보</h3>
+			<table border="1">
+				<tr>
+					<th>주문자</th>
+					<td>${customerInfo['orderName']}</td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td>${customerInfo['phone']}</td>
+				</tr>
+				<tr>
+					<th>배송 주소</th>
+					<td>${customerInfo['address']}</td>
+				</tr>
+				<tr>
+					<th>주문 상태</th>
+					<td>${customerInfo['createdate'] }</td>
+				</tr>
+				<tr>
+					<th>포인트 사용 내역</th>
+					<td>${customerInfo['point']}원</td>
+				</tr>
+			</table>
+		</div>
 	</body>
 </html>

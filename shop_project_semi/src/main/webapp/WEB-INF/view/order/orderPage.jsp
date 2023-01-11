@@ -19,6 +19,10 @@
 					} else if($('#address').val().length < 1 ) {
 						alert('주소를 입력해주세요.');
 						$('#address').focus();
+					} else if($('#point').val().length < 1) {
+						alert('사용할 포인트를 입력해주세요.');
+						$('#point').val('0');
+						$('#point').focus();
 					} else {
 						allCheck = true;
 					}
@@ -83,7 +87,7 @@
 				</tr>
 				<tr>
 					<th>포인트 할인</th>
-					<td><input type="text" name="point" value="${loginCustomer.point}">원 할인 | <span style="color:red;">${loginCustomer.point}원 사용 가능</span></td>
+					<td><input type="text" name="point" id="point" value="${loginCustomer.point}">원 할인 | <span style="color:red;">${loginCustomer.point}원 사용 가능</span></td>
 				</tr>
 			</table>
 			<button type="button" id="submitBtn">주문하기</button>
