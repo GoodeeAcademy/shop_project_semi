@@ -41,7 +41,7 @@
 	<!-- 페이징 -->
 	<div>
 		<c:if test="${currentPage > 10}">
-			<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${endRow-9}">이전</a>
+			<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${endRow-10}">이전</a>
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endRow}">
 			<c:if test="${i == currentPage}">
@@ -53,7 +53,7 @@
 					<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${i}">${i}</a>
 			</c:if>
 		</c:forEach>
-		<c:if test="${beginRow+10 <= lastPage}">
+		<c:if test="${beginRow+10 < lastPage}">
 			<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${beginRow+11}">다음</a>
 		</c:if>
 	</div>
