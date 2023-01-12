@@ -37,7 +37,7 @@ public class addReviewController extends HttpServlet {
 		int totalPrice = Integer.parseInt(request.getParameter("totalPrice")); // 수량*가격
 		final float ACCUMULATION_RATE = (float)0.01; // 적립률
 		int point = (int)(totalPrice * ACCUMULATION_RATE);
-		System.out.println(point);
+		System.out.println("적립 가능 point - " + point);
 		
 		// vo 
 		Review review = new Review();

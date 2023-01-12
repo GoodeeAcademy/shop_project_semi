@@ -2,6 +2,7 @@ package dao.order;
 
 import java.sql.*;
 
+import vo.OrderGoods;
 import vo.Orders;
 import vo.PointHistory;
 
@@ -218,5 +219,16 @@ public class OrderDao {
 		return list;
 	}
 	
-	
+	// 주문 상태 변경 (구매확정 링크 클릭 시 리뷰쓰기 링크로)
+	public int updateOrderState(Connection conn, OrderGoods orderGoods) throws Exception {
+		String sql = "UPDATE order_goods SET order_goods_state = '구매확정' WHERE order_code = ? AND goods_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderGoods.getOrderCode());
+		stmt.setInt(2, orderGoods.getGoodsCode());
+		int result = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
+		return result;
+	}
 }

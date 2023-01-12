@@ -10,6 +10,7 @@ import dao.goods.GoodsDao;
 import dao.order.OrderDao;
 import dao.review.ReviewDao;
 import util.DBUtil;
+import vo.OrderGoods;
 import vo.Orders;
 import vo.Review;
 
@@ -215,5 +216,37 @@ public class OrderService {
 		}
 		
 		return orderInfo;
+	}
+	
+	// 주문 상태 변경 (구매확정 링크 클릭 시 리뷰쓰기 링크로)
+	public int modifyOrderState(OrderGoods orderGoods) {
+		int result = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.orderDao = new OrderDao();
+			result = orderDao.updateOrderState(conn, orderGoods);
+			
+			if(result != 1) {
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 }

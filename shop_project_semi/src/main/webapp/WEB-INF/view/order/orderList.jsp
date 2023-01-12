@@ -62,12 +62,12 @@
 						</td>
 						<td>
 							${m.orderState}
-							<c:if test="${empty m.check}">
+							<c:if test="${empty m.check}"> <!-- 리뷰 중복 x -> 리뷰 작성 가능  -->
 								<c:if test="${m.orderState.equals('구매확정')}">
-									<a href="#none" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m.orderCode}&goodsCode=${m.goodsCode}&totalPrice=${m.orderGoodsPrice*m.orderGoodsQuantity}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기(조건추가?)</a>							
+									<a href="#none" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m.orderCode}&goodsCode=${m.goodsCode}&totalPrice=${m.orderGoodsPrice*m.orderGoodsQuantity}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기</a>							
 								</c:if>
 								<c:if test="${m.orderState.equals('배송완료')}">
-									<a href="">구매확정</a>
+									<a href="${pageContext.request.contextPath}/modifyOrderState?orderCode=${m.orderCode}&goodsCode=${m.goodsCode}">구매확정</a>
 								</c:if>
 							</c:if>
 							<c:if test="${not empty m.check}">
