@@ -7,9 +7,9 @@
 		<title>cart list</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	</head>
-	<body>
+	<body oncopy="return false" oncut="return false" onpaste="return false">
 		<h1>cart list</h1>
-		<form action="${pageContext.request.contextPath}/modifyCart" method="post">
+		<form action="${pageContext.request.contextPath}/modifyCart" method="post" id="modiForm">
 			<table border="1">
 				<thead>
 					<tr>
@@ -39,7 +39,7 @@
 						</tr>
 					</c:forEach>
 					<tr>
-						<td colspan="4"><button type="submit">UPDATE CART</button></td>
+						<td colspan="4"><button id="submit" type="button">UPDATE CART</button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -53,13 +53,6 @@
 				const downBtn = document.querySelectorAll('.btn-quantity-down');
 				const price = document.querySelectorAll('.price');
 				const totalPrice = document.querySelectorAll('.totalPrice');
-				
-				for(let i = 0; i < quantity.length; i++) {
-					if(quantity[i].value < 1) {
-						quantity[i].value = 1;
-						totalPrice[i].textContent = parseInt(price[i].textContent);
-					} 
-				}
 				
 				for(let i = 0; i < quantity.length; i++) {
 					// + 버튼
@@ -77,6 +70,24 @@
 						}
 				    });
 				}
+				
+				submit.addEventListener('click', function() {
+					for(let i = 0; i < quantity.length; i++) {
+						var tmp = quantity[i].value;
+						console.log(tmp);
+						if(quantity[i].value < 1) {
+							console.log(tmp);
+							console.log(quantity[i].value);
+							
+							alert('1개 이상의 상품을 담아주세요.');
+							quantity[i].value = tmp;
+						} else {
+							$('#modiForm').submit();
+						}
+					}
+					
+					$('#submit').submit();
+				})
 			});
 		</script>
 	</body>
