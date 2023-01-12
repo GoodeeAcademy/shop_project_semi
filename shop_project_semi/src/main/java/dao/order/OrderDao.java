@@ -98,6 +98,64 @@ public class OrderDao {
 		return orderList;
 	}
 	*/
+	
+	/*
+	//실험용(Order 테이블에서 ID에 맞는 주문코드, 주문일 불러오기)
+	public ArrayList<Orders> getOrder(Connection conn, String customerId) throws Exception {
+		ArrayList<Orders> list = new ArrayList<Orders>();
+		String sql = "SELECT * FROM orders WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Orders order = new Orders();
+			order.setOrderCode(rs.getInt("order_code"));
+			order.setCreatedate(rs.getString("createdate"));
+			
+			list.add(order);
+		}
+		return list;
+	}
+	
+	//실험용(Order_goods 테이블에서 해당 주문코드에 맞는 내역 가져오기)
+	public ArrayList<HashMap<String,Object>> getOrderGoods(Connection conn, int orderCode) throws Exception {
+		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+		String sql = "SELECT og.goods_code gc, g.goods_name gn, og.order_goods_price gp, og.order_goods_quantity gq, og.order_goods_state gs, gi.filename fileName\n"
+				+ "	FROM order_goods og\n"
+				+ "	JOIN goods g ON og.goods_code = g.goods_code\n"
+				+ "	JOIN goods_img gi ON g.goods_code = gi.goods_code\n"
+				+ "	WHERE og.order_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			map.put("goodsCode", rs.getInt("gc"));
+			map.put("goodsName", rs.getString("gn"));
+			map.put("goodsPrice", rs.getInt("gp"));
+			map.put("goodsQuantity", rs.getInt("gq"));
+			map.put("goodsState", rs.getString("gs"));
+			map.put("fileName", rs.getString("fileName"));
+			
+			list.add(map);
+		}
+		return list;
+	}
+	
+	//실험용 (order code에 따른 굿즈 개수 카운트)
+	public int getOrderCount(Connection conn, int orderCode) throws Exception {
+		int result = 0;
+		String sql = "SELECT COUNT(*) cnt FROM order_goods WHERE order_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			result = rs.getInt("cnt");
+		}
+		return result;
+	}
+	*/
+	
 	// 주문 내역 조회
 	public ArrayList<HashMap<String, Object>> getOrderList(Connection conn, String customerId) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
@@ -162,6 +220,8 @@ public class OrderDao {
 		return goodsList;
 	}
 	*/
+	
+	
 	
 	public ArrayList<HashMap<String, Object>> getGoodsListAllByOrder(Connection conn, String orderCode) throws Exception {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();

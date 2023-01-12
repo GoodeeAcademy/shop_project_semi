@@ -35,6 +35,7 @@
 				</tr>
 			</c:forEach>
 		</table> --%>
+
 		<table border="1">
 			<thead>
 				<tr>
@@ -75,11 +76,48 @@
 							</c:if>
 						</td>
 					</tr>
-					<c:forEach begin="0" end="" step="1">
-					
-					</c:forEach>
 				</c:forEach>	
 			</tbody>
 		</table>
+
+		
+		
+		<%--
+		<table border="1">
+			<thead>
+				<tr>
+					<th>주문번호</th>
+					<th>주문일자</th>
+					<th>상품정보</th>
+					<th>주문금액(수량)</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<c:forEach var="m" items="${testList}">
+					<tr>
+						<td>${m['orderCode']}</td>
+						<td>${m['createdate']}</td>
+						<td>
+							<c:forEach var="g" items="${m['goodsList']}">
+								<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
+									<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지">
+									<br>
+									${g['goodsName']}
+								</div>
+							</c:forEach>
+						</td>
+						<td>
+							<c:forEach var="g" items="${m['goodsList']}">
+								<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
+									${g['goodsPrice']}원 / ${g['goodsQuantity']}개
+								</div>
+							</c:forEach>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		 --%>
 	</body>
 </html>
