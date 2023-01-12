@@ -1,6 +1,5 @@
 package controller.review;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;

@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-
 import dao.customer.CustomerDao;
 import dao.order.OrderDao;
 import dao.review.ReviewDao;

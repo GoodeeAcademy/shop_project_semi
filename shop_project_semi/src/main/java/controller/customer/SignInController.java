@@ -68,6 +68,7 @@ public class SignInController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("list") != null) {
+			@SuppressWarnings("unchecked")
 			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("list");
 			for (HashMap<String, Object> hashMap : list) {
 				Cart cart = new Cart();
