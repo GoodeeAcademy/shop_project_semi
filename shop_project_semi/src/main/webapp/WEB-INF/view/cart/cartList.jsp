@@ -9,7 +9,7 @@
 	</head>
 	<body oncopy="return false" oncut="return false" onpaste="return false">
 		<h1>cart list</h1>
-		<form action="${pageContext.request.contextPath}/modifyCart" method="post" id="modiForm">
+		<form action="${pageContext.request.contextPath}/modifyCart" method="post" id="updateForm">
 			<table border="1">
 				<thead>
 					<tr>
@@ -38,12 +38,11 @@
 							<td><a href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">delete</a></td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<td colspan="4"><button id="submit" type="button">UPDATE CART</button></td>
-					</tr>
 				</tbody>
 			</table>
-			<a href="${pageContext.request.contextPath}/OrderController">주문하기</a>
+		</form>
+		<form action="${pageContext.request.contextPath}/OrderController" method="get">
+			<button type="submit">주문하기</button>
 		</form>
 		
 		<script>
@@ -53,13 +52,17 @@
 				const downBtn = document.querySelectorAll('.btn-quantity-down');
 				const price = document.querySelectorAll('.price');
 				const totalPrice = document.querySelectorAll('.totalPrice');
+				const updateForm = document.querySelector('#updateForm');
 				
+				// 상품 수량 증가, 감소 버튼
 				for(let i = 0; i < quantity.length; i++) {
 					// + 버튼
 					upBtn[i].addEventListener('click', function(){
 						let q = parseInt(document.querySelectorAll('.quantity')[i].value); // 수량 
 						quantity[i].value = q+1;
 						totalPrice[i].textContent = parseInt(price[i].textContent) * (q+1);
+						alert('수량이 변경되었습니다.');
+						updateForm.submit();
 				    });
 					// -버튼
 					downBtn[i].addEventListener('click', function(){
@@ -67,27 +70,27 @@
 						if(quantity[i].value > 1) {
 							quantity[i].value = q-1;		
 							totalPrice[i].textContent = parseInt(price[i].textContent) * (q-1);
+							alert('수량이 변경되었습니다.');
+							updateForm.submit();
 						}
 				    });
 				}
 				
-				submit.addEventListener('click', function() {
-					for(let i = 0; i < quantity.length; i++) {
-						var tmp = quantity[i].value;
-						console.log(tmp);
-						if(quantity[i].value < 1) {
-							console.log(tmp);
-							console.log(quantity[i].value);
-							
-							alert('1개 이상의 상품을 담아주세요.');
-							quantity[i].value = tmp;
-						} else {
-							$('#modiForm').submit();
-						}
-					}
+				// 상품 수량 유효성검사
+				for(let i = 0; i < quantity.length; i++) {
+					let tmp = quantity[i].value;
 					
-					$('#submit').submit();
-				})
+					quantity[i].addEventListener('blur', function() {
+						if(quantity[i].value < 1) {
+							alert('더 이상 줄일 수 없습니다.');
+							quantity[i].value = 1;
+							totalPrice[i].textContent = price[i].textContent;
+						} else if(quantity[i].value != tmp){
+							alert('수량이 변경되었습니다.');
+							updateForm.submit();							
+						}
+					})
+				}
 			});
 		</script>
 	</body>
