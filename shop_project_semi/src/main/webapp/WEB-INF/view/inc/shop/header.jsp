@@ -12,7 +12,7 @@
 						<li><a href="#">SHOP</a>
 							<ul class="sub-menu">
 								<li><a href="#">ALL</a></li>
-								<li><a href="#">Outwear</a></li>
+								<li><a href="#">Outwear</a></li> 
 								<li><a href="#">Top</a></li>
 								<li><a href="#">Bottom</a></li>
 								<li><a href="#">Accessories</a></li>
