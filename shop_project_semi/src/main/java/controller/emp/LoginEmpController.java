@@ -49,9 +49,19 @@ public class LoginEmpController extends HttpServlet {
 			System.out.println("로그인 실패");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('아이디와 비밀번호를 정확히 입력해 주세요'); location.href='"+request.getContextPath()+"/LoginEmpController"+"';</script>"); 
+			writer.println("<script>alert('아이디와 비밀번호를 정확히 입력해 주세요'); location.href='"+request.getContextPath()+"/LoginEmpController';</script>"); 
 			writer.close();
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			//response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			return;
+		}
+		
+		if(loginEmp.getActive().equals("N")) {
+			System.out.println("비 활성화 ID");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('비활성화 된 ID입니다.'); location.href='"+request.getContextPath()+"/LoginEmpController');</script>");
+			writer.close();
+			//response.sendRedirect(request.getContextPath()+"/LoginEmpController");
 			return;
 		}
 		
