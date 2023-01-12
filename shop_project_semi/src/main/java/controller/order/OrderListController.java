@@ -42,11 +42,13 @@ public class OrderListController extends HttpServlet {
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		this.orderService = new OrderService();
 		ArrayList<HashMap<String,Object>> orderList = orderService.getOrderList(loginCustomer.getCustomerId());
+		//ArrayList<HashMap<String,Object>> testList = orderService.getOrder(loginCustomer.getCustomerId());
 		//orderCode, customerId, orderName, orderPrice, orderState, createdate
 		// goodsCode, goodsName, fileName, quantity
 		
 		
 		request.setAttribute("orderList", orderList);
+		//request.setAttribute("testList", testList);
 		
 		request.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp").forward(request, response);
 		

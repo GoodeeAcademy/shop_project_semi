@@ -116,7 +116,48 @@ public class OrderService {
 		}
 		return orderList;
 	}
-		*/
+	 */
+	
+	/* 실험용 
+	public ArrayList<HashMap<String,Object>> getOrder(String customerId) {
+		ArrayList<HashMap<String, Object>> orderList = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			orderList = new ArrayList<HashMap<String,Object>>();
+			
+			
+			ArrayList<Orders> list = orderDao.getOrder(conn, customerId);
+			for(Orders orders : list) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("orderCode", orders.getOrderCode());
+				map.put("createdate", orders.getCreatedate());
+				int orderQuantity = orderDao.getOrderCount(conn, orders.getOrderCode());
+				map.put("orderQuantity", orderQuantity);
+				ArrayList<HashMap<String,Object>> arr1 = orderDao.getOrderGoods(conn, orders.getOrderCode());
+				map.put("goodsList", arr1);
+				
+				orderList.add(map);
+			}
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return orderList;
+	}
+	*/
+	
 	// 주문 내역 조회 페이지  
 	public ArrayList<HashMap<String,Object>> getOrderList(String customerId) {
 		ArrayList<HashMap<String,Object>> orderList = null;
