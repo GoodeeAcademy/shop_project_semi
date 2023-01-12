@@ -126,7 +126,6 @@ public class OrderService {
 			conn = DBUtil.getConnection();
 			orderList = new ArrayList<HashMap<String,Object>>();
 			
-			
 			ArrayList<Orders> list = orderDao.getOrder(conn, customerId);
 			for(Orders orders : list) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -135,8 +134,24 @@ public class OrderService {
 				int orderQuantity = orderDao.getOrderCount(conn, orders.getOrderCode());
 				map.put("orderQuantity", orderQuantity);
 				ArrayList<HashMap<String,Object>> arr1 = orderDao.getOrderGoods(conn, orders.getOrderCode());
-				map.put("goodsList", arr1);
 				
+				for(HashMap<String,Object> m : arr1) {
+					Review review = new Review();
+					review.setOrderCode(orders.getOrderCode());
+					review.setGoodsCode((int)m.get("goodsCode"));
+					
+					// 리뷰 중복 검사
+					
+					this.reviewDao = new ReviewDao();
+					boolean check = reviewDao.selectDuplicateReview(conn, review);
+					
+					if(check) { // 리뷰 썼으면
+						m.put("check", "리뷰 작성 완료");
+					}
+				}
+				
+				map.put("goodsList", arr1);
+					
 				orderList.add(map);
 			}
 		} catch(Exception e) {

@@ -103,7 +103,7 @@ public class OrderDao {
 	//실험용(Order 테이블에서 ID에 맞는 주문코드, 주문일 불러오기)
 	public ArrayList<Orders> getOrder(Connection conn, String customerId) throws Exception {
 		ArrayList<Orders> list = new ArrayList<Orders>();
-		String sql = "SELECT * FROM orders WHERE customer_id = ?";
+		String sql = "SELECT * FROM orders WHERE customer_id = ? ORDER BY createdate DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		ResultSet rs = stmt.executeQuery();
@@ -124,7 +124,7 @@ public class OrderDao {
 				+ "	FROM order_goods og\n"
 				+ "	JOIN goods g ON og.goods_code = g.goods_code\n"
 				+ "	JOIN goods_img gi ON g.goods_code = gi.goods_code\n"
-				+ "	WHERE og.order_code = ?";
+				+ "	WHERE og.order_code = ? ORDER BY og.goods_code ASC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, orderCode);
 		ResultSet rs = stmt.executeQuery();
