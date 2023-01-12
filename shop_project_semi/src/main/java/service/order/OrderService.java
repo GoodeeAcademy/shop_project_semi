@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import dao.cart.CartDao;
 import dao.customer.CustomerDao;
+import dao.goods.GoodsDao;
 import dao.order.OrderDao;
 import dao.review.ReviewDao;
 import util.DBUtil;
@@ -17,6 +18,7 @@ public class OrderService {
 	private CustomerDao customerDao;
 	private CartDao cartDao;
 	private ReviewDao reviewDao;
+	private GoodsDao goodsDao;
 	
 	//주문하기
 	public String addOrder(Orders order, ArrayList<HashMap<String,Object>> cart, int point) {
@@ -27,6 +29,7 @@ public class OrderService {
 			this.customerDao = new CustomerDao();
 			this.orderDao = new OrderDao();
 			this.cartDao = new CartDao();
+			this.goodsDao = new GoodsDao();
 			
 			int orderCode = orderDao.addOrder(conn, order);
 			if(orderCode == 0) {
@@ -38,6 +41,11 @@ public class OrderService {
 					int price = (int)m.get("goodsPrice");
 					if(orderDao.addOrderGoods(conn, orderCode, goodsCode, price, quantity) == 0) {
 						throw new Exception();
+					}
+					for(int i = 0; i<quantity; i++) {
+						if(goodsDao.updateHit(conn, goodsCode) == 0) {
+							throw new Exception();
+						}
 					}
 				}
 				if(customerDao.modifyCustomerPoint(conn, order, point) == 0) {

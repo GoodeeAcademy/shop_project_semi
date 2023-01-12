@@ -158,4 +158,20 @@ public class GoodsDao {
 		
 		return m;
 	}
+	
+	//상품 주문시 hit + 1
+	public int updateHit(Connection conn, int goodsCode) throws Exception {
+		int row = 0;
+		String sql = "UPDATE goods SET hit = hit+1 WHERE goods_code = ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsCode);
+		
+		row = stmt.executeUpdate();
+		
+		if(stmt!=null) {
+			stmt.close();
+		}
+		
+		return row;
+	}
 }

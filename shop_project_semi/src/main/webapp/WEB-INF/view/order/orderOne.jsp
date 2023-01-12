@@ -47,7 +47,7 @@
 					<td>${customerInfo['address']}</td>
 				</tr>
 				<tr>
-					<th>주문 상태</th>
+					<th>주문일</th>
 					<td>${customerInfo['createdate'] }</td>
 				</tr>
 				<tr>
