@@ -7,6 +7,11 @@
 		<title>goods one</title>
 	</head>
 	<body>
+		<a href="${pageContext.request.contextPath}/HomeController">home</a>
+		<a href="${pageContext.request.contextPath}/goodsList">shop</a>
+		<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
+		<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">문의</a>
+		<a href="${pageContext.request.contextPath}/CustomerOneController">my page</a>
 		<div>
 			<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200px" height="200px" alt="상품 이미지"/>
 		</div>

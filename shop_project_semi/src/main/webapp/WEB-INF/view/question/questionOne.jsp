@@ -7,6 +7,14 @@
 <title>문의</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/HomeController">home</a>
+	<a href="${pageContext.request.contextPath}/EmpMainController">직원페이지</a>
+	<a href="${pageContext.request.contextPath}/goodsList">shop</a>
+	<a href="${pageContext.request.contextPath}/addGoods">상품등록</a>
+	<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
+	<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">문의</a>
+	<a href="${pageContext.request.contextPath}/QuestionListForEmpController">문의(직원)</a>
+	<a href="${pageContext.request.contextPath}/CustomerOneController">my page</a>
 	<!-- 문의 -->
 	<h1>문의</h1>
 	<table>

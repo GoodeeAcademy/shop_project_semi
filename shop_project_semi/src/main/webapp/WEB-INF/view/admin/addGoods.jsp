@@ -7,7 +7,11 @@
 	</head>
 	<body>
 		<h1>상품등록</h1>
-		<a href="${pageContext.request.contextPath}/goodsList">상품목록</a>
+		<a href="${pageContext.request.contextPath}/HomeController">home</a>
+		<a href="${pageContext.request.contextPath}/EmpMainController">직원페이지</a>
+		<a href="${pageContext.request.contextPath}/goodsList">shop</a>
+		<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
+		<a href="${pageContext.request.contextPath}/QuestionListForEmpController">문의(직원)</a>
 		<form action="${pageContext.request.contextPath}/addGoods" method="post" enctype="multipart/form-data">
 			<table border="1">
 				<tr>

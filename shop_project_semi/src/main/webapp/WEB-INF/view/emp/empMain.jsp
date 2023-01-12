@@ -7,9 +7,13 @@
 </head>
 <body>
 	<span>${loginEmp.empName}님</span>
+	<a href="${pageContext.request.contextPath}/HomeController">home</a>
+	<a href="${pageContext.request.contextPath}/goodsList">shop</a>
 	<a href="${pageContext.request.contextPath}/ModifyEmpController">정보수정</a>
 	<a href="${pageContext.request.contextPath}/RemoveEmpController">퇴사처리(관리자)</a>
 	<a href="${pageContext.request.contextPath}/EmpListController">직원목록</a>
+	<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
+	<a href="${pageContext.request.contextPath}/QuestionListForEmpController">문의(직원)</a>
 	<a href="${pageContext.request.contextPath}/LogoutEmpController">로그아웃</a>
 </body>
 </html>

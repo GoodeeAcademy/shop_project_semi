@@ -7,6 +7,9 @@
 <title>공지</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/HomeController">home</a>
+	<a href="${pageContext.request.contextPath}/goodsList">shop</a>
+	<a href="${pageContext.request.contextPath}/CustomerOneController">내 정보</a>
 	<h1>공지</h1>
 	<!-- 직원은 공지 쓰기 가능 -->
 	<c:if test="${loginEmp != null}">

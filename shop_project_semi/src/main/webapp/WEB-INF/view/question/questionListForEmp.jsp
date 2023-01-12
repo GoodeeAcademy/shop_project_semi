@@ -7,7 +7,12 @@
 <title>전체 문의 목록(직원)</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/HomeController">home</a>
+	<a href="${pageContext.request.contextPath}/goodsList">shop</a>
 	<a href="${pageContext.request.contextPath}/EmpMainController">직원페이지</a>
+	<a href="${pageContext.request.contextPath}/addGoods">상품등록</a>
+	<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
+	<a href="${pageContext.request.contextPath}/QuestionListForEmpController">문의(직원)</a>
 	<table>
 		<tr>
 			<th>주문번호</th>

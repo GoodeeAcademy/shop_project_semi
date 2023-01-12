@@ -25,6 +25,12 @@
 </script>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/HomeController">home</a>
+	<a href="${pageContext.request.contextPath}/goodsList">shop</a>
+	<a href="${pageContext.request.contextPath}/EmpMainController">직원페이지</a>
+	<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
+	<a href="${pageContext.request.contextPath}/QuestionListForEmpController">문의(직원)</a>
+	<h1>직원 퇴사(관리자)</h1>
 	<form method="post" action="${pageContext.request.contextPath}/RemoveEmpController" id="removeEmpForm">
 		<table>
 			<tr>

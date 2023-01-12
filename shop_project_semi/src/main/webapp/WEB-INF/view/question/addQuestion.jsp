@@ -6,6 +6,11 @@
 <title>상품 문의하기</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/HomeController">home</a>
+	<a href="${pageContext.request.contextPath}/goodsList">shop</a>
+	<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
+	<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">문의</a>
+	<a href="${pageContext.request.contextPath}/CustomerOneController">my page</a>
 	<h1>상품 문의하기</h1>
 	<form method="post" action="${pageContext.request.contextPath}/AddQuestionController">
 		<table>
