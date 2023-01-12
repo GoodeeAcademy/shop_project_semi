@@ -88,6 +88,7 @@ public class GoodsImgDao {
 			stmt.setString(3, gi.getOriginName());
 			stmt.setString(4, gi.getContentType());
 			result = stmt.executeUpdate();
+			System.out.println("GoodsImgDao result : "+result);
 		}
 		
 		if(stmt != null) {stmt.close();}

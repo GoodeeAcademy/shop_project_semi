@@ -3,7 +3,6 @@ package controller.goods;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -67,9 +66,8 @@ public class AddGoodsController extends HttpServlet {
 		int hit = Integer.parseInt(mreq.getParameter("hit"));
 
 		ArrayList<HashMap<String, Object>> fileList = new ArrayList<>();
-		Enumeration<?> files = mreq.getFileNames();
-		int fileSeq = 1;
-		while(files.hasMoreElements()) {	// 업로드한 파일이 있다면
+		int fileSeq = 0;
+		while(true) {
 			HashMap<String, Object> fileMap = new HashMap<String, Object>();
 			
 			fileMap.put("filename", mreq.getFilesystemName("filename"+fileSeq));	// 저장된 이미지 파일명
@@ -78,7 +76,7 @@ public class AddGoodsController extends HttpServlet {
 			System.out.println("맵에 들어가는지 - 파일 확장자"+fileSeq+": " + mreq.getContentType("filename"+fileSeq));
 			
 			fileSeq++;
-			if(fileMap.get("contentType") == null) {
+			if(fileMap.get("contentType") == null) {	// null값 들어오면 반복문 종료
 				break;
 			}
 			fileList.add(fileMap);

@@ -303,4 +303,31 @@ public class GoodsService {
 		
 		return list;
 	}
+	
+	// 사진만 추가
+	public int addGoodsImg(ArrayList<GoodsImg> list) {
+		int result = 0;
+		this.goodsImgDao = new GoodsImgDao();
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			result = goodsImgDao.insertGoodsImg(conn, list);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 }

@@ -3,7 +3,6 @@ package controller.goods;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -81,11 +80,11 @@ public class ModifyGoodsController extends HttpServlet {
 		String empId = loginEmp.getEmpId();
 		int hit = Integer.parseInt(mreq.getParameter("hit"));
 		
+		// 1) 이미지 수정
 		ArrayList<HashMap<String, Object>> fileList = new ArrayList<>();
-		Enumeration<?> files = mreq.getFileNames();
 		int fileSeq = 0;
 		int listSize = Integer.parseInt(mreq.getParameter("listSize"));
-		while(files.hasMoreElements()) {
+		for(int i = 0; i < listSize; i++) {
 			HashMap<String, Object> fileMap = new HashMap<String, Object>();
 			
 			String goodsImgCode = mreq.getParameter("goodsImgCode"+fileSeq);
@@ -97,13 +96,31 @@ public class ModifyGoodsController extends HttpServlet {
 			fileMap.put("seq", fileSeq);	//기존 이미지 삭제를 위해 ①
 			fileSeq++;
 			if(fileMap.get("contentType") == null) {
-				continue;
+				continue;		// 처음 사진 외 다른 사진들을 수정할 수 있으므로 break가 아닌 continue
 			}
 			fileMap.put("check", true);	// 기존 이미지 삭제를 위해 ②
-			fileList.add(fileMap);
 			if(fileSeq >= listSize) {
 				break;
 			}
+			fileList.add(fileMap);
+		}
+		
+		// 2) 이미지 추가
+		ArrayList<HashMap<String, Object>> addedList = new ArrayList<>();
+		fileSeq = 0;
+		while(true) {
+			HashMap<String, Object> fileMap = new HashMap<String, Object>();
+			
+			fileMap.put("addedFilename", mreq.getFilesystemName("addedFilename"+fileSeq));	// 저장된 이미지 파일명
+			fileMap.put("addedOriginName", mreq.getOriginalFileName("addedFilename"+fileSeq));	// 파일 원본명
+			fileMap.put("addedContentType", mreq.getContentType("addedFilename"+fileSeq));	// 파일 확장자
+			System.out.println("맵에 들어가는지 - 파일 확장자"+fileSeq+": " + mreq.getContentType("addedFilename"+fileSeq));
+			
+			fileSeq++;
+			if(fileMap.get("addedContentType") == null) {	// null값 들어오면 반복문 종료
+				break;
+			}
+			addedList.add(fileMap);
 		}
 		
 		// goods vo
@@ -115,49 +132,80 @@ public class ModifyGoodsController extends HttpServlet {
 		goods.setSoldOut(soldOut);
 		goods.setEmpId(empId);
 		goods.setHit(hit);
-		
+		// 1) 이미지 수정
 		ArrayList<GoodsImg> list = new ArrayList<GoodsImg>();
 		System.out.println(fileList.size()+"<-----수정할 파일 개수");
 		for(HashMap<String, Object> m : fileList) {
-			String contentType = (String)m.get("contentType");
-			System.out.println(contentType+"<-------이미지 유형");
+			if(m.get("contentType") != null) {				
+				String contentType = (String)m.get("contentType");
+				System.out.println(contentType+"<-------이미지 유형");
+				if(contentType.equals("image/jpeg") || contentType.equals("image/png")){
+					// goodsImg vo
+					GoodsImg goodsImg = new GoodsImg();
+					int goodsImgCode = Integer.parseInt((String)m.get("goodsImgCode"));
+					goodsImg.setGoodsImgCode(goodsImgCode);
+					goodsImg.setGoodsCode(goodsCode);
+					goodsImg.setFilename((String)m.get("filename"));
+					goodsImg.setOriginName((String)m.get("originName"));
+					goodsImg.setContentType((String)m.get("contentType"));
+					list.add(goodsImg);
+					
+				} else {
+					System.out.print("*.jpg, *.png파일만 업로드 가능");
+					File f = new File(dir + "\\" + (String)m.get("filename"));
+					if(f.exists()) {
+						f.delete();
+					}
+				}		
+			}
+		}
+		// 2) 이미지 추가
+		ArrayList<GoodsImg> addedImgList = new ArrayList<GoodsImg>();
+		for(HashMap<String, Object> m : addedList) {
+			String contentType = (String)m.get("addedContentType");
 			if(contentType.equals("image/jpeg") || contentType.equals("image/png")){
 				// goodsImg vo
 				GoodsImg goodsImg = new GoodsImg();
-				int goodsImgCode = Integer.parseInt((String)m.get("goodsImgCode"));
-				goodsImg.setGoodsImgCode(goodsImgCode);
 				goodsImg.setGoodsCode(goodsCode);
-				goodsImg.setFilename((String)m.get("filename"));
-				goodsImg.setOriginName((String)m.get("originName"));
-				goodsImg.setContentType((String)m.get("contentType"));
-				list.add(goodsImg);
-				
-			} else {
+				goodsImg.setFilename((String)m.get("addedFilename"));
+				goodsImg.setOriginName((String)m.get("addedOriginName"));
+				goodsImg.setContentType((String)m.get("addedContentType"));
+				addedImgList.add(goodsImg);
+			}else {
 				System.out.print("*.jpg, *.png파일만 업로드 가능");
-				File f = new File(dir + "\\" + (String)m.get("filename"));
+				File f = new File(dir + "\\" + m.get("addedFilename"));
 				if(f.exists()) {
 					f.delete();
 				}
-			}		
+			}
 		}
 		
-		// service 호출
+		// service 호출 - 수정
 		GoodsService goodsService = new GoodsService();
 		int result = goodsService.modifyGoods(goods, list, dir);
 		
 		if(result < 1) {
-			System.out.println("ModifyGoodsController: updateGoodsImg fail");
+			System.out.println("ModifyGoodsController: updateGoodsImg fail OR nothing updates");
 		}
 		
 		// 수정 완료 시 이전 이미지 파일 삭제
 		for(HashMap<String, Object> m : fileList) {
-			if((boolean)m.get("check")) {	// 수정한 이미지 파일이라면	
-				File f = new File(dir + "\\" + mreq.getParameter("oldFilename"+(int)m.get("seq")));
-				if(f.exists()) {
-					f.delete();
-					System.out.println("ModifyGoodsController : 기존 파일 삭제 완료");
+			if(m.get("contentType") != null) {
+				if((boolean)m.get("check")) {	// 수정한 이미지 파일이라면	
+					File f = new File(dir + "\\" + mreq.getParameter("oldFilename"+(int)m.get("seq")));
+					if(f.exists()) {
+						f.delete();
+						System.out.println("ModifyGoodsController : 기존 파일 삭제 완료");
+					}
 				}
 			}
+		}
+		
+		// service 호출 - 사진 추가
+		System.out.println("ModifyGoodsController 추가 이미지 파일 개수: "+addedImgList.size());
+		int check = goodsService.addGoodsImg(addedImgList);
+		if(check < 1) {
+			System.out.println("ModifyGoodsController: addGoodsImg fail OR nothing adds");
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/goodsList");

@@ -50,9 +50,9 @@
 				<tr>
 					<th>사진등록</th>
 					<td>
-						<div><input type="file" name="filename1" accept="image/jpeg, image/png"></div>
-						<div><input type="file" name="filename2" accept="image/jpeg, image/png"></div>
-						<div><input type="file" name="filename3" accept="image/jpeg, image/png"></div>
+						<c:forEach var="i" begin="0" end="2">
+							<div><input type="file" name="filename${i}" accept="image/jpeg, image/png"></div>
+						</c:forEach>
 					</td>
 				</tr>
 			</table>

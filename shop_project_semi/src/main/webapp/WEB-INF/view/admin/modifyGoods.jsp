@@ -50,6 +50,14 @@
 					</tr>
 				</c:forEach>
 				<tr>
+					<th>사진추가</th>
+					<td>
+						<c:forEach var="i" begin="0" end="2">
+							<div><input type="file" name="addedFilename${i}" accept="image/jpeg, image/png"></div>
+						</c:forEach>
+					</td>
+				</tr>
+				<tr>
 					<th>판매가격</th>
 					<td><input type="text" name="goodsPrice" value="${m.goodsPrice}"/></td>
 				</tr>
