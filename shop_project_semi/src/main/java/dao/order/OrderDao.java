@@ -100,8 +100,8 @@ public class OrderDao {
 	// 주문 내역 조회
 	public ArrayList<HashMap<String, Object>> getOrderList(Connection conn, String customerId) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		String sql = "SELECT od.order_code orderCode, od.createdate createdate, odg.goods_code goodsCode , "
-				+ " odg.order_goods_price orderGoodsPrice, odg.order_goods_quantity orderGoodsQuantity, "
+		String sql = "SELECT od.order_code orderCode, od.createdate createdate, odg.goods_code goodsCode,"
+				+ " odg.order_goods_price orderGoodsPrice, odg.order_goods_quantity orderGoodsQuantity, odg.order_goods_state orderState,"
 				+ " gs.goods_name goodsName, gsi.filename filename"
 				+ " FROM orders od JOIN order_goods odg ON od.order_code = odg.order_code"
 				+ " JOIN goods gs ON odg.goods_code = gs.goods_code"
@@ -118,6 +118,7 @@ public class OrderDao {
 			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("orderGoodsPrice", rs.getInt("orderGoodsPrice"));
 			m.put("orderGoodsQuantity", rs.getInt("orderGoodsQuantity"));
+			m.put("orderState", rs.getString("orderState"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
