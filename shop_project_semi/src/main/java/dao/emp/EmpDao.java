@@ -84,8 +84,8 @@ public class EmpDao {
 	// 직원 가입
 	public int insertEmp(Connection conn, Emp emp) throws Exception{
 		int row = 0;
-		String sql = "INSERT INTO emp(emp_id, emp_pw, emp_name) "
-				+ "VALUES(?, PASSWORD(?), ?)";
+		String sql = "INSERT INTO emp(emp_id, emp_pw, emp_name, active, auth_code, createdate, updatedate) "
+				+ "VALUES(?, PASSWORD(?), ?, 'N', 3, NOW(), NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, emp.getEmpId());
 		stmt.setString(2, emp.getEmpPw());
