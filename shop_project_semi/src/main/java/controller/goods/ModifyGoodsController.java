@@ -17,6 +17,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import service.goods.GoodsService;
+import vo.Category;
 import vo.Emp;
 import vo.Goods;
 import vo.GoodsImg;
@@ -46,11 +47,13 @@ public class ModifyGoodsController extends HttpServlet {
 		HashMap<String, Object> m = goodsService.getGoodsOne(goodsCode);
 		m.put("dir", request.getServletContext().getRealPath("/upload"));
 		ArrayList<GoodsImg> imgList = goodsService.getAllGoodsImg(goodsCode);
+		ArrayList<Category> categoryList = goodsService.getCategoryList();
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("m", m);
-		request.setAttribute("imgList", imgList);
-		request.setAttribute("listSize", imgList.size());
+		request.setAttribute("imgList", imgList);	// 이미지 목록
+		request.setAttribute("listSize", imgList.size());	// 상품당 이미지 개수
+		request.setAttribute("categoryList", categoryList);	// 카테고리 목록
 		request.getRequestDispatcher("/WEB-INF/view/admin/modifyGoods.jsp").forward(request, response);
 	}
 
@@ -69,6 +72,7 @@ public class ModifyGoodsController extends HttpServlet {
 		DefaultFileRenamePolicy fp = new DefaultFileRenamePolicy();
 		MultipartRequest mreq = new MultipartRequest(request, dir, maxFileSize, "utf-8", fp);
 		
+		int categoryCode = Integer.parseInt(mreq.getParameter("categoryCode"));
 		int goodsCode = Integer.parseInt(mreq.getParameter("goodsCode"));
 		String goodsName = mreq.getParameter("goodsName");
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
@@ -104,6 +108,7 @@ public class ModifyGoodsController extends HttpServlet {
 		
 		// goods vo
 		Goods goods = new Goods();
+		goods.setCategoryCode(categoryCode);
 		goods.setGoodsCode(goodsCode);
 		goods.setGoodsName(goodsName);
 		goods.setGoodsPrice(goodsPrice);
@@ -147,7 +152,6 @@ public class ModifyGoodsController extends HttpServlet {
 		// 수정 완료 시 이전 이미지 파일 삭제
 		for(HashMap<String, Object> m : fileList) {
 			if((boolean)m.get("check")) {	// 수정한 이미지 파일이라면	
-				System.out.println("들어는 옴?");
 				File f = new File(dir + "\\" + mreq.getParameter("oldFilename"+(int)m.get("seq")));
 				if(f.exists()) {
 					f.delete();

@@ -22,6 +22,16 @@
 					</td>
 				</tr>
 				<tr>
+					<th>카테고리</th>
+					<td>
+						<select name="categoryCode">
+							<c:forEach var="c" items="${categoryList}">
+								<option value="${c.categoryCode}">${c.categoryName}</option>
+							</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<th>상품명</th>
 					<td><input type="text" name="goodsName" value="${m.goodsName}"/></td>
 				</tr>

@@ -18,6 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import service.goods.GoodsService;
+import vo.Category;
 import vo.Emp;
 import vo.Goods;
 import vo.GoodsImg;
@@ -25,7 +26,8 @@ import vo.GoodsImg;
 @WebServlet("/addGoods")
 public class AddGoodsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private GoodsService goodsService;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 직원이 아니라면 직원 로그인 창으로 페이지 전환
 		HttpSession session = request.getSession();
@@ -33,6 +35,10 @@ public class AddGoodsController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/LoginEmpController");
 			return;
 		}
+		
+		goodsService = new GoodsService();
+		ArrayList<Category> list = goodsService.getCategoryList();
+		request.setAttribute("categoryList", list);
 		
 		request.getRequestDispatcher("/WEB-INF/view/admin/addGoods.jsp").forward(request, response);
 	}
@@ -52,6 +58,7 @@ public class AddGoodsController extends HttpServlet {
 		DefaultFileRenamePolicy fp = new DefaultFileRenamePolicy();
 		MultipartRequest mreq = new MultipartRequest(request, dir, maxFileSize, "utf-8", fp);
 
+		int categoryCode = Integer.parseInt(mreq.getParameter("categoryCode"));
 		String goodsName = mreq.getParameter("goodsName");
 		int goodsPrice = Integer.parseInt(mreq.getParameter("goodsPrice"));
 		String soldOut = mreq.getParameter("soldOut");
@@ -78,18 +85,18 @@ public class AddGoodsController extends HttpServlet {
 		}
 
 		
-		Goods goods = null;
+		// goods vo
+		Goods goods = new Goods();
+		goods.setCategoryCode(categoryCode);
+		goods.setGoodsName(goodsName);
+		goods.setGoodsPrice(goodsPrice);
+		goods.setSoldOut(soldOut);
+		goods.setEmpId(empId);
+		goods.setHit(hit);
 		ArrayList<GoodsImg> list = new ArrayList<GoodsImg>();
 		for(HashMap<String, Object> m : fileList) {
 			String contentType = (String)m.get("contentType");
 			if(contentType.equals("image/jpeg") || contentType.equals("image/png")){
-				// goods vo
-				goods = new Goods();
-				goods.setGoodsName(goodsName);
-				goods.setGoodsPrice(goodsPrice);
-				goods.setSoldOut(soldOut);
-				goods.setEmpId(empId);
-				goods.setHit(hit);
 				
 				// goodsImg vo
 				GoodsImg goodsImg = new GoodsImg();
@@ -107,14 +114,14 @@ public class AddGoodsController extends HttpServlet {
 		}
 		
 		// service 호출
-		GoodsService goodsService = new GoodsService();
-		int result = goodsService.addGoods(goods, list, dir);
+		goodsService = new GoodsService();
+		int autoKey = goodsService.addGoods(goods, list, dir);
 		
-		if(result != 1) {
+		if(autoKey == 0) {
 			System.out.println("상품 추가 실패");
 		}
 
-		response.sendRedirect(request.getContextPath() + "/addGoods");
+		response.sendRedirect(request.getContextPath() + "/goodsOne?goodsCode="+autoKey);
 	}
 
 }

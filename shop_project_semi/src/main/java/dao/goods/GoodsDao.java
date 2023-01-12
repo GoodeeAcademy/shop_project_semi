@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import vo.Category;
 import vo.Goods;
 
 public class GoodsDao {
@@ -14,6 +15,7 @@ public class GoodsDao {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.category_code categoryCode, gs.hit hit, filename\r\n"
 				+ "FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code\r\n"
+				+ "GROUP BY gs.goods_code\r\n"
 				+ "ORDER BY hit DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -133,13 +135,14 @@ public class GoodsDao {
 	
 	// 상품 추가
 	public HashMap<String, Integer> insertGoods(Connection conn, Goods goods) throws Exception {
-		String sql = "INSERT INTO goods(goods_name, goods_price, sold_out, emp_id, hit, createdate, updatedate) VALUES(?, ?, ?, ?, ?, NOW(), NOW())";
+		String sql = "INSERT INTO goods(category_code, goods_name, goods_price, sold_out, emp_id, hit, createdate, updatedate) VALUES(?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-		stmt.setString(1, goods.getGoodsName());
-		stmt.setInt(2, goods.getGoodsPrice());
-		stmt.setString(3, goods.getSoldOut());
-		stmt.setString(4, goods.getEmpId());
-		stmt.setInt(5, goods.getHit());
+		stmt.setInt(1, goods.getCategoryCode());
+		stmt.setString(2, goods.getGoodsName());
+		stmt.setInt(3, goods.getGoodsPrice());
+		stmt.setString(4, goods.getSoldOut());
+		stmt.setString(5, goods.getEmpId());
+		stmt.setInt(6, goods.getHit());
 		
 		int result = stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys(); 
@@ -173,5 +176,22 @@ public class GoodsDao {
 		}
 		
 		return row;
+	}
+	
+	// 카테고리 목록
+	public ArrayList<Category> selectCategoryList(Connection conn) throws Exception{
+		ArrayList<Category> list = new ArrayList<Category>();
+		String sql = "SELECT category_code categoryCode, category_name categoryName FROM category";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Category c = new Category();
+			c.setCategoryCode(rs.getInt("categoryCode"));
+			c.setCategoryName(rs.getString("categoryName"));
+			list.add(c);
+		}
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		return list;
 	}
 }

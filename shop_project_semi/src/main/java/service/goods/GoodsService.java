@@ -9,6 +9,7 @@ import java.util.HashMap;
 import dao.goods.GoodsDao;
 import dao.goods.GoodsImgDao;
 import util.DBUtil;
+import vo.Category;
 import vo.Goods;
 import vo.GoodsImg;
 
@@ -222,7 +223,7 @@ public class GoodsService {
 	
 	// 상품 추가
 	public int addGoods(Goods goods, ArrayList<GoodsImg> list, String dir) {
-		int result = 0;
+		int autoKey = 0;
 		Connection conn = null;
 		
 		try {
@@ -241,7 +242,11 @@ public class GoodsService {
 				goodsImg.setGoodsCode(m.get("autoKey"));
 			}
 			
-			result = goodsImgDao.insertGoodsImg(conn, list);
+			if(goodsImgDao.insertGoodsImg(conn, list) == 0) {
+				throw new Exception();
+			}
+			
+			autoKey = m.get("autoKey");
 			
 			conn.commit();
 		} catch (Exception e) {
@@ -266,6 +271,36 @@ public class GoodsService {
 			}
 		}
 		
-		return result;
+		return autoKey;
+	}
+	
+	// 카테고리 목록
+	public ArrayList<Category> getCategoryList(){
+		ArrayList<Category> list = new ArrayList<Category>();
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			goodsDao = new GoodsDao();
+			list = goodsDao.selectCategoryList(conn);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
 	}
 }
