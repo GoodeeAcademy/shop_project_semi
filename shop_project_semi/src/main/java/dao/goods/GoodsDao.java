@@ -9,12 +9,12 @@ import java.util.HashMap;
 import vo.Goods;
 
 public class GoodsDao {
-	// 상품 리스트
+	// 상품 리스트 (메인)
 	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, filename \r\n"
+		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.category_code categoryCode, gs.hit hit, filename\r\n"
 				+ "FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code\r\n"
-				+ "GROUP BY gs.goods_code";
+				+ "ORDER BY hit DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		
@@ -23,6 +23,8 @@ public class GoodsDao {
 			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("goodsPrice", rs.getInt("goodsPrice"));
+			m.put("categoryCode", rs.getInt("categoryCode"));
+			m.put("hit", rs.getInt("hit"));
 			m.put("filename", rs.getString("fileName"));
 			list.add(m);
 		}
@@ -33,13 +35,25 @@ public class GoodsDao {
 		return list;
 	}
 	
+	// 상품 리스트(카테고리별, 신상품순)
+	
 	// 상품 상세 정보
 	public HashMap<String, Object> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		HashMap<String, Object> m = null;
-		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, sold_out soldOut,"
-				+ " emp_id empId, hit, filename, gs.createdate createdate, gs.updatedate updatedate"
-				+ " FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code"
-				+ " WHERE gs.goods_code = ?";
+		String sql = "SELECT t.goods_code goodsCode\r\n"
+				+ "		, c.category_code categoryCode\r\n"
+				+ "		, c.category_name categoryName\r\n"
+				+ "		, t.goods_name goodsName\r\n"
+				+ "		, t.goods_price goodsPrice\r\n"
+				+ "		, t.sold_out soldOut\r\n"
+				+ "		, t.emp_id empId\r\n"
+				+ "		, t.hit hit\r\n"
+				+ "		, t.createdate createdate\r\n"
+				+ "		, t.updatedate updatedate\r\n"
+				+ "		, t.filename filename\r\n"
+				+ "FROM (SELECT gs.goods_code goods_code, gs.category_code category_code, gs.goods_name goods_name, gs.goods_price goods_price, gs.hit hit, gs.sold_out sold_out, gs.emp_id emp_id, gs.createdate createdate, gs.updatedate updatedate, filename\r\n"
+				+ "		FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code) t INNER JOIN category c ON t.category_code = c.category_code\r\n"
+				+ "WHERE t.goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsCode);
 		ResultSet rs = stmt.executeQuery();
@@ -47,6 +61,8 @@ public class GoodsDao {
 		if(rs.next()) {
 			m = new HashMap<>();
 			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("categoryCode", rs.getInt("categoryCode"));
+			m.put("categoryName", rs.getString("categoryName"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("goodsPrice", rs.getInt("goodsPrice"));
 			m.put("soldOut", rs.getString("soldOut"));
