@@ -35,7 +35,8 @@
 				</tr>
 			</c:forEach>
 		</table> --%>
-
+		
+		<%--
 		<table border="1">
 			<thead>
 				<tr>
@@ -79,10 +80,8 @@
 				</c:forEach>	
 			</tbody>
 		</table>
-
+		 --%>
 		
-		
-		<%--
 		<table border="1">
 			<thead>
 				<tr>
@@ -95,29 +94,43 @@
 			
 			<tbody>
 				<c:forEach var="m" items="${testList}">
-					<tr>
-						<td>${m['orderCode']}</td>
-						<td>${m['createdate']}</td>
-						<td>
-							<c:forEach var="g" items="${m['goodsList']}">
+				<tr>
+					<td rowspan="${m['orderQuantity']}">${m['orderCode']}</td>
+					<td rowspan="${m['orderQuantity']}">${m['createdate']}</td>
+					<c:forEach var="g" items="${m['goodsList']}" varStatus="d" >
+						<c:if test="${d.first}">
+							<td>
 								<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
 									<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지">
-									<br>
 									${g['goodsName']}
 								</div>
-							</c:forEach>
-						</td>
-						<td>
-							<c:forEach var="g" items="${m['goodsList']}">
+							</td>
+							<td>
 								<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
 									${g['goodsPrice']}원 / ${g['goodsQuantity']}개
 								</div>
-							</c:forEach>
-						</td>
+							</td>
+						</c:if>
+						<c:if test="${!d.first}">
+							<tr>
+								<td>
+									<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
+										<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지">
+										${g['goodsName']}
+									</div>
+								</td>
+								<td>
+									<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
+										${g['goodsPrice']}원 / ${g['goodsQuantity']}개
+									</div>
+								</td>
+							</tr>
+						</c:if>
+					</c:forEach>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		 --%>
+
 	</body>
 </html>

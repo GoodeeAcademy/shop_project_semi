@@ -118,7 +118,7 @@ public class OrderService {
 	}
 	 */
 	
-	/* 실험용 
+	
 	public ArrayList<HashMap<String,Object>> getOrder(String customerId) {
 		ArrayList<HashMap<String, Object>> orderList = null;
 		Connection conn = null;
@@ -156,7 +156,7 @@ public class OrderService {
 		
 		return orderList;
 	}
-	*/
+	
 	
 	// 주문 내역 조회 페이지  
 	public ArrayList<HashMap<String,Object>> getOrderList(String customerId) {

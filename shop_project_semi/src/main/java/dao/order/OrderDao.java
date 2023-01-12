@@ -99,7 +99,7 @@ public class OrderDao {
 	}
 	*/
 	
-	/*
+	
 	//실험용(Order 테이블에서 ID에 맞는 주문코드, 주문일 불러오기)
 	public ArrayList<Orders> getOrder(Connection conn, String customerId) throws Exception {
 		ArrayList<Orders> list = new ArrayList<Orders>();
@@ -154,7 +154,7 @@ public class OrderDao {
 		}
 		return result;
 	}
-	*/
+	
 	
 	// 주문 내역 조회
 	public ArrayList<HashMap<String, Object>> getOrderList(Connection conn, String customerId) throws Exception {
