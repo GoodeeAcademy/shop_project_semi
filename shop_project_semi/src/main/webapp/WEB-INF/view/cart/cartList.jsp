@@ -55,6 +55,13 @@
 				const totalPrice = document.querySelectorAll('.totalPrice');
 				
 				for(let i = 0; i < quantity.length; i++) {
+					if(quantity[i].value < 1) {
+						quantity[i].value = 1;
+						totalPrice[i].textContent = parseInt(price[i].textContent);
+					} 
+				}
+				
+				for(let i = 0; i < quantity.length; i++) {
 					// + 버튼
 					upBtn[i].addEventListener('click', function(){
 						let q = parseInt(document.querySelectorAll('.quantity')[i].value); // 수량 
