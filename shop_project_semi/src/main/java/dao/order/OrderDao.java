@@ -11,8 +11,8 @@ public class OrderDao {
 	public int addOrder(Connection conn, Orders order) throws Exception {
 		int autoKey = 0;
 		String sql = "INSERT"
-				+ " INTO orders(customer_id, order_name, address, order_price, order_state, createdate)"
-				+ " VALUES(?, ?, ?, ?, '결제', now());";
+				+ " INTO orders(customer_id, order_name, address, order_price, createdate)"
+				+ " VALUES(?, ?, ?, ?, now());";
 		PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 		stmt.setString(1, order.getCustomerId());
 		stmt.setString(2, order.getOrderName());
@@ -34,8 +34,8 @@ public class OrderDao {
 	public int addOrderGoods(Connection conn, int orderCode, int goodsCode, int price, int quantity) throws Exception {
 		int row = 0;
 		String sql = "INSERT"
-				+ " INTO order_goods(order_code, goods_code, order_goods_price, order_goods_quantity)"
-				+ " VALUES(?, ?, ?, ?)";
+				+ " INTO order_goods(order_code, goods_code, order_goods_price, order_goods_quantity, order_goods_state)"
+				+ " VALUES(?, ?, ?, ?, '결제전')";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, orderCode);
 		stmt.setInt(2, goodsCode);
@@ -100,7 +100,9 @@ public class OrderDao {
 	// 주문 내역 조회
 	public ArrayList<HashMap<String, Object>> getOrderList(Connection conn, String customerId) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		String sql = "SELECT od.order_code orderCode, od.createdate createdate, odg.goods_code goodsCode , odg.order_goods_price orderGoodsPrice, odg.order_goods_quantity orderGoodsQuantity, od.order_state orderState, gs.goods_name goodsName, gsi.filename filename"
+		String sql = "SELECT od.order_code orderCode, od.createdate createdate, odg.goods_code goodsCode , "
+				+ " odg.order_goods_price orderGoodsPrice, odg.order_goods_quantity orderGoodsQuantity, "
+				+ " gs.goods_name goodsName, gsi.filename filename"
 				+ " FROM orders od JOIN order_goods odg ON od.order_code = odg.order_code"
 				+ " JOIN goods gs ON odg.goods_code = gs.goods_code"
 				+ " JOIN goods_img gsi ON gs.goods_code = gsi.goods_code"
@@ -116,7 +118,6 @@ public class OrderDao {
 			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("orderGoodsPrice", rs.getInt("orderGoodsPrice"));
 			m.put("orderGoodsQuantity", rs.getInt("orderGoodsQuantity"));
-			m.put("orderState", rs.getString("orderState"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
@@ -164,8 +165,8 @@ public class OrderDao {
 		ArrayList<HashMap<String, Object>> goodsList = new ArrayList<HashMap<String, Object>>();
 		String sql = "	SELECT *\n"
 				+ "	FROM \n"
-				+ "		(SELECT t.goods_code, t.price, t.quantity, t1.goods_name FROM\n"
-				+ "			(SELECT goods_code, order_goods_price price, order_goods_quantity quantity FROM order_goods WHERE order_code = ?)t\n"
+				+ "		(SELECT t.goods_code, t.price, t.quantity, t1.goods_name, t.orderState FROM\n"
+				+ "			(SELECT goods_code, order_goods_price price, order_goods_quantity quantity, order_goods_state orderState FROM order_goods WHERE order_code = ?)t\n"
 				+ "			INNER join\n"
 				+ "			(SELECT goods_code, goods_name, goods_price FROM goods)t1 ON t.goods_code = t1.goods_code\n"
 				+ "		) a1\n"
@@ -181,6 +182,7 @@ public class OrderDao {
 			m.put("goodsCode", rs.getInt("goods_code"));
 			m.put("quantity", rs.getInt("quantity"));
 			m.put("price", rs.getInt("price"));
+			m.put("orderState", rs.getString("orderState"));
 			m.put("goodsName", rs.getString("goods_name"));
 			m.put("fileName", rs.getString("filename"));
 			
@@ -192,9 +194,9 @@ public class OrderDao {
 	
 	public HashMap<String,Object> getOrderInfoByCustomer(Connection conn, String orderCode) throws Exception {
 		HashMap<String,Object> list = new HashMap<String,Object>();
-		String sql = "SELECT a1.ID, a1.orderName, a1.address, a1.orderState, a1.orderPrice, a1.createdate, a1.POINT, c.customer_phone phone\n"
+		String sql = "SELECT a1.ID, a1.orderName, a1.address, a1.orderPrice, a1.createdate, a1.POINT, c.customer_phone phone\n"
 				+ "FROM\n"
-				+ "(SELECT o.customer_id ID, o.order_name orderName, o.address address, o.order_price orderPrice, o.order_state orderState, o.createdate createdate, ph.point POINT\n"
+				+ "(SELECT o.customer_id ID, o.order_name orderName, o.address address, o.order_price orderPrice, o.createdate createdate, ph.point POINT\n"
 				+ "	 FROM orders o INNER JOIN point_history ph ON o.order_code = ph.order_code WHERE o.order_code = ?) a1\n"
 				+ "INNER JOIN\n"
 				+ "customer c ON a1.ID = c.customer_id";
@@ -205,7 +207,6 @@ public class OrderDao {
 			list.put("ID", rs.getString("a1.ID"));
 			list.put("address", rs.getString("a1.address"));
 			list.put("orderName", rs.getString("a1.orderName"));
-			list.put("orderState", rs.getString("a1.orderState"));
 			list.put("orderPrice", rs.getInt("a1.orderPrice"));
 			list.put("createdate", rs.getString("a1.createdate"));
 			list.put("point", rs.getInt("a1.point"));
