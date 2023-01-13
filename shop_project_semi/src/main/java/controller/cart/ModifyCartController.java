@@ -84,6 +84,8 @@ public class ModifyCartController extends HttpServlet {
 		
 		if(result != 1) {
 			System.out.println("장바구니 수정 실패");
+			response.sendRedirect(request.getContextPath() + "/cartList");
+			return;
 		}
 		
 		System.out.println("장바구니 수정 성공");
