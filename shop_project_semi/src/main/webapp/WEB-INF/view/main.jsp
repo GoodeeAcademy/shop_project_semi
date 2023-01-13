@@ -26,7 +26,7 @@
 	<body>
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		
-		
+		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/animsition/js/animsition.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/js/popper.js"></script>

@@ -34,6 +34,11 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
 		
+		<!-- 구글 폰트 -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+		
 		<title>로그인</title>
 		<style type="text/css">
 			.content{box-sizing:border-box;max-width:700px;margin:0 auto;padding-bottom:100px;line-height:21px}
@@ -49,6 +54,7 @@
 	</head>
 	
 	<body>
+		<!-- header -->
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		<!-- content start -->
 		<div class="container content" style="margin-top: 5%">
@@ -73,6 +79,8 @@
 				<a href="${pageContext.request.contextPath}/AddCustomerController" class="btn" style="background-color: white; color: blue; height: 30px; outline: 1px solid;">회원가입</a>
 			</div>
 		</div>
+		<!-- footer -->
+		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		<!-- content end -->
 		
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
