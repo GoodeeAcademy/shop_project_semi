@@ -36,11 +36,12 @@
 		
 		<title>로그인</title>
 		<style type="text/css">
+			.content{box-sizing:border-box;max-width:700px;margin:0 auto;padding-bottom:100px;line-height:21px}
 			.login-member{padding-right:15px;padding-left:15px;}
 			.login-form{margin:5px 0 0;padding:0 15px}
 			.login-member__form{margin-top:20px}
 			.login-input{margin-top:8px}
-			.login-input__input{box-sizing:border-box;width:100%;height:50px;margin-top:8px;padding:0 12px;border-bottom:1px solid #000;border-radius:4px;background-color:#fff;font-size:15px;color:#000;box-shadow:0 0 0 30px #fff inset!important;transition:border .2s ease-in-out;-webkit-appearance:none;-moz-appearance:none;appearance:none}
+			.login-input__input{box-sizing:border-box;width:100%;height:50px;margin-top:8px;padding:0 12px;border-bottom:1px solid #000;background-color:#fff;font-size:15px;color:#000;box-shadow:0 0 0 30px #fff inset!important;transition:border .2s ease-in-out;-webkit-appearance:none;-moz-appearance:none;appearance:none}
 			.login-button.login-button--static{margin-top:0;padding-right:0;padding-left:0}
 			.login-button__item{display:block;box-sizing:border-box;width:100%;height:50px;padding:14px 16px 15px;border:1px solid #000;border-radius:4px;font-weight:700;color:#000}
 			.login-button__item--black{background-color:#000;color:#fff}
@@ -50,7 +51,7 @@
 	<body>
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		<!-- content start -->
-		<div class="container" style="margin-top: 10%">
+		<div class="container content" style="margin-top: 5%">
 			<div class="login-member">
 				<h1 class="login-form" style="color:#000">SIGN IN</h1>
 				<form method="post" action="${pageContext.request.contextPath}/SignInController" id="loginForm" class="login-form">
@@ -68,7 +69,7 @@
 				</form>
 			</div>
 			<div class="mt-2 p-4 text-center">
-				<span style="color:blue;">가입 시 구매금액 1% 적립</span>
+				<span style="color:blue; margin-right: 10px;">가입 시 구매금액 1% 적립</span>
 				<a href="${pageContext.request.contextPath}/AddCustomerController" class="btn" style="background-color: white; color: blue; height: 30px; outline: 1px solid;">회원가입</a>
 			</div>
 		</div>
