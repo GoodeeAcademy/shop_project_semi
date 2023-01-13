@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
 </head>
 <body>
+	<!-- header -->
 	<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 	
 	<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -37,28 +38,29 @@
 		</h2>
 	</section>	
 	
-	<div class="bor10 m-t-50 p-t-43 p-b-40">
-		<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-			<div class="p-b-30 m-lr-15-sm">
-				<form method="post" action="${pageContext.request.contextPath}/AddNoticeController" class="w-full">
-					<div class="row p-b-25">
-						<div class="col-sm-6 p-b-5">
-							<label class="stext-102 cl3">제목</label>
-							<input type="text" name="noticeTitle" class="size-111 bor8 stext-102 cl2 p-lr-20">
-						</div>
-						<div class="col-sm-6 p-b-5">
-							<label class="stext-102 cl3">작성자</label>
-							<span>${loginEmp.empName}</span>
-						</div>
-						<div class="col-12 p-b-5">
-							<label class="stext-102 cl3">내용</label>
-							<textarea rows="10" cols="10" name="noticeContent" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"></textarea>
-						</div>
+	<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto" style="margin-top: 5%; margin-bottom: 5%;">
+		<div class="p-b-30 m-lr-15-sm">
+			<form method="post" action="${pageContext.request.contextPath}/AddNoticeController" class="w-full">
+				<div class="row p-b-25">
+					<div class="col-sm-6 p-b-5">
+						<label class="stext-102 cl3">제목</label>
+						<input type="text" name="noticeTitle" class="size-111 bor8 stext-102 cl2 p-lr-20">
 					</div>
-					<button type="submit" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">등록</button>
-				</form>
-			</div>
+					<div class="col-sm-6 p-b-5">
+						<label class="stext-102 cl3">작성자</label>
+						<span>${loginEmp.empName}</span>
+					</div>
+					<div class="col-12 p-b-5">
+						<label class="stext-102 cl3">내용</label>
+						<textarea rows="10" cols="10" name="noticeContent" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"></textarea>
+					</div>
+				</div>
+				<button type="submit" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">등록</button>
+			</form>
 		</div>
 	</div>
+	
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 </body>
 </html>
