@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import dao.cart.CartDao;
+import dao.goods.GoodsDao;
 import util.DBUtil;
 import vo.Cart;
 
 public class CartService {
 	private CartDao cartDao;
+	private GoodsDao goodsDao;
 	
 	// 장바구니 담기
 	public int addCart(Cart cart) {
@@ -44,6 +46,35 @@ public class CartService {
 		}
 		
 		return result;
+	}
+	
+	// 비회원 장바구니
+	public HashMap<String, Object> addCart(int goodsCode) {
+		HashMap<String, Object> m = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			goodsDao = new GoodsDao();
+			m = goodsDao.selectGoodsOne(conn, goodsCode);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return m;
 	}
 	
 	// 장바구니 리스트
