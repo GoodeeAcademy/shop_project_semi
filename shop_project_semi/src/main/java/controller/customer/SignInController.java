@@ -72,13 +72,14 @@ public class SignInController extends HttpServlet {
 			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("list");
 			for (HashMap<String, Object> hashMap : list) {
 				Cart cart = new Cart();
-				cart.setGoodsCode(Integer.parseInt((String)hashMap.get("goodsCode")));
+				cart.setGoodsCode((int)hashMap.get("goodsCode"));
 				cart.setCustomerId(loginCustomer.getCustomerId());
-				cart.setCartQuantity(Integer.parseInt((String)hashMap.get("quantity")));
+				cart.setCartQuantity((int)hashMap.get("quantity"));
 				this.cartService = new CartService();
 				if(cartService.addCart(cart) == 0) {
 					System.out.println("장바구니 세션 에러");
 				}
+				System.out.println("비회원 장바구니 -> 회원 장바구니 성공");
 			}
 			
 		}
