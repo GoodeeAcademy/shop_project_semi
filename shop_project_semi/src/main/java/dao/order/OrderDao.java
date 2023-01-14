@@ -291,4 +291,49 @@ public class OrderDao {
 		
 		return result;
 	}
+	
+	// 모든 주문 내역(관리자)
+	public ArrayList<HashMap<String, Object>> selectAllOrderList(Connection conn, int beginRow, int rowPerPage) throws Exception{
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		String sql = "SELECT od.order_code orderCode, od.createdate createdate, odg.goods_code goodsCode, od.customer_id customerId,\r\n"
+				+ "odg.order_goods_price orderGoodsPrice, odg.order_goods_quantity orderGoodsQuantity, odg.order_goods_state orderState,\r\n"
+				+ "gs.goods_name goodsName, gsi.filename filename\r\n"
+				+ "FROM orders od\r\n"
+				+ "JOIN order_goods odg ON od.order_code = odg.order_code\r\n"
+				+ "JOIN goods gs ON odg.goods_code = gs.goods_code\r\n"
+				+ "JOIN goods_img gsi ON gs.goods_code = gsi.goods_code\r\n"
+				+ "ORDER BY od.order_code DESC\r\n"
+				+ "LIMIT ?, ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<>();
+			m.put("orderCode", rs.getInt("orderCode"));
+			m.put("createdate", rs.getString("createdate"));
+			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("customerId", rs.getString("customerId"));
+			m.put("orderGoodsPrice", rs.getInt("orderGoodsPrice"));
+			m.put("orderGoodsQuantity", rs.getInt("orderGoodsQuantity"));
+			m.put("orderState", rs.getString("orderState"));
+			m.put("goodsName", rs.getString("goodsName"));
+			m.put("filename", rs.getString("filename"));
+			list.add(m);
+		}
+		return list;
+	}
+	
+	// 모든 주문 내역 개수(관리자)
+	public int selectAllOrderGoodsCount(Connection conn) throws Exception{
+		int count = 0;
+		String sql = "SELECT COUNT(*) cnt FROM order_goods";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			count = rs.getInt("cnt");
+		}
+		return count;
+	}
+
 }

@@ -1,6 +1,7 @@
 package service.order;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -304,5 +305,57 @@ public class OrderService {
 		}
 		
 		return result;
+	}
+	
+	// 모든 주문 내역 (관리자)
+	public ArrayList<HashMap<String, Object>> getAllOrderList(int beginRow, int rowPerPage) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.orderDao = new OrderDao();
+			list = orderDao.selectAllOrderList(conn, beginRow, rowPerPage);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 모든 주문 내역 개수(관리자)
+	public int getAllOrderGoodsCount() {
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.orderDao = new OrderDao();
+			count = orderDao.selectAllOrderGoodsCount(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
 	}
 }
