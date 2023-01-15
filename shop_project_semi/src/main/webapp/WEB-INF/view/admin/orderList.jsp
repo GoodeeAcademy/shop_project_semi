@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>공지쓰기</title>
+	<title>전체 주문내역</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
@@ -37,11 +37,17 @@
 				<th>상태</th>
 				<th>주문일자</th>
 			</tr>
-			<c:forEach var="m" items="${list}">
+			<c:forEach var="m" items="${orderList}">
 				<tr>
-					<td>${m.orderCode}</td>
-					<td>${m.goodsCode}</td>
-					<td><img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="이미지"></td>
+					<td>
+						${m.orderCode}
+						<input type="hidden" name="orderCode" value="${m.orderCode}">
+					</td>
+					<td>
+						${m.goodsCode}
+						<input type="hidden" name="goodsCode" value="${m.goodsCode}">
+					</td>
+					<td><img src="${spageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="이미지"></td>
 					<td>${m.goodsName}</td>
 					<td>${m.customerId}</td>
 					<td>

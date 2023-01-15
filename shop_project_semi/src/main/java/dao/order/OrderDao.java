@@ -335,5 +335,24 @@ public class OrderDao {
 		}
 		return count;
 	}
-
+	
+	// 주문 상태 변경(관리자)
+	public int updateOrderStateByEmp(Connection conn, ArrayList<OrderGoods> list) throws Exception{
+		int row = 0;
+		PreparedStatement stmt = null;
+		for(OrderGoods og : list) {			
+			String sql = "UPDATE order_goods\r\n"
+					+ "SET order_goods_state = ?\r\n"
+					+ "WHERE order_code = ? AND goods_code = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, og.getOrderGoodsState());
+			stmt.setInt(2, og.getOrderCode());
+			stmt.setInt(3, og.getGoodsCode());
+			row += stmt.executeUpdate();
+		}
+		
+		if(stmt != null) {stmt.close();}
+		
+		return row;
+	}
 }

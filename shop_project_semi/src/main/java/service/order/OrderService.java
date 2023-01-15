@@ -358,4 +358,35 @@ public class OrderService {
 		}
 		return count;
 	}
+	
+	// 주문 상태 변경(관리자)
+	public int modifyOrderStateByEmp(ArrayList<OrderGoods> list) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.orderDao = new OrderDao();
+			row = orderDao.updateOrderStateByEmp(conn, list);
+			
+			if(row != 10) {
+				throw new Exception();
+			}
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 }

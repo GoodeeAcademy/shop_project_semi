@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import service.order.OrderService;
 import vo.Emp;
+import vo.OrderGoods;
 
 @WebServlet("/AllOrderListController")
 public class AllOrderListController extends HttpServlet {
@@ -45,7 +46,7 @@ public class AllOrderListController extends HttpServlet {
 		}
 		
 		// 모든 주문 내역
-		ArrayList<HashMap<String, Object>> list = orderService.getAllOrderList(beginRow, rowPerPage);
+		ArrayList<HashMap<String, Object>> orderList = orderService.getAllOrderList(beginRow, rowPerPage);
 		
 		// 주문 상태
 		ArrayList<String> stateList = new ArrayList<>();
@@ -61,7 +62,7 @@ public class AllOrderListController extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endRow", endRow);
 		request.setAttribute("lastPage", lastPage);
-		request.setAttribute("list", list);
+		request.setAttribute("orderList", orderList);
 		request.setAttribute("stateList", stateList);
 				
 		// view
@@ -69,8 +70,33 @@ public class AllOrderListController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 주문상태 수정
+		request.setCharacterEncoding("UTF-8");
 		
+		// 주문상태 수정
+		String[] orderCode = request.getParameterValues("orderCode");
+		String[] goodsCode = request.getParameterValues("goodsCode");
+		String[] orderState = request.getParameterValues("orderState");
+		
+		ArrayList<OrderGoods> list = new ArrayList<>();
+		for(int i = 0; i < 10; i++){// 한 번에 수정하는 개수 == rowPerPage
+			OrderGoods og = new OrderGoods();
+			og.setOrderCode(Integer.parseInt(orderCode[i]));
+			og.setGoodsCode(Integer.parseInt(goodsCode[i]));
+			og.setOrderGoodsState(orderState[i]);
+			System.out.println(og.getOrderCode() + " " + og.getGoodsCode() + " " + og.getOrderGoodsState()); // 디버깅
+			list.add(og);
+		}
+		
+		int row = orderService.modifyOrderStateByEmp(list);
+		System.out.println(row);	// 디버깅
+		if(row != 10) {
+			System.out.println("주문상태 변경 실패");
+			response.sendRedirect(request.getContextPath() + "/AllOrderListController");
+			return;
+		}
+		
+		System.out.println("주문상태 변경 성공");
+		response.sendRedirect(request.getContextPath() + "/AllOrderListController");
 	}
 
 }
