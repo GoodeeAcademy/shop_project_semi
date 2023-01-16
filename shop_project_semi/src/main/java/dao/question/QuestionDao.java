@@ -240,6 +240,7 @@ public class QuestionDao {
 	}
 	
 	// 1)2) 공통
+	// 문의번호로 답변 유무 확인
 	public boolean selectCommentPresence(Connection conn, int questionCode) throws Exception{
 		boolean check = false;
 		String sql = "SELECT *\r\n"
@@ -247,6 +248,25 @@ public class QuestionDao {
 				+ "WHERE question_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, questionCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			check = true;
+		}
+		return check;
+	}
+	
+	// 1)2) 공통
+	// 주문/상품번호로 답변 유무 확인
+	public boolean selectCommentPresence(Connection conn, int orderCode, int goodsCode) throws Exception{
+		boolean check = false;
+		String sql = "SELECT *\r\n"
+				+ "FROM question_comment\r\n"
+				+ "WHERE question_code = 	(SELECT question_code\r\n"
+				+ "									FROM question\r\n"
+				+ "									WHERE order_code = ? AND goods_code = ?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		stmt.setInt(2, goodsCode);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
 			check = true;
