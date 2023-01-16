@@ -32,7 +32,7 @@
 	<script src="${pageContext.request.contextPath}/assets/shop/js/main.js"></script>
 	
 	<!-- 사진 파일 변경 필요 -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/assets/shop/images/bg-01.jpg');">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/assets/shop/images/bg-03.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
 			Notice
 		</h2>
@@ -40,7 +40,7 @@
 	
 	<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto" style="margin-top: 5%; margin-bottom: 5%;">
 		<div class="p-b-30 m-lr-15-sm">
-			<form method="post" action="${pageContext.request.contextPath}/AddNoticeController" class="w-full">
+			<form method="post" action="${pageContext.request.contextPath}/AddNoticeController">
 				<div class="row p-b-25">
 					<div class="col-sm-6 p-b-5">
 						<label class="stext-102 cl3">제목</label>
