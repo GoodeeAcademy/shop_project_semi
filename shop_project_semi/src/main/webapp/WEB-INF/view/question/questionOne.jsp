@@ -55,8 +55,8 @@
 		<div class="row p-b-25">
 			<table class="table-shopping-cart">
 				<tr class="row_for_text">
-					<td class="col_exceptContent">상품번호</td>
-					<td>${question.goodsCode}</td>
+					<td class="col_exceptContent">상품명</td>
+					<td>${m.goodsName}</td>
 				</tr>
 				<tr class="row_for_text">	
 					<td class="col_exceptContent">종류</td>
@@ -69,6 +69,10 @@
 				<tr class="row_for_text">	
 					<td class="col_exceptContent">날짜</td>
 					<td>${question.createdate}</td>
+				</tr>
+				<tr class="row_for_text">
+					<td class="col_exceptContent">제목</td>
+					<td>${question.questionTitle}</td>
 				</tr>
 				<tr class="row_for_content">	
 					<td></td>

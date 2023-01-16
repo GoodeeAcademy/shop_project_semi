@@ -57,16 +57,16 @@
 				<tr class="table_head">
 					<th class="col_small">번호</th>
 					<th class="col_small">분류</th>
-					<th>문의내용</th>
+					<th>제목</th>
 					<th class="col_date">날짜</th>
-					<th>상태</th>
+					<th class="col_date">상태</th>
 				</tr>
 				<c:forEach var="q" items="${list}">
 					<tr class="row_for_text">
 						<td>${q.orderCode}</td>
 						<td>${q.category}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/QuestionOneController?questionCode=${q.questionCode}">${q.questionMemo}</a>
+							<a href="${pageContext.request.contextPath}/QuestionOneController?questionCode=${q.questionCode}">${q.questionTitle}</a>
 						</td>
 						<td>${q.createdate}</td>
 						<!-- 답변 여부에 따라 분기 -->

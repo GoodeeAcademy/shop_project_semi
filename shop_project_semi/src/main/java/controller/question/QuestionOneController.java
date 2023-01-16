@@ -1,6 +1,7 @@
 package controller.question;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.goods.GoodsService;
 import service.question.QuestionService;
 import vo.Customer;
 import vo.Emp;
@@ -18,6 +20,7 @@ import vo.QuestionComment;
 @WebServlet("/QuestionOneController")
 public class QuestionOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	GoodsService goodsService;
 	QuestionService questionService;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,7 +48,11 @@ public class QuestionOneController extends HttpServlet {
 		
 		questionService = new QuestionService();
 		Question question = questionService.getQuestionOne(questionCode);
+		goodsService = new GoodsService();
+		HashMap<String, Object> m = goodsService.getGoodsOne(question.getGoodsCode());
 		request.setAttribute("question", question);
+		request.setAttribute("m", m);
+		
 		
 		if(loginCustomer != null) {	// 고객이 보는 상태라면
 			// 아이디 일치여부 확인

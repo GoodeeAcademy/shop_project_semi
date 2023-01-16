@@ -43,9 +43,9 @@
 			<form method="post" action="${pageContext.request.contextPath}/AddQuestionController">
 				<div class="row p-b-25">
 					<div class="col-sm-6 p-b-5">
-						<label class="stext-102 cl3">주문번호</label>
-							${orderCode}
 							<input type="hidden" name="orderCode" value="${orderCode}">
+						<label class="stext-102 cl3">제목</label>
+						<input type="text" name="questionTitle" class="size-111 bor8 stext-102 cl2 p-lr-20">
 					</div>
 					<div class="col-sm-6 p-b-5">
 						<label class="stext-102 cl3">문의종류</label>

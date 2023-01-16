@@ -172,6 +172,32 @@ public class QuestionService {
 		return row;
 	}
 	
+	// 주문번호의 고객 아이디와 일치하는 고객만 열람 가능
+	public boolean getCustomerByOrderCode(Customer loginCustomer, int orderCode) {
+		boolean check = false;
+		this.questionDao = new QuestionDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			check = questionDao.selectCustomerByOrderCode(conn, loginCustomer, orderCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return check;
+	}
+	
 	// 1)2) 공통
 	// 문의 상세보기
 	public Question getQuestionOne(int questionCode){

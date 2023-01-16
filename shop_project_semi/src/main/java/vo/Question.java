@@ -6,6 +6,7 @@ public class Question {
 	private int goodsCode;
 	private String category;
 	private String customerId;	// 테이블엔 없지만 문의 상세보기 때문에 추가
+	private String questionTitle;
 	private String questionMemo;
 	private boolean commentPresence; // 테이블엔 없지만 문의 상세보기 때문에 추가
 	private String createdate;
@@ -39,6 +40,12 @@ public class Question {
 	}
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
+	}
+	public String getQuestionTitle() {
+		return questionTitle;
+	}
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
 	}
 	public String getQuestionMemo() {
 		return questionMemo;

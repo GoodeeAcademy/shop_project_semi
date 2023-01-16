@@ -19,6 +19,7 @@ public class QuestionDao {
 		String sql = "SELECT question_code questionCode\r\n"
 				+ "		, order_code orderCode\r\n"
 				+ "		, category\r\n"
+				+ "		, question_title questionTitle\r\n"
 				+ "		, question_memo questionMemo\r\n"
 				+ "		, createdate\r\n"
 				+ "FROM question\r\n"
@@ -33,6 +34,7 @@ public class QuestionDao {
 			q.setQuestionCode(rs.getInt("questionCode"));
 			q.setOrderCode(rs.getInt("orderCode"));
 			q.setCategory(rs.getString("category"));
+			q.setQuestionTitle(rs.getString("questionTitle"));
 			q.setQuestionMemo(rs.getString("questionMemo"));
 			q.setCommentPresence(selectCommentPresence(conn, rs.getInt("questionCode")));
 			q.setCreatedate(rs.getString("createdate"));
@@ -60,6 +62,7 @@ public class QuestionDao {
 		String sql = "SELECT q.question_code questionCode\r\n"
 				+ "		, q.order_code orderCode\r\n"
 				+ "		, q.category category\r\n"
+				+ "		, q.question_title questionTitle\r\n"
 				+ "		, q.question_memo questionMemo\r\n"
 				+ "		, q.createdate createdate\r\n"
 				+ "FROM(SELECT o.order_code order_code \r\n"
@@ -78,6 +81,7 @@ public class QuestionDao {
 			q.setQuestionCode(rs.getInt("questionCode"));
 			q.setOrderCode(rs.getInt("orderCode"));
 			q.setCategory(rs.getString("category"));
+			q.setQuestionTitle(rs.getString("questionTitle"));
 			q.setQuestionMemo(rs.getString("questionMemo"));
 			q.setCommentPresence(selectCommentPresence(conn, rs.getInt("questionCode")));
 			q.setCreatedate(rs.getString("createdate"));
@@ -121,8 +125,10 @@ public class QuestionDao {
 		String sql = "INSERT INTO question(order_code\r\n"
 				+ "							, goods_code\r\n"
 				+ "							, category\r\n"
+				+ "							, question_title\r\n"
 				+ "							, question_memo)\r\n"
 				+ "VALUES(?\r\n"
+				+ "		, ?\r\n"
 				+ "		, ?\r\n"
 				+ "		, ?\r\n"
 				+ "		, ?)";
@@ -130,9 +136,26 @@ public class QuestionDao {
 		stmt.setInt(1, question.getOrderCode());
 		stmt.setInt(2, question.getGoodsCode());
 		stmt.setString(3, question.getCategory());
-		stmt.setString(4, question.getQuestionMemo());
+		stmt.setString(4, question.getQuestionTitle());
+		stmt.setString(5, question.getQuestionMemo());
 		row = stmt.executeUpdate();
 		return row;
+	}
+	
+	// 주문번호의 고객 아이디와 일치하는 고객만 열람 가능
+	public boolean selectCustomerByOrderCode(Connection conn, Customer loginCustomer, int orderCode) throws Exception{
+		boolean check = false;
+		String sql = "SELECT *\r\n"
+				+ "FROM orders\r\n"
+				+ "WHERE customer_id = ? AND order_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, loginCustomer.getCustomerId());
+		stmt.setInt(2, orderCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			check = true;
+		}
+		return check;
 	}
 	
 	// 1)2) 공통
@@ -144,6 +167,7 @@ public class QuestionDao {
 				+ "		, q.goods_code goodsCode\r\n"
 				+ "		, q.category category\r\n"
 				+ "		, t.customer_id customerId\r\n"
+				+ "		, q.question_title questionTitle\r\n"
 				+ "		, q.question_memo questionMemo\r\n"
 				+ "		, q.createdate createdate\r\n"
 				+ "FROM(SELECT o.order_code order_code \r\n"
@@ -159,6 +183,7 @@ public class QuestionDao {
 			question.setGoodsCode(rs.getInt("goodsCode"));
 			question.setCategory(rs.getString("category"));
 			question.setCustomerId(rs.getString("customerId"));
+			question.setQuestionTitle(rs.getString("questionTitle"));
 			question.setQuestionMemo(rs.getString("questionMemo"));
 			question.setCreatedate(rs.getString("createdate"));
 		}		
