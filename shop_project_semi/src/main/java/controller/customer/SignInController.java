@@ -43,6 +43,12 @@ public class SignInController extends HttpServlet {
 			return;
 		}
 		
+		boolean loginFalse = false;
+		if(request.getAttribute("loginFalse") != null) {
+			loginFalse = (boolean)request.getAttribute("loginFalse");
+		}
+		
+		request.setAttribute("loginFalse", loginFalse);
 		request.getRequestDispatcher("/WEB-INF/view/customer/signIn.jsp").forward(request, response);
 	}
 
@@ -62,7 +68,8 @@ public class SignInController extends HttpServlet {
 		Customer loginCustomer = customerService.getSingIn(paramCustomer);
 		if(loginCustomer == null) {
 			System.out.println("로그인 실패");
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			request.setAttribute("loginFalse", true);
+			doGet(request, response);
 			return;
 		}
 		

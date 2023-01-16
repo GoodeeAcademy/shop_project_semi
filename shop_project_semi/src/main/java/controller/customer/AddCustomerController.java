@@ -39,6 +39,12 @@ public class AddCustomerController extends HttpServlet {
 			return;
 		}
 		
+		boolean addFalse = false;
+		if(request.getAttribute("addFalse") != null) {
+			addFalse = (boolean)request.getAttribute("addFalse");
+		}
+		
+		request.setAttribute("addFalse", addFalse);
 		request.getRequestDispatcher("/WEB-INF/view/customer/addCustomer.jsp").forward(request, response);
 	}
 
@@ -72,7 +78,8 @@ public class AddCustomerController extends HttpServlet {
 		
 		if(result != 1) {
 			System.out.println("회원가입 실패");
-			response.sendRedirect(request.getContextPath()+"/AddCustomerController");
+			request.setAttribute("addFalse", true);
+			doGet(request, response);
 			return;
 		}
 		

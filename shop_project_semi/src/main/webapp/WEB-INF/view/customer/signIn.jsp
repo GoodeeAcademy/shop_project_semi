@@ -61,17 +61,17 @@
 			<div class="login-member">
 				<h1 class="login-form" style="color:#000">SIGN IN</h1>
 				<form method="post" action="${pageContext.request.contextPath}/SignInController" id="loginForm" class="login-form">
-				<div class="login-member__form">
-					<div class="login-input">
-						<input type="text" name="loginId" id="loginId" placeholder="아이디" class="login-input__input">
+					<div class="login-member__form">
+						<div class="login-input">
+							<input type="text" name="loginId" id="loginId" placeholder="아이디" class="login-input__input">
+						</div>
+						<div class="login-input">
+							<input type="password" name="loginPw" id="loginPw" placeholder="비밀번호" class="login-input__input">
+						</div>
+						<div class="mt-4">
+							<button type="button" id="submitBtn" class="login-button__item login-button__item--black">SIGN IN</button>
+						</div>
 					</div>
-					<div class="login-input">
-						<input type="password" name="loginPw" id="loginPw" placeholder="비밀번호" class="login-input__input">
-					</div>
-					<div class="mt-4">
-						<button type="button" id="submitBtn" class="login-button__item login-button__item--black">SIGN IN</button>
-					</div>
-				</div>
 				</form>
 			</div>
 			<div class="mt-2 p-4 text-center">
@@ -92,14 +92,19 @@
 		
 		<script>
 			$(document).ready(function() {
+				let loginFalse = ${loginFalse};
+				if(loginFalse) {
+					alert('가입된 회원이 아니거나 비밀번호가 틀렸습니다.');
+				}
+				
 				let allCheck = false;
 				$('#submitBtn').click(function() {
 					if($('#loginId').val().length < 1) {
 						$('#loginId').focus();
-						alert('ID를 입력해주세요.');
+						alert('아이디를 입력해주세요.');
 					} else if($('#loginPw').val().length < 1) {
 						$('#loginPw').focus();
-						alert('Password를 입력해주세요.');
+						alert('비밀번호를 입력해주세요.');
 					} else {
 						allCheck = true;
 					}

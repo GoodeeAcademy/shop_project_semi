@@ -19,7 +19,12 @@
 							</ul>
 						</li>
 						<li><a href="#">ABOUT</a></li>
-						<li><a href="${pageContext.request.contextPath}/SignInController">LOGIN</a></li>
+						<c:if test="${loginCustomer == null }">
+							<li><a href="${pageContext.request.contextPath}/SignInController">LOGIN</a></li>
+						</c:if>
+						<c:if test="${loginCustomer != null }">
+							<li><a href="${pageContext.request.contextPath}/CustomerOneController">My Page</a></li>
+						</c:if>
 						<li><a href="#" class="js-show-cart">CART</a></li>
 						<li><a href="#" class="js-show-modal-search">SEARCH</a></li>
 					</ul>
