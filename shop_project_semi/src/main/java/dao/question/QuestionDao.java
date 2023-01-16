@@ -10,6 +10,7 @@ import vo.Question;
 import vo.QuestionComment;
 
 public class QuestionDao {
+	
 	// 1. 문의
 	// 1) 직원
 	// 전체 문의 목록
@@ -33,6 +34,7 @@ public class QuestionDao {
 			q.setOrderCode(rs.getInt("orderCode"));
 			q.setCategory(rs.getString("category"));
 			q.setQuestionMemo(rs.getString("questionMemo"));
+			q.setCommentPresence(selectCommentPresence(conn, rs.getInt("questionCode")));
 			q.setCreatedate(rs.getString("createdate"));
 			list.add(q);
 		}
@@ -77,6 +79,7 @@ public class QuestionDao {
 			q.setOrderCode(rs.getInt("orderCode"));
 			q.setCategory(rs.getString("category"));
 			q.setQuestionMemo(rs.getString("questionMemo"));
+			q.setCommentPresence(selectCommentPresence(conn, rs.getInt("questionCode")));
 			q.setCreatedate(rs.getString("createdate"));
 			list.add(q);
 		}
@@ -202,6 +205,17 @@ public class QuestionDao {
 		return count;
 	}
 	
+	// 답변하기
+	public int insertQuestionComment(Connection conn, QuestionComment comment) throws Exception{
+		int row = 0;
+		String sql = "INSERT INTO question_comment(question_code, comment_memo) VALUES(?, ?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, comment.getQuestionCode());
+		stmt.setString(2, comment.getCommentMemo());
+		row = stmt.executeUpdate();
+		return row;
+	}
+	
 	// 2) 고객
 	// 내 문의 답변
 	public QuestionComment selectQuestionComment(Connection conn, int questionCode) throws Exception{
@@ -223,5 +237,20 @@ public class QuestionDao {
 			comment.setCreatedate(rs.getString("createdate"));
 		}
 		return comment;
+	}
+	
+	// 1)2) 공통
+	public boolean selectCommentPresence(Connection conn, int questionCode) throws Exception{
+		boolean check = false;
+		String sql = "SELECT *\r\n"
+				+ "FROM question_comment\r\n"
+				+ "WHERE question_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, questionCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			check = true;
+		}
+		return check;
 	}
 }

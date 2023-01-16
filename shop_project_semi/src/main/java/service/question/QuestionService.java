@@ -253,6 +253,32 @@ public class QuestionService {
 		return count;
 	}
 	
+	// 답변하기
+	public int addComment(QuestionComment comment) {
+		int row = 0;
+		this.questionDao = new QuestionDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			row = questionDao.insertQuestionComment(conn, comment);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
 	
 	// 2) 고객
 	// 내 문의 답변

@@ -31,23 +31,23 @@ public class AddQuestionController extends HttpServlet {
 		}
 		
 		// 주문번호 
-		int orderCode = 2;	// 테스트용 초기화
-//		if(request.getParameter("orderCode") == null) {
-//			// 주문 내역으로 돌아가기
-//			response.sendRedirect(request.getContextPath()+"/");
-//			return;
-//		}
-//		orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		int orderCode = 0;
+		if(request.getParameter("orderCode") == null) {
+			// 주문 내역으로 돌아가기
+			response.sendRedirect(request.getContextPath()+"/OrderListController");
+			return;
+		}
+		orderCode = Integer.parseInt(request.getParameter("orderCode"));
 		request.setAttribute("orderCode", orderCode);
 		
 		// 상품번호
-		int goodsCode = 4;	// 테스트용 초기화
-//		if(request.getParameter("goodsCode") == null) {
-//			// 주문 내역으로 돌아가기
-//			response.sendRedirect(request.getContextPath()+"/");
-//			return;
-//		}
-//		goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
+		int goodsCode = 0;
+		if(request.getParameter("goodsCode") == null) {
+			// 주문 내역으로 돌아가기
+			response.sendRedirect(request.getContextPath()+"/OrderListController");
+			return;
+		}
+		goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		goodsService = new GoodsService();
 		HashMap<String, Object> m = goodsService.getGoodsOne(goodsCode);
 		request.setAttribute("m", m);

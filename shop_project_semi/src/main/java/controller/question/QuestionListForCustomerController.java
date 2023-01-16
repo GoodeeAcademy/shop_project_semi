@@ -34,7 +34,7 @@ public class QuestionListForCustomerController extends HttpServlet {
 		if(request.getParameter("currentPage") != null){
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int rowPerPage = 5;	// 한 페이지당 보여줄 직원 수
+		int rowPerPage = 5;	// 한 페이지당 보여줄 문의 수
 		int beginRow = (currentPage-1)*rowPerPage;
 		int pageList = 10; // 페이지 10개씩 보여줌
 		int startPage = ((currentPage-1)/pageList)*pageList+1;	// n1

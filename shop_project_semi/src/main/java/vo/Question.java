@@ -7,6 +7,7 @@ public class Question {
 	private String category;
 	private String customerId;	// 테이블엔 없지만 문의 상세보기 때문에 추가
 	private String questionMemo;
+	private boolean commentPresence; // 테이블엔 없지만 문의 상세보기 때문에 추가
 	private String createdate;
 	
 	public int getQuestionCode() {
@@ -44,6 +45,12 @@ public class Question {
 	}
 	public void setQuestionMemo(String questionMemo) {
 		this.questionMemo = questionMemo;
+	}
+	public boolean isCommentPresence() {
+		return commentPresence;
+	}
+	public void setCommentPresence(boolean commentPresence) {
+		this.commentPresence = commentPresence;
 	}
 	public String getCreatedate() {
 		return createdate;

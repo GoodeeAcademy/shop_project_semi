@@ -25,6 +25,12 @@
 		.row_for_text{
 			height: 60px;
 		}
+		.row_for_content{
+			height: 400px;
+		}
+		.col_exceptContent {
+			width: 15%;
+		}
 	</style>
 </head>
 <body>
@@ -48,19 +54,19 @@
 		<div class="row p-b-25">
 			<table class="table-shopping-cart">
 				<tr class="row_for_text">
-					<td>제목</td>
+					<td class="col_exceptContent">제목</td>
 					<td>${notice.noticeTitle}</td>
 				</tr>
 				<tr class="row_for_text">
-					<td>작성자</td>
+					<td class="col_exceptContent">작성자</td>
 					<td>${notice.empName}</td>
 				</tr>
 				<tr class="row_for_text">
-					<td>날짜</td>
+					<td class="col_exceptContent">날짜</td>
 					<td>${notice.createdate}</td>
 				</tr>
-				<tr class="row_for_text">
-					<td>내용</td>
+				<tr class="row_for_content">
+					<td></td>
 					<td>${notice.noticeContent}</td>
 				</tr>
 			</table>
