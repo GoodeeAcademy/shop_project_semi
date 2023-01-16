@@ -9,6 +9,7 @@ import dao.cart.CartDao;
 import dao.customer.CustomerDao;
 import dao.goods.GoodsDao;
 import dao.order.OrderDao;
+import dao.question.QuestionDao;
 import dao.review.ReviewDao;
 import util.DBUtil;
 import vo.OrderGoods;
@@ -21,6 +22,7 @@ public class OrderService {
 	private CartDao cartDao;
 	private ReviewDao reviewDao;
 	private GoodsDao goodsDao;
+	private QuestionDao questionDao;
 	
 	//주문하기
 	public String addOrder(Orders order, ArrayList<HashMap<String,Object>> cart, int point) {
@@ -149,6 +151,14 @@ public class OrderService {
 					if(check) { // 리뷰 썼으면
 						m.put("check", "리뷰 작성 완료");
 					}
+					
+					this.questionDao = new QuestionDao();
+					boolean qCheck = questionDao.selectCommentPresence(conn, orders.getOrderCode(), (int)m.get("goodsCode"));
+					
+					if(qCheck) {
+						m.put("qCheck", "답변 확인");
+					}
+					
 				}
 				
 				map.put("goodsList", arr1);

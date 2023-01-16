@@ -91,43 +91,60 @@
 					<th>상품정보</th>
 					<th>주문금액(수량)</th>
 					<th>주문상태</th>
+					<th>문의내역</th>
 				</tr>
 			</thead>
 			
 			<tbody>
 				<c:forEach var="m" items="${testList}">
-				<tr>
-					<td rowspan="${m['orderQuantity']}"><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m['orderCode']}">${m['orderCode']}</a></td>
-					<td rowspan="${m['orderQuantity']}">${m['createdate']}</td>
 					<c:forEach var="g" items="${m['goodsList']}" varStatus="d" >
 						<c:if test="${d.first}">
-							<td>
-								<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
-									<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지">
-									${g['goodsName']}
-								</div>
-							</td>
-							<td>
-								<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
-									${g['goodsPrice']}원 / ${g['goodsQuantity']}개
-								</div>
-							</td>
-							<td>
-								<div>
-									${g['goodsState']}
-									<c:if test="${empty g['check']}"> <!-- 리뷰 중복 x -> 리뷰 작성 가능  -->
-										<c:if test="${g['goodsState'].equals('구매확정')}">
-											<a href="#none" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}&totalPrice=${g['goodsPrice']*g['goodsQuantity']}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기</a>							
+							<tr>
+								<td rowspan="${m['orderQuantity']}"><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m['orderCode']}">${m['orderCode']}</a></td>
+								<td rowspan="${m['orderQuantity']}">${m['createdate']}</td>
+								<td>
+									<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
+										<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지">
+										${g['goodsName']}
+									</div>
+								</td>
+								<td>
+									<div style="height: 100px; width: 200px; text-align: center; vertical-align: middle;">
+										${g['goodsPrice']}원 / ${g['goodsQuantity']}개
+									</div>
+								</td>
+								<td>
+									<div>
+										${g['goodsState']}
+										<c:if test="${empty g['check']}"> <!-- 리뷰 중복 x -> 리뷰 작성 가능  -->
+											<c:if test="${g['goodsState'].equals('구매확정')}">
+												<a href="#none" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}&totalPrice=${g['goodsPrice']*g['goodsQuantity']}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기</a>							
+											</c:if>
+											<c:if test="${g['goodsState'].equals('배송완료')}">
+												<a href="${pageContext.request.contextPath}/modifyOrderState?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">구매확정</a>
+											</c:if>
 										</c:if>
-										<c:if test="${g['goodsState'].equals('배송완료')}">
-											<a href="${pageContext.request.contextPath}/modifyOrderState?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">구매확정</a>
+										<c:if test="${not empty g['check']}">
+											<div>${g['check']}</div>
 										</c:if>
+									</div>
+								</td>
+								<td>
+									<c:if test="${empty g['qCheck']}">
+										<div>
+											<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+										</div>
 									</c:if>
-									<c:if test="${not empty g['check']}">
-										<div>${g['check']}</div>
+									<c:if test="${not empty g['qCheck']}">
+										<div>
+											<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+										</div>
+										<div>
+											<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">${g['qCheck']}</a>
+										</div>
 									</c:if>
-								</div>
-							</td>
+								</td>
+							</tr>
 						</c:if>
 						<c:if test="${!d.first}">
 							<tr>
@@ -158,10 +175,24 @@
 										</c:if>
 									</div>
 								</td>
+								<td>
+									<c:if test="${empty g['qCheck']}">
+										<div>
+											<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+										</div>
+									</c:if>
+									<c:if test="${not empty g['qCheck']}">
+										<div>
+											<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+										</div>
+										<div>
+											<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">${g['qCheck']}</a>
+										</div>
+									</c:if>
+								</td>
 							</tr>
 						</c:if>
 					</c:forEach>
-					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
