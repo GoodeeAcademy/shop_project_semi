@@ -78,7 +78,7 @@ public class AllOrderListController extends HttpServlet {
 		String[] orderState = request.getParameterValues("orderState");
 		
 		ArrayList<OrderGoods> list = new ArrayList<>();
-		for(int i = 0; i < 10; i++){// 한 번에 수정하는 개수 == rowPerPage
+		for(int i = 0; i < orderCode.length; i++){
 			OrderGoods og = new OrderGoods();
 			og.setOrderCode(Integer.parseInt(orderCode[i]));
 			og.setGoodsCode(Integer.parseInt(goodsCode[i]));
@@ -89,7 +89,7 @@ public class AllOrderListController extends HttpServlet {
 		
 		int row = orderService.modifyOrderStateByEmp(list);
 		System.out.println(row);	// 디버깅
-		if(row != 10) {
+		if(row < 1) {
 			System.out.println("주문상태 변경 실패");
 			response.sendRedirect(request.getContextPath() + "/AllOrderListController");
 			return;

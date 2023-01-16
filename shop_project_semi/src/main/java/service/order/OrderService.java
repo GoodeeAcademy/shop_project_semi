@@ -368,7 +368,7 @@ public class OrderService {
 			this.orderDao = new OrderDao();
 			row = orderDao.updateOrderStateByEmp(conn, list);
 			
-			if(row != 10) {
+			if(row < 1) {
 				throw new Exception();
 			}
 			
