@@ -17,7 +17,7 @@ public class GoodsService {
 	private GoodsDao goodsDao;
 	private GoodsImgDao goodsImgDao;
 	
-	// 상품 리스트
+	// 상품 리스트 (메인)
 	public ArrayList<HashMap<String, Object>> getGoodsList() {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
@@ -27,6 +27,36 @@ public class GoodsService {
 			
 			goodsDao = new GoodsDao();
 			list = goodsDao.selectGoodsList(conn);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	// 상품 리스트 (카테고리별, 신상품순)
+	public ArrayList<HashMap<String, Object>> getGoodsListByCategory(int categoryCode) {
+		ArrayList<HashMap<String, Object>> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			goodsDao = new GoodsDao();
+			list = goodsDao.selectGoodsListByCategory(conn, categoryCode);
 			
 			conn.commit();
 		} catch (Exception e) {

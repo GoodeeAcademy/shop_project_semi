@@ -11,11 +11,11 @@
 					<ul class="main-menu">
 						<li><a href="#">SHOP</a>
 							<ul class="sub-menu">
-								<li><a href="#">ALL</a></li>
-								<li><a href="#">Outwear</a></li> 
-								<li><a href="#">Top</a></li>
-								<li><a href="#">Bottom</a></li>
-								<li><a href="#">Accessories</a></li>
+								<li><a href="${pageContext.request.contextPath}/goodsList">ALL</a></li>
+								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=1">Outwear</a></li> 
+								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=2">Top</a></li>
+								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=3">Bottom</a></li>
+								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=4">Accessories</a></li>
 							</ul>
 						</li>
 						<li><a href="#">ABOUT</a></li>
