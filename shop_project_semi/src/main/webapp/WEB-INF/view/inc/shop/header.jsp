@@ -3,9 +3,9 @@
 <!-- Header -->
 <header class="header-v2">
 	<!-- Header desktop -->
-	<div class="container-menu-desktop trans-03">
-		<div class="wrap-menu-desktop">
-			<nav class="d-flex justify-content-between limiter-menu-desktop pe-3 border-bottom border-dark" style="height: 51px">
+	<div class="container-menu-desktop trans-03" style="height: 51px">
+		<div class="wrap-menu-desktop border-bottom border-dark">
+			<nav class="d-flex justify-content-between limiter-menu-desktop pe-3">
 				<!-- Menu desktop -->
 				<div class="menu-desktop">
 					<ul class="main-menu">
@@ -147,31 +147,13 @@
 		</div>
 		<div class="header-cart-content flex-w js-pscroll">
 			<ul class="header-cart-wrapitem w-full">
+			
 				<li class="header-cart-item flex-w flex-t m-b-12">
 					<div class="header-cart-item-img">
 						<img src="images/item-cart-01.jpg" alt="IMG">
 					</div>
 					<div class="header-cart-item-txt p-t-8">
-						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04"> White Shirt Pleat </a> <span class="header-cart-item-info"> 1 x $19.00 </span>
-					</div>
-				</li>
-				<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img">
-						<img src="images/item-cart-02.jpg" alt="IMG">
-					</div>
-
-					<div class="header-cart-item-txt p-t-8">
-						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04"> Converse All Star </a> <span class="header-cart-item-info"> 1 x $39.00 </span>
-					</div>
-				</li>
-
-				<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img">
-						<img src="images/item-cart-03.jpg" alt="IMG">
-					</div>
-
-					<div class="header-cart-item-txt p-t-8">
-						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04"> Nixon Porter Leather </a> <span class="header-cart-item-info"> 1 x $17.00 </span>
+						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04"> ${m.goodsName} </a> <span class="header-cart-item-info"> 1 x $19.00 </span>
 					</div>
 				</li>
 			</ul>

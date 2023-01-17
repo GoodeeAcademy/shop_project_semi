@@ -22,10 +22,37 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/perfect-scrollbar/perfect-scrollbar.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/style.css">
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
-		
+		<!-- main slider -->
+		<section class="section-slide">
+			<div class="wrap-slick1 rs1-slick1">
+				<div class="slick1">
+					<div class="item-slick1" style="background-image: url(${pageContext.request.contextPath}/upload/test.jpg), url(${pageContext.request.contextPath}/upload/cap_denim1.jpg), url(${pageContext.request.contextPath}/upload/top_line.jpg);
+						background-size: contain; background-position:left,center,right; background-repeat: no-repeat;">
+						<div class="container h-full">
+							<div class="flex-col-l-m h-full p-t-100 p-b-30">
+								<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+									<span class="ltext-202 cl2 respon2 text-white"> Collection 2022 </span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item-slick1" style="background-image: url(${pageContext.request.contextPath}/upload/muffler_yellow.jpg), url(${pageContext.request.contextPath}/upload/muffler_black.jpg), url(${pageContext.request.contextPath}/upload/muffler_ivory.jpg);
+						background-size: contain; background-position:left,center,right; background-repeat: no-repeat;">
+						<div class="container h-full">
+							<div class="flex-col-l-m h-full p-t-100 p-b-30">
+								<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+									<span class="ltext-202 cl2 respon2 text-white"> Collection 2023 </span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/animsition/js/animsition.min.js"></script>
