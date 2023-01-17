@@ -32,7 +32,9 @@
 				<button type="button" class="btn-quantity-up">+</button>
 			</div>
 			<button type="submit">ADD TO CART</button>
-			<button type="button" id="buyNow">BUY NOW</button>
+			<c:if test="${loginCustomer != null}">
+				<button type="button" id="buyNow">BUY NOW</button>			
+			</c:if>
 		</form>
 		
 		<!-- 상품 전체 이미지 -->

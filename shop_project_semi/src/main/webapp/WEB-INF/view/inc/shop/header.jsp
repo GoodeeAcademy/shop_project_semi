@@ -24,7 +24,7 @@
 						</c:if>
 						<c:if test="${loginCustomer != null }">
 							<li><a href="${pageContext.request.contextPath}/SignOutController">LOGOUT</a></li>
-							<li><a href="${pageContext.request.contextPath}/CustomerOneController">My PAGE</a></li>
+							<li><a href="${pageContext.request.contextPath}/CustomerOneController">MY PAGE</a></li>
 						</c:if>
 						<li><a href="${pageContext.request.contextPath}/cartList">CART</a></li>
 						<li><a href="#" class="js-show-modal-search">SEARCH</a></li>
@@ -71,7 +71,7 @@
 			</c:if>
 			<c:if test="${loginCustomer != null }">
 				<li><a href="${pageContext.request.contextPath}/SignOutController" class="text-dark">LOGOUT</a></li>
-				<li><a href="${pageContext.request.contextPath}/CustomerOneController" class="text-dark">My PAGE</a></li>
+				<li><a href="${pageContext.request.contextPath}/CustomerOneController" class="text-dark">MY PAGE</a></li>
 			</c:if>
 			<li><a href="${pageContext.request.contextPath}/cartList" class="text-dark">CART</a></li>
 			<li><a href="#" class="js-show-modal-search text-dark">SEARCH</a></li>
