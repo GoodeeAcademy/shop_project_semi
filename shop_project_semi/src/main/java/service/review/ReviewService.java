@@ -2,6 +2,7 @@ package service.review;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import dao.customer.CustomerDao;
@@ -93,4 +94,31 @@ public class ReviewService {
 		
 		return m;
 	}
+	
+	// 별점 개수 분포
+	public ArrayList<Integer> getStar() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.reviewDao = new ReviewDao();
+			list = reviewDao.selectStar(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
 }

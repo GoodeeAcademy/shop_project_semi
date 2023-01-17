@@ -47,7 +47,7 @@
 						${m.goodsCode}
 						<input type="hidden" name="goodsCode" value="${m.goodsCode}">
 					</td>
-					<td><img src="${spageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="이미지"></td>
+					<td><img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="이미지"></td>
 					<td>${m.goodsName}</td>
 					<td>${m.customerId}</td>
 					<td>

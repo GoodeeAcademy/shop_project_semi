@@ -3,6 +3,7 @@ package dao.review;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import vo.Review;
@@ -65,5 +66,29 @@ public class ReviewDao {
 		if(stmt != null) {stmt.close();}
 		
 		return m;
+	}
+	
+	// 별점 개수 분포
+	public ArrayList<Integer> selectStar(Connection conn) throws Exception{
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		for(int i = 1; i < 6; i++) {			
+			String sql = "SELECT COUNT(star) count\r\n"
+					+ "FROM review\r\n"
+					+ "WHERE star = ?\r\n"
+					+ "ORDER BY createdate DESC\r\n"
+					+ "LIMIT 0, 100";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, i);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				list.add(rs.getInt("count"));
+			}
+		}
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
+		return list;
 	}
 }
