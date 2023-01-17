@@ -28,6 +28,7 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/perfect-scrollbar/perfect-scrollbar.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/style.css">
 		
 		<!-- 구글 폰트 -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +51,7 @@
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		
 		<!-- content -->
-		<div style="margin: 0 0 30px; padding: 0 0 15px; border-bottom: 1px solid #000">
+		<div style="margin: 20px 0 30px; padding: 0 0 15px; border-bottom: 1px solid #000">
 			<h2 style="color: #000;">My Page</h2>
 		</div>
 		
@@ -64,7 +65,6 @@
 				<a href="${pageContext.request.contextPath}/OrderListController" class="login-button__item infoButton">주문/결제내역</a>
 				<a href="${pageContext.request.contextPath}/cartList" class="login-button__item infoButton infoButton">장바구니</a>
 				<a href="${pageContext.request.contextPath}/ModifyCustomerController" class="login-button__item infoButton">회원정보 수정</a>
-				<a href="${pageContext.request.contextPath}/HomeController" class="login-button__item infoButton">홈</a>
 				<a href="${pageContext.request.contextPath}/SignOutController" class="login-button__item infoButton">로그아웃</a>
 			</div>
 		</div>

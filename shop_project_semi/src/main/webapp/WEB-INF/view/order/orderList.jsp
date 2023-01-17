@@ -28,6 +28,7 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/perfect-scrollbar/perfect-scrollbar.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/style.css">
 		
 		<!-- 구글 폰트 -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +48,7 @@
 		
 		<!-- content start -->
 		
-		<div style="margin: 0 0 30px; padding: 0 0 15px; border-bottom: 1px solid #000; width: 100%">
+		<div style="margin: 20px 0 30px; padding: 0 0 15px; border-bottom: 1px solid #000; width: 100%">
 			<h2 style="color: #000;">주문 / 결제내역</h2>
 		</div>
 		
