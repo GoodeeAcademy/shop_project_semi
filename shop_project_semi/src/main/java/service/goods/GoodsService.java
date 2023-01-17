@@ -18,7 +18,7 @@ public class GoodsService {
 	private GoodsImgDao goodsImgDao;
 	
 	// 상품 리스트 (메인)
-	public ArrayList<HashMap<String, Object>> getGoodsList() {
+	public ArrayList<HashMap<String, Object>> getGoodsList(String search) {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
 		
@@ -26,7 +26,7 @@ public class GoodsService {
 			conn = DBUtil.getConnection();
 			
 			goodsDao = new GoodsDao();
-			list = goodsDao.selectGoodsList(conn);
+			list = goodsDao.selectGoodsList(conn, search);
 			
 			conn.commit();
 		} catch (Exception e) {

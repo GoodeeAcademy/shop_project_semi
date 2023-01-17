@@ -11,13 +11,15 @@ import vo.Goods;
 
 public class GoodsDao {
 	// 상품 리스트 (메인)
-	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn) throws Exception {
+	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn, String search) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.category_code categoryCode, gs.hit hit, filename\r\n"
-				+ "FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code\r\n"
-				+ "GROUP BY gs.goods_code\r\n"
+		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.category_code categoryCode, gs.hit hit, filename "
+				+ "FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code "
+				+ "WHERE goods_name LIKE ? "
+				+ "GROUP BY gs.goods_code "
 				+ "ORDER BY hit DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%" + search + "%");
 		ResultSet rs = stmt.executeQuery();
 		
 		while(rs.next()) {

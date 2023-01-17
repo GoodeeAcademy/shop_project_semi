@@ -19,9 +19,15 @@ public class GetGoodsListController extends HttpServlet {
 	private GoodsService goodsService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 파라미터 수집
+		String search = "";
+		if(request.getParameter("search") != null) {
+			search = request.getParameter("search");
+		}
+		
 		// 서비스 호출
 		goodsService = new GoodsService();
-		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList();
+		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList(search);
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("list", list);
