@@ -3,3 +3,19 @@ body {
 	overflow-x:hidden; 
 	overflow-y:auto;
 }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* 버튼 테두리 제거 */
+.btn:active, .btn:focus { 
+	border: none; box-shadow: none; 
+}
