@@ -38,6 +38,32 @@ public class GoodsDao {
 	}
 	
 	// 상품 리스트(카테고리별, 신상품순)
+	public ArrayList<HashMap<String, Object>> selectGoodsListByCategory(Connection conn, int categoryCode) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.category_code categoryCode, gs.hit hit, gs.category_code, filename\r\n"
+				+ "FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code\r\n"
+				+ "GROUP BY gs.goods_code HAVING gs.category_code = ?\r\n"
+				+ "ORDER BY gs.createdate DESC";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, categoryCode);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<>();
+			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("goodsName", rs.getString("goodsName"));
+			m.put("goodsPrice", rs.getInt("goodsPrice"));
+			m.put("categoryCode", rs.getInt("categoryCode"));
+			m.put("hit", rs.getInt("hit"));
+			m.put("filename", rs.getString("fileName"));
+			list.add(m);
+		}
+		
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
+		return list;
+	}
 	
 	// 상품 상세 정보
 	public HashMap<String, Object> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
