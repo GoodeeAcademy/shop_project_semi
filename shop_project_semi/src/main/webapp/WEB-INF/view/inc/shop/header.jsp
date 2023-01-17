@@ -3,7 +3,7 @@
 <!-- Header -->
 <header class="header-v2">
 	<!-- Header desktop -->
-	<div class="container-menu-desktop trans-03" style="height: 51px">
+	<div class="container-menu-desktop trans-03">
 		<div class="wrap-menu-desktop border-bottom border-dark">
 			<nav class="d-flex justify-content-between limiter-menu-desktop pe-3">
 				<!-- Menu desktop -->
