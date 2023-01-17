@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport"
               content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-        <meta name="title" content="로그인"/>
+        <meta name="title" content="UPDATE PW"/>
 		<!-- Latest compiled and minified CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Latest compiled JavaScript -->
@@ -34,7 +34,7 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 		
-		<title>회원 비밀번호 수정</title>
+		<title>UPDATE PW｜TYPESERVICE</title>
 		<style type="text/css">
 			.content{box-sizing:border-box;max-width:800px;margin:0 auto;padding-bottom:100px;line-height:21px}
 			.login-member{padding-right:15px;padding-left:15px;}
