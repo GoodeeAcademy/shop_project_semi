@@ -23,9 +23,10 @@
 							<li><a href="${pageContext.request.contextPath}/SignInController">LOGIN</a></li>
 						</c:if>
 						<c:if test="${loginCustomer != null }">
-							<li><a href="${pageContext.request.contextPath}/CustomerOneController">My Page</a></li>
+							<li><a href="${pageContext.request.contextPath}/SignOutController">LOGOUT</a></li>
+							<li><a href="${pageContext.request.contextPath}/CustomerOneController">My PAGE</a></li>
 						</c:if>
-						<li><a href="#" class="js-show-cart">CART</a></li>
+						<li><a href="${pageContext.request.contextPath}/cartList">CART</a></li>
 						<li><a href="#" class="js-show-modal-search">SEARCH</a></li>
 					</ul>
 				</div>
@@ -41,21 +42,9 @@
 	<div class="wrap-header-mobile">
 		<!-- Logo moblie -->
 		<div class="logo-mobile">
-			<a href="${pageContext.request.contextPath}/HomeController" class="fs-1 font-weight-bold text-black">TYPESERVICE</a>
-		</div>
-		<!-- Icon header -->
-		<div class="wrap-icon-header flex-w flex-r-m h-full m-r-15">
-			<div class="flex-c-m h-full p-r-10">
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-					<i class="zmdi zmdi-search"></i>
-				</div>
-			</div>
-
-			<div class="flex-c-m h-full p-lr-10 bor5">
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
-					<i class="zmdi zmdi-shopping-cart"></i>
-				</div>
-			</div>
+			<a href="${pageContext.request.contextPath}/HomeController">
+				<img src="${pageContext.request.contextPath}/assets/shop/images/logo.png" alt="logo" style="height: 30px;">
+			</a>
 		</div>
 		<!-- Button show menu -->
 		<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
@@ -63,26 +52,31 @@
 			</span>
 		</div>
 	</div>
-
-
 	<!-- Menu Mobile -->
 	<div class="menu-mobile">
-		<ul class="main-menu-m p-0">
-			<li><a href="#">Home</a>
+		<ul class="main-menu-m p-0 bg-white">
+			<li><a href="#" class="text-dark">SHOP</a>
 				<ul class="sub-menu-m">
-					<li><a href="#">ALL</a></li>
-					<li><a href="#">Outwear</a></li>
-					<li><a href="#">Top</a></li>
-					<li><a href="#">Bottom</a></li>
-					<li><a href="#">Accessories</a></li>
+					<li><a href="${pageContext.request.contextPath}/goodsList">ALL</a></li>
+					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=1">Outwear</a></li> 
+					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=2">Top</a></li>
+					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=3">Bottom</a></li>
+					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=4">Accessories</a></li>
 				</ul> 
-				<span class="arrow-main-menu-m"> <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+				<span class="arrow-main-menu-m"><i class="fa fa-angle-right text-dark" aria-hidden="true"></i></span>
 			</li>
-			<li><a href="#">ABOUT</a></li>
-			<li><a href="${pageContext.request.contextPath}/SignInController">LOGIN</a></li>
+			<li><a href="#" class="text-dark">ABOUT</a></li>
+			<c:if test="${loginCustomer == null }">
+				<li><a href="${pageContext.request.contextPath}/SignInController" class="text-dark">LOGIN</a></li>
+			</c:if>
+			<c:if test="${loginCustomer != null }">
+				<li><a href="${pageContext.request.contextPath}/SignOutController" class="text-dark">LOGOUT</a></li>
+				<li><a href="${pageContext.request.contextPath}/CustomerOneController" class="text-dark">My PAGE</a></li>
+			</c:if>
+			<li><a href="${pageContext.request.contextPath}/cartList" class="text-dark">CART</a></li>
+			<li><a href="#" class="js-show-modal-search text-dark">SEARCH</a></li>
 		</ul>
 	</div>
-
 	<!-- Modal Search -->
 	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 		<div class="container-search-header">
