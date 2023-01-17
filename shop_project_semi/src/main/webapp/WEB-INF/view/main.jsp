@@ -59,68 +59,9 @@
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/js/popper.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/js/bootstrap.min.js"></script>
 		<!--===============================================================================================-->
-		<script src="${pageContext.request.contextPath}/assets/shop/vendor/select2/select2.min.js"></script>
-		<script>
-			// 상품 상세 정보 select 
-			$(".js-select2").each(function() {
-				$(this).select2({
-					minimumResultsForSearch : 20,
-					dropdownParent : $(this).next('.dropDownSelect2')
-				});
-			})
-		</script>
-		<!--===============================================================================================-->
 		<!-- 화면 레이아웃 -->
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/slick/slick.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/shop/js/slick-custom.js"></script>
-		<!--===============================================================================================-->
-		<script src="${pageContext.request.contextPath}/assets/shop/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-		<script>
-			// 상품 상세보기
-			$('.gallery-lb').each(function() { // the containers for all your galleries
-				$(this).magnificPopup({
-					delegate : 'a', // the selector for gallery item
-					type : 'image',
-					gallery : {
-						enabled : true
-					},
-					mainClass : 'mfp-fade'
-				});
-			});
-		</script>
-		<!--===============================================================================================-->
-		<script src="${pageContext.request.contextPath}/assets/shop/vendor/sweetalert/sweetalert.min.js"></script>
-		<script>
-			$('.js-addwish-b2').on('click', function(e) {
-				e.preventDefault();
-			});
-	
-			$('.js-addcart-detail').each(
-					function() {
-						var nameProduct = $(this).parent().parent().parent()
-								.parent().find('.js-name-detail').html();
-						$(this).on('click', function() {
-							swal(nameProduct, "장바구니 담기 성공 !", "success");
-						});
-					});
-		</script>
-		<!--===============================================================================================-->
-		<script src="${pageContext.request.contextPath}/assets/shop/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-		<script>
-			$('.js-pscroll').each(function() {
-				$(this).css('position', 'relative');
-				$(this).css('overflow', 'hidden');
-				var ps = new PerfectScrollbar(this, {
-					wheelSpeed : 1,
-					scrollingThreshold : 1000,
-					wheelPropagation : false,
-				});
-	
-				$(window).on('resize', function() {
-					ps.update();
-				})
-			});
-		</script>
 		<!--===============================================================================================-->
 		<script src="${pageContext.request.contextPath}/assets/shop/js/main.js"></script>
 	</body>
