@@ -121,15 +121,41 @@ public class OrderService {
 	}
 	 */
 	
+	//해당 id 총 주문 갯수 구하기
+	public int getOrderCnt(String customerId) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.orderDao = new OrderDao();
+			row = orderDao.orderListCnt(conn, customerId);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 	
-	public ArrayList<HashMap<String,Object>> getOrder(String customerId) {
+	
+	public ArrayList<HashMap<String,Object>> getOrder(String customerId, int beginRow, int rowPerPage) {
 		ArrayList<HashMap<String, Object>> orderList = null;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			orderList = new ArrayList<HashMap<String,Object>>();
-			
-			ArrayList<Orders> list = orderDao.getOrder(conn, customerId);
+			this.orderDao = new OrderDao();
+			ArrayList<Orders> list = orderDao.getOrder(conn, customerId, beginRow, rowPerPage);
 			for(Orders orders : list) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("orderCode", orders.getOrderCode());
@@ -184,7 +210,7 @@ public class OrderService {
 	}
 	
 	
-	// 주문 내역 조회 페이지  
+	/* 주문 내역 조회 페이지  
 	public ArrayList<HashMap<String,Object>> getOrderList(String customerId) {
 		ArrayList<HashMap<String,Object>> orderList = null;
 		Connection conn = null;
@@ -231,6 +257,7 @@ public class OrderService {
 		}
 		return orderList;
 	}
+	*/
 	
 	public ArrayList<HashMap<String,Object>> getOrderOne(String orderCode) {
 		ArrayList<HashMap<String,Object>> orderOne = null;

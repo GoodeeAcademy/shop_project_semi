@@ -36,7 +36,7 @@
 		
 		<title>ORDER LIST｜TYPESERVICE</title>
 		<style>
-			
+			th, td{text-align: center;}
 		</style>
 	</head>
 	
@@ -44,9 +44,10 @@
 		<!-- header -->
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		
+		
 		<!-- content start -->
 		
-		<div style="margin: 0 0 30px; padding: 0 0 15px; border-bottom: 1px solid #000">
+		<div style="margin: 0 0 30px; padding: 0 0 15px; border-bottom: 1px solid #000; width: 100%">
 			<h2 style="color: #000;">주문 / 결제내역</h2>
 		</div>
 		
@@ -56,7 +57,7 @@
 					<tr>
 						<th>주문번호</th>
 						<th>주문일자</th>
-						<th>상품정보</th>
+						<th colspan="2">상품정보</th>
 						<th>주문금액(수량)</th>
 						<th>주문상태</th>
 						<th>문의내역</th>
@@ -68,20 +69,20 @@
 						<c:forEach var="g" items="${m['goodsList']}" varStatus="d" >
 							<c:if test="${d.first}">
 								<tr class="align-middle">
-									<td rowspan="${m['orderQuantity']}" class="align-middle"><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m['orderCode']}">${m['orderCode']}</a></td>
-									<td rowspan="${m['orderQuantity']}" class="align-middle">${m['createdate']}</td>
-									<td class="align-middle">
-										<div>
-											<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지">
-											<span>${g['goodsName']}</span>
-										</div>
+									<td rowspan="${m['orderQuantity']}" class="align-middle col-sm-1"><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m['orderCode']}">${m['orderCode']}</a></td>
+									<td rowspan="${m['orderQuantity']}" class="align-middle col-sm-2">${m['createdate']}</td>
+									<td class="align-middle col-sm-1">
+										<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지" >
 									</td>
-									<td class="align-middle">
+									<td class="align-middle col-sm-2">
+										<span>${g['goodsName']}</span>
+									</td>
+									<td class="align-middle col-sm-2">
 										<div>
 											<span>${g['goodsPrice']}원 / ${g['goodsQuantity']}개</span>
 										</div>
 									</td>
-									<td class="align-middle">
+									<td class="align-middle col-sm-2">
 										<div>
 											${g['goodsState']}
 											<c:if test="${empty g['check']}"> <!-- 리뷰 중복 x -> 리뷰 작성 가능  -->
@@ -97,7 +98,7 @@
 											</c:if>
 										</div>
 									</td>
-									<td class="align-middle">
+									<td class="align-middle col-sm-2">
 										<c:if test="${empty g['qCheck']}">
 											<div>
 												<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
@@ -116,18 +117,18 @@
 							</c:if>
 							<c:if test="${!d.first}">
 								<tr>
-									<td class="align-middle">
-										<div>
-											<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지">
-											<span>${g['goodsName']}</span>
-										</div>
+									<td class="align-middle col-sm-1">
+										<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지" >
 									</td>
-									<td class="align-middle">
+									<td class="align-middle col-sm-2">
+										<span>${g['goodsName']}</span>
+									</td>
+									<td class="align-middle col-sm-2">
 										<div>
 											<span>${g['goodsPrice']}원 / ${g['goodsQuantity']}개</span>
 										</div>
 									</td>
-									<td class="align-middle">
+									<td class="align-middle col-sm-2">
 										<div>
 											${g['goodsState']}
 											<c:if test="${empty g['check']}"> <!-- 리뷰 중복 x -> 리뷰 작성 가능  -->
@@ -143,7 +144,7 @@
 											</c:if>
 										</div>
 									</td>
-									<td class="align-middle">
+									<td class="align-middle col-sm-2">
 										<c:if test="${empty g['qCheck']}">
 											<div>
 												<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
@@ -166,7 +167,58 @@
 			</table>
 		</div>
 		
+		<!-- 주문내역 페이징 -->
+		<div class="text-center" style="margin-bottom: 20px;">
+			<ul class="pagination justify-content-center">
+				<li class="page-item">
+					<a href="${pageContext.request.contextPath}/OrderListController?currentPage=1" class="page-link">처음</a>
+				</li>
+				<c:if test="${currentPage > 1}">
+					<li class="page-item">
+						<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${currentPage-1}" class="page-link">이전</a>
+					</li>
+				</c:if>
+				<c:if test="${endPage <= lastPage}">
+					<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
+						<c:if test="${currentPage == i}">
+							<li class="page-item active">
+								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+							</li>
+						</c:if>
+						<c:if test="${currentPage != i}">
+							<li class="page-item">
+								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+							</li>
+						</c:if>
+					</c:forEach>
+				</c:if>
+				<c:if test="${endPage > lastPage}">
+					<c:forEach var="i" begin="${beginPage}" end="${lastPage}" step="1">
+						<c:if test="${currentPage == i}">
+							<li class="page-item active">
+								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+							</li>
+						</c:if>
+						<c:if test="${currentPage != i}">
+							<li class="page-item">
+								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+							</li>
+						</c:if>
+					</c:forEach>
+				</c:if>
+				<c:if test="${currentPage < lastPage}">
+					<li class="page-item">
+						<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${currentPage+1}" class="page-link">다음</a>
+					</li>
+				</c:if>
+				<li class="page-item">
+					<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${lastPage}" class="page-link">마지막</a>
+				</li>
+			</ul>
+		</div>
+		
 		<!-- content end -->
+
 		<!-- footer -->
 		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		

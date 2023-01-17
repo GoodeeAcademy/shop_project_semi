@@ -99,13 +99,27 @@ public class OrderDao {
 	}
 	*/
 	
-	
-	//실험용(Order 테이블에서 ID에 맞는 주문코드, 주문일 불러오기)
-	public ArrayList<Orders> getOrder(Connection conn, String customerId) throws Exception {
-		ArrayList<Orders> list = new ArrayList<Orders>();
-		String sql = "SELECT * FROM orders WHERE customer_id = ? ORDER BY createdate DESC";
+	//고객 총 주문 갯수 카운트
+	public int orderListCnt(Connection conn, String customerId) throws Exception {
+		int row = 0;
+		String sql = "SELECT COUNT(*) cnt FROM orders WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			row = rs.getInt("cnt");
+		}
+		return row;
+	}
+	
+	//Order 테이블에서 ID에 맞는 주문코드, 주문일 불러오기
+	public ArrayList<Orders> getOrder(Connection conn, String customerId, int beginRow, int rowPerPage) throws Exception {
+		ArrayList<Orders> list = new ArrayList<Orders>();
+		String sql = "SELECT * FROM orders WHERE customer_id = ? ORDER BY createdate DESC LIMIT ?, ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			Orders order = new Orders();
@@ -117,7 +131,20 @@ public class OrderDao {
 		return list;
 	}
 	
-	//실험용(Order_goods 테이블에서 해당 주문코드에 맞는 내역 가져오기)
+	//order code에 따른 굿즈 개수 카운트
+	public int getOrderCount(Connection conn, int orderCode) throws Exception {
+		int result = 0;
+		String sql = "SELECT COUNT(*) cnt FROM order_goods WHERE order_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			result = rs.getInt("cnt");
+		}
+		return result;
+	}
+	
+	//Order_goods 테이블에서 해당 주문코드에 맞는 내역 가져오기
 	public ArrayList<HashMap<String,Object>> getOrderGoods(Connection conn, int orderCode) throws Exception {
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		String sql = "SELECT og.goods_code gc, g.goods_name gn, og.order_goods_price gp, og.order_goods_quantity gq, og.order_goods_state gs, gi.filename fileName\n"
@@ -142,21 +169,7 @@ public class OrderDao {
 		return list;
 	}
 	
-	//실험용 (order code에 따른 굿즈 개수 카운트)
-	public int getOrderCount(Connection conn, int orderCode) throws Exception {
-		int result = 0;
-		String sql = "SELECT COUNT(*) cnt FROM order_goods WHERE order_code = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, orderCode);
-		ResultSet rs = stmt.executeQuery();
-		if(rs.next()) {
-			result = rs.getInt("cnt");
-		}
-		return result;
-	}
-	
-	
-	// 주문 내역 조회
+	/* 주문 내역 조회(사용 X)
 	public ArrayList<HashMap<String, Object>> getOrderList(Connection conn, String customerId) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		String sql = "SELECT od.order_code orderCode, od.createdate createdate, odg.goods_code goodsCode,"
@@ -184,6 +197,7 @@ public class OrderDao {
 		}
 		return list;
 	}
+	*/
 	
 	/* 사용 X
 	public HashMap<String, Object> getGoodsListByOrder(Connection conn, int orderCode) throws Exception {

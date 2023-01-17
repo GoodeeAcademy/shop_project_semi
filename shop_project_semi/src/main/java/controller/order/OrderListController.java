@@ -39,15 +39,34 @@ public class OrderListController extends HttpServlet {
 			return;
 		}
 		
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1) * rowPerPage;
+		
+		final int PAGE_COUNT = 10;
+		
+		int beginPage = (currentPage-1)/PAGE_COUNT*PAGE_COUNT+1;
+		int endPage = beginPage+PAGE_COUNT-1;
+		
+		
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		this.orderService = new OrderService();
-		ArrayList<HashMap<String,Object>> orderList = orderService.getOrderList(loginCustomer.getCustomerId());
-		ArrayList<HashMap<String,Object>> testList = orderService.getOrder(loginCustomer.getCustomerId());
+		int lastPage = (int)Math.ceil((double)orderService.getOrderCnt(loginCustomer.getCustomerId()) / (double)rowPerPage);
+		
+		ArrayList<HashMap<String,Object>> testList = orderService.getOrder(loginCustomer.getCustomerId(), beginRow, rowPerPage);
 		//orderCode, customerId, orderName, orderPrice, orderState, createdate
 		// goodsCode, goodsName, fileName, quantity
 		
 		
-		request.setAttribute("orderList", orderList);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("beginPage", beginPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("lastPage", lastPage);
+		
 		request.setAttribute("testList", testList);
 		
 		request.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp").forward(request, response);
