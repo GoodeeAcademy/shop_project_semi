@@ -100,7 +100,6 @@ public class OrderController extends HttpServlet {
 		
 		
 		for (HashMap<String, Object> m : cart) {
-			// orderPrice +=(int)m.get("goodsPrice");
 			orderPrice += ( (int)m.get("goodsPrice") * (int)m.get("quantity") ); 
 		}
 

@@ -33,16 +33,24 @@ public class ModifyCartController extends HttpServlet {
 				ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("list");
 				
 				// 파라미터 수집
-				String[] goodsCode = request.getParameterValues("goodsCode");
-				String[] quantity = request.getParameterValues("quantity");
-				System.out.println(goodsCode.length);
+				String[] goodsCode_ = request.getParameterValues("goodsCode");
+				String[] quantity_ = request.getParameterValues("quantity");
+				// 문자열 배열 정수 변환
+				int[] goodsCode = new int[goodsCode_.length];
+				for(int i = 0; i < goodsCode_.length; i++) {
+					goodsCode[i] = Integer.parseInt(goodsCode_[i]);
+				}
+				int[] quantity = new int[quantity_.length];
+				for(int i = 0; i < quantity_.length; i++) {
+					quantity[i] = Integer.parseInt(quantity_[i]);
+				}
 				
 				// 장바구니(list)에 담긴 상품정보(m) 비교하여 변경
 				for(HashMap<String, Object> m : list) {
-					for(int i = 0; i < goodsCode.length; i++) {
-						if(m.get("goodsCode").equals(goodsCode[i])) {
+					for(int i = 0; i < goodsCode.length; i++) {				
+						if((int)m.get("goodsCode") == goodsCode[i]) {
 							m.put("quantity", quantity[i]);
-						}						
+						}
 					}
 				}				
 			}
