@@ -13,10 +13,6 @@
 		<!-- Latest compiled JavaScript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/customer/login.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/customer/common.css">
-		<script src="${pageContext.request.contextPath}/assets/customer/common-appinterface.js" type="text/javascript"></script>
-		
 		<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -39,6 +35,14 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 		
 		<title>회원가입</title>
+		
+		<style>
+			.login-button__item{display:block;box-sizing:border-box;width:120px;height:100px;padding:15px 5px 15px;border:1px solid #000;border-radius:4px;font-weight:700;color:#000}
+			.content-one {max-width: 1000px; margin: auto; box-sizing:border-box; margin:0 auto;padding-bottom:100px;line-height:21px;}
+			.customerInfo{width: 100%; margin: auto; text-align: center;}
+			.infoButton{line-height: 65px; font-size: 15px; margin: 5px;}
+			.buttonBox{width:100%; margin-top: 5%; text-align: center; vertical-align: middle;}
+		</style>
 	</head>
 	
 	<body>
@@ -46,35 +50,23 @@
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		
 		<!-- content -->
-		<div>
-		<h1>회원 상세 정보</h1>
-			<div>
-				<table>
-					<tr>
-						<th>ID</th>
-						<td>${loginCustomer.customerId}</td>
-					</tr>
-					<tr>
-						<th>이름</th>
-						<td>${loginCustomer.customerName }</td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-						<td>${loginCustomer.customerPhone }</td>
-					</tr>
-					<tr>
-						<th>포인트</th>
-						<td>${loginCustomer.point }</td>
-					</tr>
-				</table>
-			</div>
+		<div style="margin: 0 0 30px; padding: 0 0 15px; border-bottom: 1px solid #000">
+			<h2 style="color: #000;">My Page</h2>
 		</div>
-		<div>
-			<a href="${pageContext.request.contextPath}/OrderListController">주문/결제내역</a>
-			<a href="${pageContext.request.contextPath}/cartList">장바구니</a>
-			<a href="${pageContext.request.contextPath}/ModifyCustomerController">회원정보 수정</a>
-			<a href="${pageContext.request.contextPath}/HomeController">홈</a>
-			<a href="${pageContext.request.contextPath}/SignOutController">로그아웃</a>
+		
+		<div class="content-one">
+			<div class="customerInfo">
+				<span>${loginCustomer.customerName }님 환영합니다.</span>
+				<hr>
+				<span>현재 사용 가능한 포인트는 ${loginCustomer.point}원 입니다.</span>
+			</div>
+			<div class="d-flex flex-row justify-content-center buttonBox">
+				<a href="${pageContext.request.contextPath}/OrderListController" class="login-button__item infoButton">주문/결제내역</a>
+				<a href="${pageContext.request.contextPath}/cartList" class="login-button__item infoButton infoButton">장바구니</a>
+				<a href="${pageContext.request.contextPath}/ModifyCustomerController" class="login-button__item infoButton">회원정보 수정</a>
+				<a href="${pageContext.request.contextPath}/HomeController" class="login-button__item infoButton">홈</a>
+				<a href="${pageContext.request.contextPath}/SignOutController" class="login-button__item infoButton">로그아웃</a>
+			</div>
 		</div>
 		
 		<!-- footer -->

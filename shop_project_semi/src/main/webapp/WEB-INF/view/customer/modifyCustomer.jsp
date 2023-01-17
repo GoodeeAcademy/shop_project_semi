@@ -13,10 +13,6 @@
 		<!-- Latest compiled JavaScript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/customer/login.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/customer/common.css">
-		<script src="${pageContext.request.contextPath}/assets/customer/common-appinterface.js" type="text/javascript"></script>
-		
 		<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -40,7 +36,7 @@
 		
 		<title>회원정보 수정</title>
 		<style type="text/css">
-			.content{box-sizing:border-box;max-width:800px;margin:0 auto;padding-bottom:100px;line-height:21px}
+			.content{box-sizing:border-box;max-width:800px;margin:0 auto;padding-bottom:100px;line-height:21px;}
 			.login-member{padding-right:15px;padding-left:15px;}
 			.login-form{margin:5px 0 0;padding:0 15px}
 			.login-member__form{margin-top:20px}
@@ -77,7 +73,7 @@
 							<div class="d-flex flex-row">
 								<select name="modifyPhone1" id="modifyPhone1" class="signin-input__input" style="text-align: center;">
 									<option value="">==선택==</option>
-									<option value="010">02</option>
+									<option value="02">02</option>
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="012">031</option>
@@ -133,6 +129,9 @@
 		
 		<script>
 			$(document).ready(function() {
+				
+				$('#modifyPhone1').val('${splitPhone[0]}').prop("selected",true);
+				
 				let allCheck = false;
 				
 				let modifyFalse = ${modifyFalse}

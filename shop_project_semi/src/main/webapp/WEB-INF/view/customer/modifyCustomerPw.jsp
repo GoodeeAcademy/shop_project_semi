@@ -13,10 +13,6 @@
 		<!-- Latest compiled JavaScript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/customer/login.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/customer/common.css">
-		<script src="${pageContext.request.contextPath}/assets/customer/common-appinterface.js" type="text/javascript"></script>
-		
 		<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -49,8 +45,8 @@
 			.login-button.login-button--static{margin-top:0;padding-right:0;padding-left:0}
 			.login-button__item{display:block;box-sizing:border-box;width:100%;height:50px;padding:14px 16px 15px;border:1px solid #000;border-radius:4px;font-weight:700;color:#000}
 			.login-button__item--black{background-color:#000;color:#fff}
-			.signin-input__input{box-sizing:content-box;width:79%;height:50px;margin-top:8px;padding:0 12px;border-bottom:1px solid #000;background-color:#fff;font-size:15px;color:#000;box-shadow:0 0 0 30px #fff inset!important;transition:border .2s ease-in-out;-webkit-appearance:none;-moz-appearance:none;appearance:none}
-			.signin{box-sizing:content-box;width:21%;height:50px;margin-top:18px;padding:0 12px;background-color:#fff;font-size:15px;color:#000;box-shadow:0 0 0 30px #fff inset!important;transition:border .2s ease-in-out;-webkit-appearance:none;-moz-appearance:none;appearance:none; vertical-align: middle;}
+			.signin-input__input{box-sizing:content-box;width:75%;height:50px;margin-top:8px;padding:0 12px;border-bottom:1px solid #000;background-color:#fff;font-size:15px;color:#000;box-shadow:0 0 0 30px #fff inset!important;transition:border .2s ease-in-out;-webkit-appearance:none;-moz-appearance:none;appearance:none}
+			.signin{box-sizing:content-box;width:25%;height:50px;margin-top:18px;padding:0 12px;background-color:#fff;font-size:15px;color:#000;box-shadow:0 0 0 30px #fff inset!important;transition:border .2s ease-in-out;-webkit-appearance:none;-moz-appearance:none;appearance:none; vertical-align: middle;}
 		</style>
 	</head>
 	
@@ -65,19 +61,19 @@
 				<form action="${pageContext.request.contextPath}/ModifyCustomerPwController" method="post" id="modifyPwForm" class="login-form">
 					<div class="login-member__form">
 						<div class="login-input d-flex flex-row">
-							<span class="signin">ID</span>
+							<span class="signin col-sm-2">ID</span>
 							<input type="text" class="signin-input__input" value="${loginCustomer.customerId}" readonly="readonly" style="border-bottom:1px dashed #000;">
 						</div>
 						<div class="login-input d-flex flex-row">
-							<span class="signin">현재 비밀번호</span>
+							<span class="signin col-sm-2">현재 비밀번호</span>
 							<input type="password" name="beforePw" id="beforePw" class="signin-input__input" placeholder="현재 비밀번호">
 						</div>
 						<div class="login-input d-flex flex-row">
-							<span class="signin">변경할 비밀번호</span>
+							<span class="signin col-sm-2">변경할 비밀번호</span>
 							<input type="password" name="afterPw" id="afterPw" class="signin-input__input" placeholder="변경할 비밀번호">
 						</div>
 						<div class="login-input d-flex flex-row">
-							<span class="signin">변경할 비밀번호 확인</span>
+							<span class="signin col-sm-2">비밀번호 확인</span>
 							<input type="password" name="checkPw" id="checkPw" class="signin-input__input" placeholder="변경할 비밀번호 확인">
 						</div>
 					</div>
