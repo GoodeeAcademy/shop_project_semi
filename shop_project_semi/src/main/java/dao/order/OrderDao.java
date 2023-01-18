@@ -12,12 +12,13 @@ public class OrderDao {
 	public int addOrder(Connection conn, Orders order) throws Exception {
 		int autoKey = 0;
 		String sql = "INSERT"
-				+ " INTO orders(customer_id, order_name, address, order_price, createdate)"
+				+ " INTO orders(customer_id, order_name, address, phone, order_price, createdate)"
 				+ " VALUES(?, ?, ?, ?, now());";
 		PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 		stmt.setString(1, order.getCustomerId());
 		stmt.setString(2, order.getOrderName());
 		stmt.setString(3, order.getAddress());
+		stmt.setString(4, order.getPhone());
 		stmt.setInt(4, order.getOrderPrice());
 		int row = stmt.executeUpdate();
 		System.out.println("return addOrder: "+row);
@@ -270,23 +271,26 @@ public class OrderDao {
 	
 	public HashMap<String,Object> getOrderInfoByCustomer(Connection conn, String orderCode) throws Exception {
 		HashMap<String,Object> list = new HashMap<String,Object>();
-		String sql = "SELECT a1.ID, a1.orderName, a1.address, a1.orderPrice, a1.createdate, a1.POINT, c.customer_phone phone\n"
-				+ "FROM\n"
-				+ "(SELECT o.customer_id ID, o.order_name orderName, o.address address, o.order_price orderPrice, o.createdate createdate, ph.point POINT\n"
-				+ "	 FROM orders o INNER JOIN point_history ph ON o.order_code = ph.order_code WHERE o.order_code = ?) a1\n"
-				+ "INNER JOIN\n"
-				+ "customer c ON a1.ID = c.customer_id";
+		String sql = "SELECT"
+				+ "		o.customer_id ID,"
+				+ "		o.order_name orderName,"
+				+ "		o.address address,"
+				+ "		o.order_price orderPrice,"
+				+ "		o.phone phone,"
+				+ "		o.createdate createdate,"
+				+ "		ph.point POINT\n"
+				+ "	FROM orders o INNER JOIN point_history ph ON o.order_code = ph.order_code WHERE o.order_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, orderCode);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
-			list.put("ID", rs.getString("a1.ID"));
-			list.put("address", rs.getString("a1.address"));
-			list.put("orderName", rs.getString("a1.orderName"));
-			list.put("orderPrice", rs.getInt("a1.orderPrice"));
-			list.put("createdate", rs.getString("a1.createdate"));
-			list.put("point", rs.getInt("a1.point"));
+			list.put("ID", rs.getString("ID"));
+			list.put("orderName", rs.getString("orderName"));
+			list.put("address", rs.getString("address"));
+			list.put("orderPrice", rs.getInt("orderPrice"));
 			list.put("phone", rs.getString("phone"));
+			list.put("createdate", rs.getString("createdate"));
+			list.put("point", rs.getInt("point"));
 		}
 		rs.close();
 		stmt.close();

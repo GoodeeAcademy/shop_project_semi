@@ -164,6 +164,11 @@
 					} else if($('#address').val().length < 1 ) {
 						alert('주소를 입력해주세요.');
 						$('#address').focus();
+					} else if($('#phone1 option:selected').val().length < 1) {
+						alert('지역번호를 선택해주세요.');
+					} else if($('#phone2').val().length < 3 || $('#phone3').val().length < 4) {
+						$('#phone2').focus();
+						alert('올바른 전화번호를 입력하여 주세요.');
 					} else if($('#point').val().length < 1) {
 						alert('사용할 포인트를 입력해주세요.');
 						$('#point').val('0');

@@ -109,6 +109,7 @@ public class OrderController extends HttpServlet {
 		order.setCustomerId(loginCustomer.getCustomerId());
 		order.setOrderName(request.getParameter("orderName"));
 		order.setAddress(request.getParameter("address"));
+		order.setPhone(request.getParameter("phone1")+"-"+request.getParameter("phone2")+"-"+request.getParameter("phone3"));
 		order.setOrderPrice(orderPrice);
 		
 		this.orderService = new OrderService();
