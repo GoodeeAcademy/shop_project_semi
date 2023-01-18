@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>직원 로그인</title>
+<title>TYPESERVICE | 직원 로그인</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -50,8 +50,7 @@
                                             <label><strong>비밀번호</strong></label>
                                             <input type="password" name="empPw" id="empPw" class="form-control">
                                         </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                                        </div>
+
                                         <div class="text-center">
                                             <button type="button" id="loginEmpBtn" class="btn btn-primary btn-block">로그인</button>
                                         </div>
