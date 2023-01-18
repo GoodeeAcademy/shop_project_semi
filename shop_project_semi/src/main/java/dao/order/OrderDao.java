@@ -152,7 +152,7 @@ public class OrderDao {
 				+ "	FROM order_goods og\n"
 				+ "	JOIN goods g ON og.goods_code = g.goods_code\n"
 				+ "	JOIN goods_img gi ON g.goods_code = gi.goods_code\n"
-				+ "	WHERE og.order_code = ? ORDER BY og.goods_code ASC";
+				+ "	WHERE og.order_code = ? GROUP BY og.goods_code ORDER BY og.goods_code ASC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, orderCode);
 		ResultSet rs = stmt.executeQuery();
@@ -248,7 +248,7 @@ public class OrderDao {
 				+ "			(SELECT goods_code, goods_name, goods_price FROM goods)t1 ON t.goods_code = t1.goods_code\n"
 				+ "		) a1\n"
 				+ "	INNER JOIN \n"
-				+ "		(select goods_code, filename FROM goods_img)t2\n"
+				+ "		(select goods_code, filename FROM goods_img GROUP BY goods_code)t2\n"
 				+ "	 ON a1.goods_code = t2.goods_code";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, orderCode);
