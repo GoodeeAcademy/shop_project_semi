@@ -84,11 +84,11 @@
 							</select>
 							<span class="signin">-</span>
 							<input type="text" name="addPhone2" id="addPhone2" maxlength="4" 
-								oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1').replace(/^0[^.]/, '0');"
+								oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1'));"
 								class="signin-input__input" placeholder="전화번호1">
 							<span class="signin">-</span>
 							<input type="text" name="addPhone3" id="addPhone3" maxlength="4"
-								oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1').replace(/^0[^.]/, '0');"
+								oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1'));"
 								class="signin-input__input" placeholder="전화번호2">
 							<!-- oninput : 해당 input에 숫자를 제외하고는 입력이 불가능하도록 설정함. number가 아닌 이유는 못생겨서 -->
 						</div>

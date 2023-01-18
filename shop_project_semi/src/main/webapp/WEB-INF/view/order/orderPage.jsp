@@ -97,7 +97,7 @@
 							<th class="col-sm-3 align-middle">전화번호</th>
 							<td class="col-sm-9 align-middle">
 								<div class="d-flex flex-row">
-									<select name="modifyPhone1" id="phone1" name="phone1" class="signin-input__input" style="text-align: center;">
+									<select id="phone1" name="phone1" class="signin-input__input" style="text-align: center;">
 										<option value="">==선택==</option>
 										<option value="02">02</option>
 										<option value="010">010</option>
@@ -108,11 +108,11 @@
 									</select>
 									<span class="signin">-</span>
 									<input type="text" id="phone2" name="phone2" class="signin-input__input"
-										maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1').replace(/^0[^.]/, '0');"
+										maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1'));"
 										value="${splitPhone[1]}">
 									<span class="signin">-</span>
 									<input type="text" id="phone3" name="phone3" class="signin-input__input"
-										maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1').replace(/^0[^.]/, '0');"
+										maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1'));"
 									 	value="${splitPhone[2]}">
 								</div>
 							</td>
@@ -175,6 +175,7 @@
 						$('#point').focus();
 					} else if($('#point').val() > ${loginCustomer.point}) {
 						alert('보유중인 포인트보다 많습니다.');
+						$('#point').val('${loginCustomer.point}');
 						$('#point').focus();
 					} else {
 						allCheck = true;

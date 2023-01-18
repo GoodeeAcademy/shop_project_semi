@@ -13,13 +13,13 @@ public class OrderDao {
 		int autoKey = 0;
 		String sql = "INSERT"
 				+ " INTO orders(customer_id, order_name, address, phone, order_price, createdate)"
-				+ " VALUES(?, ?, ?, ?, now());";
+				+ " VALUES(?, ?, ?, ?, ?, now());";
 		PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 		stmt.setString(1, order.getCustomerId());
 		stmt.setString(2, order.getOrderName());
 		stmt.setString(3, order.getAddress());
 		stmt.setString(4, order.getPhone());
-		stmt.setInt(4, order.getOrderPrice());
+		stmt.setInt(5, order.getOrderPrice());
 		int row = stmt.executeUpdate();
 		System.out.println("return addOrder: "+row);
 		ResultSet rs = stmt.getGeneratedKeys();
