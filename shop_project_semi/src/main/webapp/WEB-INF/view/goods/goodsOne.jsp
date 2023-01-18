@@ -7,61 +7,133 @@
 		<meta charset="UTF-8">
 		<title>goods one</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="icon" type="image/png" href="#" />
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/iconic/css/material-design-iconic-font.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/linearicons-v1.0.0/icon-font.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/css-hamburgers/hamburgers.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/animsition/css/animsition.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/daterangepicker/daterangepicker.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/slick/slick.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/MagnificPopup/magnific-popup.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/perfect-scrollbar/perfect-scrollbar.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/style.css">
 	</head>
 	<body>
-		<a href="${pageContext.request.contextPath}/HomeController">home</a>
-		<a href="${pageContext.request.contextPath}/goodsList">shop</a>
-		<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
-		<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">문의</a>
-		<a href="${pageContext.request.contextPath}/CustomerOneController">my page</a>
-		<div>
-			<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200px" height="200px" alt="상품 이미지"/>
-		</div>
-		<div>${m.goodsName}</div>
-		<div class="price"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</div>
-		
-		<form action="${pageContext.request.contextPath}/addCart" method="get" id="updateForm">
-			<input type="hidden" name="goodsCode" value="${m.goodsCode}">
-			<input type="hidden" name="filename" value="${m.filename}">
-			<input type="hidden" name="goodsName" value="${m.goodsName}">
-			<input type="hidden" name="goodsPrice" value="${m.goodsPrice}">
-			<input type="hidden" name="goodsPrice" value="${m.goodsPrice}">
-			<input type="hidden" name="bn" value="false" id="bn">
-			<div>
-				<button type="button" class="btn-quantity-down">-</button>
-				<input type="number" class="quantity" name="quantity" value="1"/>
-				<button type="button" class="btn-quantity-up">+</button>
+		<!-- header -->
+		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
+		<!-- Product Detail -->
+		<section class="sec-product-detail bg0 p-t-65 p-b-60">
+			<div class="container">
+				<!-- 상품 이미지 -->
+				<div class="row">
+					<div class="col-md-6 col-lg-7 p-b-30">
+						<div class="p-l-25 p-r-30 p-lr-0-lg">
+							<div class="wrap-slick3 flex-sb flex-w">
+								<div class="wrap-slick3-dots"></div>
+								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+								<div class="slick3 gallery-lb">
+									<c:forEach var="gi" items="${imgList}">
+										<div class="item-slick3" data-thumb="${pageContext.request.contextPath}/upload/${gi.filename}">
+											<div class="wrap-pic-w pos-relative">
+												<img src="${pageContext.request.contextPath}/upload/${gi.filename}" alt="상품 이미지"/>
+												<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${pageContext.request.contextPath}/upload/${gi.filename}">
+													<i class="fa fa-expand"></i>
+												</a>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 상품 정보 -->
+					<div class="col-md-6 col-lg-5 p-b-30">
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14">${m.goodsName}</h4>
+						<span class="price mtext-106 cl2"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>
+						<form action="${pageContext.request.contextPath}/addCart" method="get" id="updateForm">
+							<input type="hidden" name="goodsCode" value="${m.goodsCode}">
+							<input type="hidden" name="filename" value="${m.filename}">
+							<input type="hidden" name="goodsName" value="${m.goodsName}">
+							<input type="hidden" name="goodsPrice" value="${m.goodsPrice}">
+							<%-- <input type="hidden" name="goodsPrice" value="${m.goodsPrice}"> --%>
+							<input type="hidden" name="bn" value="false" id="bn">
+							<div class="d-flex justify-content-center">
+								<button type="button" class="btn btn-quantity-down">-</button>
+								<input type="number" class="quantity w-25 text-center" name="quantity" value="1"/>
+								<button type="button" class="btn btn-quantity-up">+</button>
+							</div>
+							<div class="">
+								<button class="" type="submit">ADD TO CART</button>
+								<c:if test="${loginCustomer != null}">
+									<button class="" type="button" id="buyNow">BUY NOW</button>
+								</c:if>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
-			<button type="submit">ADD TO CART</button>
-			<c:if test="${loginCustomer != null}">
-				<button type="button" id="buyNow">BUY NOW</button>			
-			</c:if>
-		</form>
-		
-		<!-- 상품 전체 이미지 -->
-		<table>
-			<c:forEach var="gi" items="${imgList}">
-			<tr>
-				<td><img src="${pageContext.request.contextPath}/upload/${gi.filename}" width="100px" height="100px" alt="상품 이미지"/></td>
-			</tr>
-			</c:forEach>
-		</table>
-		
-		<h4>리뷰</h4>
-		<c:forEach var="m" items="${list}">
-			<div>
-				<div>
-					<span>${m.customerId}</span>
-					<span>${m.star}</span>
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<!-- Tab -->
+				<div class="tab01">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<!-- 탭 추가 -->
+						<li class="nav-item p-b-10"><a class="nav-link " data-toggle="tab" href="#description" role="tab">Reviews</a></li>
+					</ul>
+					<c:forEach var="m" items="${list}">
+						<div class="row">
+							<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+								<div class="p-b-30 m-lr-15-sm">
+									<!-- 리뷰 -->
+									<div class="flex-w flex-t p-b-68">
+										<div class="size-207">
+											<div class="flex-w flex-sb-m p-b-17">
+												<span class="mtext-107 cl2 p-r-20">${m.customerId}</span> 
+												<span class="fs-18 cl11">${m.star}</span>
+											</div>
+											<p class="stext-102 cl6">${m.reviewMemo}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
-				<div>
-					<p>
-						${m.reviewMemo}
-					</p>
-				</div>
-			</div>		
-		</c:forEach>
-		
+			</div>
+		</section>
+		<!-- footer -->
+		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
+		<!--===============================================================================================-->
+		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
+		<script src="${pageContext.request.contextPath}/assets/shop/vendor/animsition/js/animsition.min.js"></script>
+		<script src="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/js/popper.js"></script>
+		<script src="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!-- 화면 레이아웃 -->
+		<script src="${pageContext.request.contextPath}/assets/shop/vendor/slick/slick.min.js"></script>
+		<script src="${pageContext.request.contextPath}/assets/shop/js/slick-custom.js"></script>
+		<!--===============================================================================================-->
+		<script src="${pageContext.request.contextPath}/assets/shop/js/main.js"></script>
+		<script src="${pageContext.request.contextPath}/assets/shop/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+		<script>
+			$('.gallery-lb').each(function() { 
+				$(this).magnificPopup({
+			        delegate: 'a', 
+			        type: 'image',
+			        gallery: {
+			        	enabled:true
+			        },
+			        mainClass: 'mfp-fade'
+			    });
+			});
+		</script>
 		<script>
 			$(function() {
 				const quantity = document.querySelector('.quantity');
@@ -71,20 +143,22 @@
 				const updateForm = document.querySelector('#updateForm');
 				
 				// 상품 수량 증가, 감소 버튼
-				// + 버튼
-				let p = parseInt(price.textContent); // 가격
+				// 원 , 제거 하여 정수형으로 변환
+				let p = price.textContent.split('원')[0];
+				let p_ = parseInt(p.replace(',',''));
 				
+				// + 버튼
 				upBtn.addEventListener('click', function(){
 					let q = parseInt(quantity.value); // 수량
 					quantity.value = q+1;
-					price.textContent = p * (q+1);
+					price.textContent = (p_ * (q+1)).toLocaleString('ko-KR');
 			    });
 				// -버튼
 				downBtn.addEventListener('click', function(){
 					let q = parseInt(quantity.value); // 수량
 					if(quantity.value > 1) {
 						quantity.value = q-1;		
-						price.textContent = p * (q-1);
+						price.textContent = (p_ * (q-1)).toLocaleString('ko-KR');;
 					}
 			    });
 				
