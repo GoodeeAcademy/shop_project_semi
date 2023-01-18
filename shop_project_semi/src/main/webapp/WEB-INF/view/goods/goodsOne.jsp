@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,7 +18,7 @@
 			<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200px" height="200px" alt="상품 이미지"/>
 		</div>
 		<div>${m.goodsName}</div>
-		<div class="price">${m.goodsPrice}</div>
+		<div class="price"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</div>
 		
 		<form action="${pageContext.request.contextPath}/addCart" method="get" id="updateForm">
 			<input type="hidden" name="goodsCode" value="${m.goodsCode}">

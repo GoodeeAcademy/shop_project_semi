@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -80,7 +81,9 @@
 									</td>
 									<td class="align-middle col-sm-2">
 										<div>
-											<span>${g['goodsPrice']}원 / ${g['goodsQuantity']}개</span>
+											<span>
+												<fmt:formatNumber value="${g['goodsPrice']}" type="number"/>원(${g['goodsQuantity']}개)
+											</span>
 										</div>
 									</td>
 									<td class="align-middle col-sm-2">
@@ -126,7 +129,9 @@
 									</td>
 									<td class="align-middle col-sm-2">
 										<div>
-											<span>${g['goodsPrice']}원 / ${g['goodsQuantity']}개</span>
+											<span>
+												<fmt:formatNumber value="${g['goodsPrice']}" type="number"/>원(${g['goodsQuantity']}개) 
+											</span>
 										</div>
 									</td>
 									<td class="align-middle col-sm-2">

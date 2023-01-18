@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,9 @@
 	<!-- header -->
 	<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 	<div class="row isotope-grid">
+		<c:if test="${empty list}">
+			<div class="d-flex justify-content-center align-items-center" style="height: 100vh; color:black;">등록된 상품이 없습니다.</div>
+		</c:if>
 		<c:forEach var="m" items="${list}">
 			<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark">
 				<div class="block2">
@@ -40,7 +44,7 @@
 						<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}" class="text-dark">
 							${m.goodsName}
 						</a> 
-						<span class="text-dark">${m.goodsPrice}원</span>
+						<span class="text-dark"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>
 					</div>
 				</div>
 			</div>

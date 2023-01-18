@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -47,7 +48,10 @@
 									<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="상품 이미지"/>
 									${m.goodsName}
 								</td>
-								<td><span class="price">${m.goodsPrice}</span></td>
+								<td>
+									<span class="price">
+										<fmt:formatNumber value="${m.goodsPrice}" type="number"/>
+									</span></td>
 								<td>
 									<div class="d-flex justify-content-center">
 										<button type="button" class="btn btn-quantity-down">-</button>
@@ -55,7 +59,11 @@
 										<button type="button" class="btn btn-quantity-up">+</button>
 									</div>
 								</td>
-								<td><span class="totalPrice">${m.goodsPrice * m.quantity}</span></td>
+								<td>
+									<span class="totalPrice">
+										<fmt:formatNumber value="${m.goodsPrice * m.quantity}" type="number"/>
+									</span>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -65,41 +73,6 @@
 				<button class="btn btn-lg p-2 w-25" type="submit" style="background-color: black; color:white;">ORDER</button>
 			</form>
 		</div>
-<%-- 		<form action="${pageContext.request.contextPath}/modifyCart" method="post" id="updateForm">
-			<table>
-				<thead>
-					<tr>
-						<td>PRODUCT</td>
-						<td>PRICE</td>
-						<td>QUANTITY</td>
-						<td>TOTAL</td>
-						<td>MANAGEMENT</td>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="m" items="${list}">
-						<tr>
-							<td>
-								<input type="hidden" name="goodsCode" value="${m.goodsCode}">
-								<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="상품 이미지"/>
-								${m.goodsName}
-							</td>
-							<td><span class="price">${m.goodsPrice}</span></td>
-							<td>
-								<button type="button" class="btn-quantity-down">-</button>
-									<input type="number" class="quantity" name="quantity" value="${m.quantity}"/>
-								<button type="button" class="btn-quantity-up">+</button>
-							</td>
-							<td><span class="totalPrice">${m.goodsPrice * m.quantity}</span></td>
-							<td><a href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">delete</a></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</form>
-		<form action="${pageContext.request.contextPath}/OrderController" method="get">
-			<button type="submit">주문하기</button>
-		</form> --%>
 		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/animsition/js/animsition.min.js"></script>

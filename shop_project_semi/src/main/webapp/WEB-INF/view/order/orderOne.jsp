@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -74,14 +75,14 @@
 						<tr>
 							<td class="align-middle col-sm-2 text-center"><img src="${pageContext.request.contextPath}/upload/${m['fileName']}" width="100px" height="100px"></td>
 							<td class="align-middle col-sm-5 text-center"><a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m['goodsCode']}">${m['goodsName']}</a></td>
-							<td class="align-middle col-sm-2 text-center">${m['price']}원</td>
+							<td class="align-middle col-sm-2 text-center"><fmt:formatNumber value="${m['price']}" type="number"/>원</td>
 							<td class="align-middle col-sm-1 text-center">${m['quantity']}개</td>
-							<td class="align-middle col-sm-2 text-center">${m['price']*m['quantity']}원</td>
+							<td class="align-middle col-sm-2 text-center"><fmt:formatNumber value="${m['price']*m['quantity']}" type="number"/>원</td>
 						</tr>
 					</c:forEach>
 					<tr>
 						<th colspan="4">합계</th>
-						<td class="align-middle text-center">${totalPrice}원</td>
+						<td class="align-middle text-center"><fmt:formatNumber value="${totalPrice}" type="number"/>원</td>
 					</tr>
 				</table>
 			</div>	
@@ -107,11 +108,11 @@
 					</tr>
 					<tr>
 						<th class="col-sm-3">포인트 사용 내역</th>
-						<td class="col-sm-9 align-middle">${customerInfo['point']}원</td>
+						<td class="col-sm-9 align-middle"><fmt:formatNumber value="${customerInfo['point']}" type="number"/>원</td>
 					</tr>
 					<tr>
 						<th class="col-sm-3">결제 금액<br>(제품금액 - 포인트사용분)</th>
-						<td class="col-sm-9 align-middle">${customerInfo['orderPrice']}원</td>
+						<td class="col-sm-9 align-middle"><fmt:formatNumber value="${customerInfo['orderPrice']}" type="number"/>원</td>
 					</tr>
 				</table>
 			</div>	
