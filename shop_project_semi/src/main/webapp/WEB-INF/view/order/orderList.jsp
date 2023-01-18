@@ -139,7 +139,7 @@
 											${g['goodsState']}
 											<c:if test="${empty g['check']}"> <!-- 리뷰 중복 x -> 리뷰 작성 가능  -->
 												<c:if test="${g['goodsState'].equals('구매확정')}">
-													<a href="#none" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}&totalPrice=${g['goodsPrice']*g['goodsQuantity']}', '리뷰팝업', 'width=700px,height=800px,scrollbars=yes');">리뷰쓰기</a>							
+													<a href="#none" onclick="window.open('${pageContext.request.contextPath}/addReview?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}&totalPrice=${g['goodsPrice']*g['goodsQuantity']}', '리뷰팝업');">리뷰쓰기</a>							
 												</c:if>
 												<c:if test="${g['goodsState'].equals('배송완료')}">
 													<a href="${pageContext.request.contextPath}/modifyOrderState?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">구매확정</a>

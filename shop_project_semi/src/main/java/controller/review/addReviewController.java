@@ -68,7 +68,7 @@ public class addReviewController extends HttpServlet {
 
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
-		int star = Integer.parseInt(request.getParameter("star"));
+		int star = (Integer.parseInt(request.getParameter("star")) / 2);
 		String reviewMemo = request.getParameter("reviewMemo");
 		String customerId = loginCustomer.getCustomerId();
 		int point = Integer.parseInt(request.getParameter("point")); // 적립 포인트
