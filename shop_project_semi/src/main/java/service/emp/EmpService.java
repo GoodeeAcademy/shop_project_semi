@@ -3,6 +3,7 @@ package service.emp;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import dao.emp.EmpDao;
 import util.DBUtil;
@@ -143,13 +144,13 @@ public class EmpService {
 	}
 	
 	// 직원 정보 수정
-	public int modifyEmp(Emp loginEmp, String newName) {
+	public int modifyEmp(Emp changedEmp) {
 		int row = 0;
 		this.empDao = new EmpDao();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			row = empDao.updateEmp(conn, loginEmp, newName);
+			row = empDao.updateEmp(conn, changedEmp);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -246,7 +247,8 @@ public class EmpService {
 		return count;
 	}
 	
-	// 관리자: 직원 삭제
+	// 관리자
+	// 직원 삭제
 	public int removeEmp(String empId) {
 		int row = 0;
 		this.empDao = new EmpDao();
@@ -296,5 +298,57 @@ public class EmpService {
 			}
 		}
 		return row;
+	}
+	
+	// 직원 활성화
+	public int modifyEmpActive(String empId, boolean checked) {
+		int row = 0;
+		this.empDao = new EmpDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			row = empDao.updateEmpActive(conn, empId, checked);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	// 모든 직원 등급
+	public ArrayList<HashMap<String, Object>> getAuthCodeList(){
+		ArrayList<HashMap<String, Object>> list = null;
+		this.empDao = new EmpDao();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			list = empDao.selectAuthCodeList(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 }

@@ -55,6 +55,8 @@ public class ModifyEmpController extends HttpServlet {
 		String empPw = request.getParameter("empPw");
 		String newName = request.getParameter("newName");
 		String empId = loginEmp.getEmpId();
+		Emp changedEmp = loginEmp;
+		changedEmp.setEmpName(newName);
 		
 		// 비밀번호 일치 확인
 		empService = new EmpService();
@@ -69,7 +71,7 @@ public class ModifyEmpController extends HttpServlet {
 		System.out.println("비밀번호 일치");
 		
 		// 정보 수정
-		int row = empService.modifyEmp(loginEmp, newName);
+		int row = empService.modifyEmp(changedEmp);
 		if(row != 1) {
 			System.out.println("정보 수정 실패");
 			response.setContentType("text/html; charset=UTF-8");

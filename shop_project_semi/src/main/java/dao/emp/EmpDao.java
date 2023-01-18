@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vo.Emp;
 
@@ -19,6 +20,10 @@ public class EmpDao {
 		if(rs.next()) {	// 비밀번호가 일치한다면
 			check = true;
 		}
+		
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
 		return check;
 	}
 	
@@ -49,6 +54,10 @@ public class EmpDao {
 			loginEmp.setCreatedate(rs.getString("createdate"));
 			loginEmp.setUpdatedate(rs.getString("updatedate"));
 		}
+		
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
 		return loginEmp;
 	}
 	
@@ -78,6 +87,10 @@ public class EmpDao {
 			emp.setCreatedate(rs.getString("createdate"));
 			emp.setUpdatedate(rs.getString("updatedate"));
 		}
+		
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
 		return emp;
 	}
 	
@@ -91,6 +104,9 @@ public class EmpDao {
 		stmt.setString(2, emp.getEmpPw());
 		stmt.setString(3, emp.getEmpName());
 		row = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
 		return row;
 	}
 	
@@ -110,19 +126,29 @@ public class EmpDao {
 		if(rs.next()) {	// 일치하는 아이디가 있다면
 			check = true;
 		}
+		
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
 		return check;
 	}
 	
 	// 직원 정보 수정
-	public int updateEmp(Connection conn, Emp loginEmp, String newName) throws Exception{
+	public int updateEmp(Connection conn, Emp changedEmp) throws Exception{
 		int row = 0;
-		String sql = "UPDATE emp \r\n"
-				+ "SET emp_name = ?, updatedate = NOW()\r\n"
+		String sql = "UPDATE emp\r\n"
+				+ "SET emp_name = ?\r\n"
+				+ "	, auth_code = ?\r\n"
+				+ "	, updatedate = NOW()\r\n"
 				+ "WHERE emp_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, newName);
-		stmt.setString(2, loginEmp.getEmpId());
+		stmt.setString(1, changedEmp.getEmpName());
+		stmt.setInt(2, changedEmp.getAuthCode());
+		stmt.setString(3, changedEmp.getEmpId());
 		row = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
 		return row;
 	}
 	
@@ -136,6 +162,9 @@ public class EmpDao {
 		stmt.setString(1, newPw);
 		stmt.setString(2, loginEmp.getEmpId());
 		row = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
 		return row;
 	}
 	
@@ -168,6 +197,10 @@ public class EmpDao {
 			e.setUpdatedate(rs.getString("updatedate"));
 			list.add(e);
 		}
+		
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
 		return list;
 	}
 	
@@ -180,10 +213,15 @@ public class EmpDao {
 		if(rs.next()) {
 			count = rs.getInt("COUNT(*)");
 		}
+		
+		if(rs != null) {stmt.close();}
+		if(stmt != null) {stmt.close();}
+		
 		return count;
 	}
 	
-	// 관리자: 직원 삭제
+	// 관리자
+	// 직원 삭제
 	public int deleteEmp(Connection conn, String empId) throws Exception{
 		int row = 0;
 		String sql = "DELETE FROM emp\r\n"
@@ -191,6 +229,9 @@ public class EmpDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, empId);
 		row = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
 		return row;
 	}
 	
@@ -201,6 +242,48 @@ public class EmpDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, empId);
 		row = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
 		return row;
+	}
+	
+	// 직원 활성화
+	public int updateEmpActive(Connection conn, String empId, boolean checked) throws Exception{
+		int row = 0;
+		String sql = "UPDATE emp SET active = ?\r\n"
+				+ "WHERE emp_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		if(checked) {	// 선택됐다면 -> active 'Y'
+			stmt.setString(1, "Y");
+		}else {
+			stmt.setString(1, "N");
+		}
+		stmt.setString(2, empId);
+		row = stmt.executeUpdate();
+		
+		if(stmt != null) {stmt.close();}
+		
+		return row;
+	}
+	
+	// 모든 직원 등급
+	public ArrayList<HashMap<String, Object>> selectAuthCodeList(Connection conn) throws Exception{
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		String sql = "SELECT auth_code authCode, auth_name authName\r\n"
+				+ "FROM auth_info";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("authCode", rs.getInt("authCode"));
+			m.put("authName", rs.getString("authName"));
+			list.add(m);
+		}
+		
+		if(rs != null) {rs.close();}
+		if(stmt != null) {stmt.close();}
+		
+		return list;
 	}
 }
