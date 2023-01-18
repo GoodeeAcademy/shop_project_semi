@@ -56,7 +56,6 @@ public class AllOrderListController extends HttpServlet {
 		stateList.add("배송준비중");
 		stateList.add("배송중");
 		stateList.add("배송완료");
-		stateList.add("구매확정");
 		
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("startPage", startPage);

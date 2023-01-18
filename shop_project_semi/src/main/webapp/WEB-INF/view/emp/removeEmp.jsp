@@ -3,7 +3,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>직원 관리</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>퇴사 처리</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/emp/images/favicon.png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="${pageContext.request.contextPath}/assets/emp/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/emp/css/style.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -25,35 +32,82 @@
 </script>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/HomeController">home</a>
-	<a href="${pageContext.request.contextPath}/goodsList">shop</a>
-	<a href="${pageContext.request.contextPath}/EmpMainController">직원페이지</a>
-	<a href="${pageContext.request.contextPath}/NoticeListController">notice</a>
-	<a href="${pageContext.request.contextPath}/QuestionListForEmpController">문의(직원)</a>
-	<h1>직원 퇴사(관리자)</h1>
-	<form method="post" action="${pageContext.request.contextPath}/RemoveEmpController" id="removeEmpForm">
-		<table>
-			<tr>
-				<td>사원 번호</td>
-				<td>${targetEmp.empCode}</td>
-			</tr>
-			<tr>
-				<td>사원 아이디</td>
-				<td>
-					${targetEmp.empId}
-					<input type="hidden" name="targetEmpId" value="${targetEmp.empId}">
-				</td>
-			</tr>
-			<tr>
-				<td>사원 이름</td>
-				<td>${targetEmp.empName}</td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="adminPw" id="adminPw"></td>
-			</tr>
-		</table>
-		<button type="button" id="removeEmpBtn">퇴사처리</button>
-	</form>
+	<div id="main-wrapper">
+		<!-- header -->
+		<jsp:include page="/WEB-INF/view/inc/emp/header.jsp"></jsp:include>
+		<!-- sidebar -->
+		<jsp:include page="/WEB-INF/view/inc/emp/sidebar.jsp"></jsp:include>
+
+		<div class="content-body">
+		    <div class="container-fluid">
+		    	<div class="row">
+		    		<div class="col-lg-12">
+		    			<div class="card">
+		    				<div class="card-header">
+                                <h4 class="card-title">직원 퇴사</h4>
+                            </div>
+                            <div class="auth-form">
+								<form method="post" action="${pageContext.request.contextPath}/RemoveEmpController" id="removeEmpForm">
+									<div class="form-group">
+										<label><strong>사원번호</strong></label>
+										${targetEmp.empCode}
+									</div>
+									<div class="form-group">
+										<label><strong>사원아이디</strong></label>
+										${targetEmp.empId}
+										<input type="hidden" name="targetEmpId" value="${targetEmp.empId}">
+									</div>
+									<div class="form-group">
+										<label><strong>사원명</strong></label>
+										${targetEmp.empName}
+									</div>
+									<div class="form-group">
+										<label><strong>관리자 비밀번호</strong></label>
+										<input type="password" name="adminPw" id="adminPw" class="form-control">
+									</div>
+									<div align="center">									
+										<button type="button" id="removeEmpBtn" class="btn btn-primary">퇴사처리</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/global/global.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/js/quixnav-init.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/js/custom.min.js"></script>
+
+
+    <!-- Vectormap -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/raphael/raphael.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/morris/morris.min.js"></script>
+
+
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/chart.js/Chart.bundle.min.js"></script>
+
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/gaugeJS/dist/gauge.min.js"></script>
+
+    <!--  flot-chart js -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/flot/jquery.flot.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/flot/jquery.flot.resize.js"></script>
+
+    <!-- Owl Carousel -->
+    <script src="./vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+    <!-- Counter Up -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/jquery.counterup/jquery.counterup.min.js"></script>
+
+    <script src="${pageContext.request.contextPath}/assets/emp/js/dashboard/dashboard-1.js"></script>
 </body>
 </html>

@@ -3732,6 +3732,7 @@ input[type="button"].btn-block {
   display: flex;
   padding-left: 0;
   list-style: none;
+  justify-content: center;
   border-radius: 0.25rem; }
 
 .page-link {

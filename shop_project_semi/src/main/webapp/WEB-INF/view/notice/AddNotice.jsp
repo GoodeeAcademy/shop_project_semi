@@ -2,65 +2,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>공지쓰기</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/iconic/css/material-design-iconic-font.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/fonts/linearicons-v1.0.0/icon-font.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/animate/animate.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/css-hamburgers/hamburgers.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/animsition/css/animsition.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/select2/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/daterangepicker/daterangepicker.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/slick/slick.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/MagnificPopup/magnific-popup.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/perfect-scrollbar/perfect-scrollbar.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
+	<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/emp/images/favicon.png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="${pageContext.request.contextPath}/assets/emp/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/emp/css/style.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
-	
-	<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/shop/vendor/animsition/js/animsition.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/js/popper.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/shop/js/main.js"></script>
-	
-	<!-- 사진 파일 변경 필요 -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/assets/shop/images/bg-03.jpg');">
-		<h2 class="ltext-105 cl0 txt-center">
-			Notice
-		</h2>
-	</section>	
-	
-	<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto" style="margin-top: 5%; margin-bottom: 5%;">
-		<div class="p-b-30 m-lr-15-sm">
-			<form method="post" action="${pageContext.request.contextPath}/AddNoticeController">
-				<div class="row p-b-25">
-					<div class="col-sm-6 p-b-5">
-						<label class="stext-102 cl3">제목</label>
-						<input type="text" name="noticeTitle" class="size-111 bor8 stext-102 cl2 p-lr-20">
-					</div>
-					<div class="col-sm-6 p-b-5">
-						<label class="stext-102 cl3">작성자</label>
-						<span>${loginEmp.empName}</span>
-					</div>
-					<div class="col-12 p-b-5">
-						<label class="stext-102 cl3">내용</label>
-						<textarea rows="10" cols="10" name="noticeContent" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"></textarea>
+	<div id="main-wrapper">
+		<!-- header -->
+		<jsp:include page="/WEB-INF/view/inc/emp/header.jsp"></jsp:include>
+		<!-- sidebar -->
+		<jsp:include page="/WEB-INF/view/inc/emp/sidebar.jsp"></jsp:include>
+
+		<div class="content-body">
+		    <div class="container-fluid">
+		    	<div class="row">
+		    		<div class="col-lg-12">
+		    			<div class="card">
+		    				<div class="card-header">
+                                <h4 class="card-title">공지 추가</h4>
+                            </div>
+                            <div class="auth-form">
+								<form method="post" action="${pageContext.request.contextPath}/AddNoticeController">
+									<div class="form-group">
+										<label><strong>제목</strong></label>
+										<input type="text" name="noticeTitle" class="form-control">
+									</div>
+									<div class="form-group">
+										<label><strong>작성자</strong></label>
+										<span>${loginEmp.empName}</span>
+									</div>
+									<div class="form-group">
+										<label><strong>내용</strong></label>
+										<textarea rows="15" name="noticeContent" class="form-control"></textarea>
+									</div>
+									<div align="center">
+										<button type="submit" class="btn btn-primary">등록</button>
+									</div>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
-				<button type="submit" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">등록</button>
-			</form>
+			</div>
 		</div>
 	</div>
 	
-	<!-- footer -->
-	<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
+	<!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/global/global.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/js/quixnav-init.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/js/custom.min.js"></script>
+
+
+    <!-- Vectormap -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/raphael/raphael.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/morris/morris.min.js"></script>
+
+
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/chart.js/Chart.bundle.min.js"></script>
+
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/gaugeJS/dist/gauge.min.js"></script>
+
+    <!--  flot-chart js -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/flot/jquery.flot.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/flot/jquery.flot.resize.js"></script>
+
+    <!-- Owl Carousel -->
+    <script src="./vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+    <!-- Counter Up -->
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/emp/vendor/jquery.counterup/jquery.counterup.min.js"></script>
+
+    <script src="${pageContext.request.contextPath}/assets/emp/js/dashboard/dashboard-1.js"></script>
 </body>
 </html>
