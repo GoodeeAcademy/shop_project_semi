@@ -40,7 +40,7 @@
 							<img src="${pageContext.request.contextPath}/upload/${m.filename}" alt="IMG-PRODUCT">
 						</a>
 					</div>
-					<div class="d-flex flex-column align-items-end mr-1">
+					<div class="d-flex flex-column align-items-end mr-3">
 						<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}" class="text-dark">
 							${m.goodsName}
 						</a> 
