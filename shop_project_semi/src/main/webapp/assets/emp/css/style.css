@@ -260,7 +260,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #BDBDC7;
+  color: black;		/* 수정 */
   text-align: left;
   background-color: rgba(88, 115, 254, 0.04); }
 
@@ -1340,7 +1340,7 @@ pre {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #BDBDC7; }
+  color: black; }	/* 수정 */
   .table th,
   .table td {
     padding: 0.75rem;
