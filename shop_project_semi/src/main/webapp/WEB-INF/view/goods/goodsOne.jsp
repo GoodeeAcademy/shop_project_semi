@@ -25,6 +25,13 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/style.css">
+		<style>
+			.star {
+				position: relative;
+				font-size: 1.3rem;
+				color: #FF923A;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- header -->
@@ -88,24 +95,21 @@
 						<!-- 탭 추가 -->
 						<li class="nav-item p-b-10"><a class="nav-link " data-toggle="tab" href="#description" role="tab">Reviews</a></li>
 					</ul>
-					<c:forEach var="m" items="${list}">
-						<div class="row">
-							<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-								<div class="p-b-30 m-lr-15-sm">
-									<!-- 리뷰 -->
-									<div class="flex-w flex-t p-b-68">
-										<div class="size-207">
-											<div class="flex-w flex-sb-m p-b-17">
-												<span class="mtext-107 cl2 p-r-20">${m.customerId}</span> 
-												<span class="fs-18 cl11">${m.star}</span>
-											</div>
-											<p class="stext-102 cl6">${m.reviewMemo}</p>
-										</div>
+					<div class="container w-75">
+						<c:forEach var="m" items="${reviewList}">
+							<div class="mt-5">
+								<div>
+									<div class="customerName">${m.customerId}</div>
+									<div class="mb-3">
+										<span class="star">${m.star}</span>
+										<small>${m.createdate}</small>
 									</div>
+									<p>${m.reviewMemo}</p>
 								</div>
+								<hr style="border-bottom: 1px solid rgb(51, 51, 51);;"/>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -136,6 +140,40 @@
 		</script>
 		<script>
 			$(function() {
+				var maskingName = function(strName) {
+				  if (strName.length > 2) {
+				    var originName = strName.split('');
+				    originName.forEach(function(name, i) {
+				      if (i === 0 || i === originName.length - 1) return;
+				      originName[i] = '*';
+				    });
+				    var joinName = originName.join();
+				    return joinName.replace(/,/g, '');
+				  } else {
+				    var pattern = /.$/; // 정규식
+				    return strName.replace(pattern, '*');
+				  }
+				};
+				const customerName = document.querySelectorAll('.customerName');
+				for(let i = 0; i < customerName.length; i++) {
+					customerName[i].textContent = maskingName(customerName[i].textContent);					
+				}
+				
+				// 별★☆ 코드
+				const star = document.querySelectorAll('.star');
+				
+				for(let i = 0; i < star.length; i++) {
+					let starCount = parseInt(star[i].textContent);
+					star[i].textContent = '';
+					
+					for(let j = 0; j < starCount; j++) {
+						star[i].textContent += '★';
+					}
+					for(let k = 0; k < 5 - starCount; k++) {
+						star[i].textContent += '☆';	
+					}
+				}
+				
 				const quantity = document.querySelector('.quantity');
 				const upBtn = document.querySelector('.btn-quantity-up');
 				const downBtn = document.querySelector('.btn-quantity-down');
