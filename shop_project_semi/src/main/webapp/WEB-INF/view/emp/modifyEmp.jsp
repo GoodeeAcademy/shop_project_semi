@@ -27,7 +27,7 @@
 		
 		
 		$('#modifyEmpBtn').click(function(){
-			if(newName.val().length < 1){
+			if(newName.val().length < 1 || newName.val().trim() == ''){
 				alert('변경할 이름을 입력해 주세요');
 			}else if(empPw.val().length < 1){
 				alert('비밀번호를 입력해 주세요');

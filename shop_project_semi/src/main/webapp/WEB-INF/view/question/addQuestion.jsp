@@ -20,6 +20,28 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/perfect-scrollbar/perfect-scrollbar.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/util.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/css/main.css">
+<script>
+	$(document).ready(function(){
+		let allCheck = false;
+	
+		let questionTitle = $('#questionTitle');
+		let questionMemo = $('#questionMemo');
+		
+		$('#btn').click(function(){
+			if(questionTitle.val().length < 1 || questionTitle.val().trim() == ''){	// 공백 입력 방지
+				alert('제목을 입력해 주세요');
+			}else if(questionMemo.val().length < 1 || questionMemo.val().trim() == ''){
+				alert('내용을 입력해 주세요');
+			}else {
+				allCheck = true;
+			}
+			if(allCheck){
+				$('#form').submit();
+			}
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<!-- header -->
@@ -40,12 +62,12 @@
 	
 	<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto" style="margin-top: 5%; margin-bottom: 5%;">
 		<div class="p-b-30 m-lr-15-sm">
-			<form method="post" action="${pageContext.request.contextPath}/AddQuestionController">
+			<form method="post" action="${pageContext.request.contextPath}/AddQuestionController" id="form">
 				<div class="row p-b-25">
 					<div class="col-sm-6 p-b-5">
 							<input type="hidden" name="orderCode" value="${orderCode}">
 						<label class="stext-102 cl3">제목</label>
-						<input type="text" name="questionTitle" class="size-111 bor8 stext-102 cl2 p-lr-20">
+						<input type="text" name="questionTitle" class="size-111 bor8 stext-102 cl2 p-lr-20" id="questionTitle">
 					</div>
 					<div class="col-sm-6 p-b-5">
 						<label class="stext-102 cl3">문의종류</label>
@@ -61,10 +83,10 @@
 					</div>
 					<div class="col-12 p-b-5">
 						<label class="stext-102 cl3">내용</label>
-						<textarea rows="10" cols="10" name="questionMemo" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"></textarea>
+						<textarea rows="10" cols="10" name="questionMemo" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="questionMemo"></textarea>
 					</div>
 				</div>
-				<button type="submit" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">문의하기</button>
+				<button type="button" id="btn" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">문의하기</button>
 			</form>
 		</div>
 	</div>

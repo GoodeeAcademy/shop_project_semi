@@ -12,6 +12,28 @@
     <link href="${pageContext.request.contextPath}/assets/emp/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/assets/emp/css/style.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		let allCheck = false;
+	
+		let noticeTitle = $('#noticeTitle');
+		let noticeContent = $('#noticeContent');
+		
+		$('#btn').click(function(){
+			if(noticeTitle.val().length < 1 || noticeTitle.val().trim() == ''){	// 공백 입력 방지
+				alert('제목을 입력해 주세요');
+			}else if(noticeContent.val().length < 1 || noticeContent.val().trim() == ''){
+				alert('내용을 입력해 주세요');
+			}else {
+				allCheck = true;
+			}
+			if(allCheck){
+				$('#form').submit();
+			}
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<div id="main-wrapper">
@@ -29,11 +51,11 @@
                                 <h4 class="card-title">공지 수정</h4>
                             </div>
                             <div class="auth-form">
-								<form method="post" action="${pageContext.request.contextPath}/ModifyNoticeController">
+								<form method="post" action="${pageContext.request.contextPath}/ModifyNoticeController" id="form">
 									<input type="hidden" name="noticeCode" value="${notice.noticeCode}">
 									<div class="form-group">
 										<label><strong>제목</strong></label>
-										<input type="text" name="noticeTitle" value="${notice.noticeTitle}" class="form-control">
+										<input type="text" name="noticeTitle" value="${notice.noticeTitle}" class="form-control" id="noticeTitle">
 									</div>
 									<div class="form-group">
 										<label><strong>작성자</strong></label>
@@ -41,10 +63,10 @@
 									</div>
 									<div class="form-group">
 										<label><strong>내용</strong></label>
-										<textarea rows="15" name="noticeContent" class="form-control">${notice.noticeContent}</textarea>
+										<textarea rows="15" name="noticeContent" class="form-control" id="noticeContent">${notice.noticeContent}</textarea>
 									</div>
 									<div align="center">
-										<button type="submit" class="btn btn-primary">수정</button>
+										<button type="button" class="btn btn-primary" id="btn">수정</button>
 									</div>
 								</form>
 							</div>

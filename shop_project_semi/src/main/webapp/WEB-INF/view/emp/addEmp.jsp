@@ -20,7 +20,7 @@
 		let empName = $('#empName');
 		
 		$('#idCkBtn').click(function(){
-			if(empId.val().length < 1 || empId.val().indexOf(' ') != -1){
+			if(empId.val().length < 1 || empId.val().trim() == ''){
 				alert('아이디를 올바르게 입력해 주세요');
 				return;
 			}
@@ -28,13 +28,13 @@
 		});
 		
 		$('#addEmpBtn').click(function(){
-			if(empId.val().length < 1 || empId.val().indexOf(' ') != -1){
+			if(empId.val().length < 1 || empId.val().trim() == ''){
 				alert('아이디를 올바르게 입력해 주세요');
-			}else if(empPw.val().length < 1 || empPw.val().indexOf(' ') != -1){
+			}else if(empPw.val().length < 1 || empPw.val().trim() == ''){
 				alert('비밀번호를 올바르게 입력해 주세요');
 			}else if(empPw.val() != empPwCk.val()){
 				alert('비밀번호가 일치하지 않습니다');
-			}else if(empName.val().length < 1 || empName.val().indexOf(' ') != -1){
+			}else if(empName.val().length < 1 || empName.val().trim() == ''){
 				alert('이름을 올바르게 입력해 주세요');
 			}else {
 				allCheck = true;
