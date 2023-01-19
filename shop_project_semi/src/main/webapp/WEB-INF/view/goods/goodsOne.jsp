@@ -189,14 +189,14 @@
 				upBtn.addEventListener('click', function(){
 					let q = parseInt(quantity.value); // 수량
 					quantity.value = q+1;
-					price.textContent = (p_ * (q+1)).toLocaleString('ko-KR');
+					price.textContent = (p_ * (q+1)).toLocaleString('ko-KR') + '원';
 			    });
 				// -버튼
 				downBtn.addEventListener('click', function(){
 					let q = parseInt(quantity.value); // 수량
 					if(quantity.value > 1) {
 						quantity.value = q-1;		
-						price.textContent = (p_ * (q-1)).toLocaleString('ko-KR');;
+						price.textContent = (p_ * (q-1)).toLocaleString('ko-KR') + '원';
 					}
 			    });
 				
@@ -206,9 +206,9 @@
 					if(quantity.value < 1) {
 						alert('더 이상 줄일 수 없습니다.');
 						quantity.value = 1;
-						price.textContent = p;
+						price.textContent = p + '원';
 					} else {		
-						price.textContent = p * quantity.value;
+						price.textContent = (p_ * quantity.value).toLocaleString('ko-KR') + '원'
 					}
 				})
 				
