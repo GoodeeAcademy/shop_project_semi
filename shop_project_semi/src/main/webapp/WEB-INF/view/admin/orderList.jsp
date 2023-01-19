@@ -38,7 +38,7 @@
 												<th scope="col">상품번호</th>
 												<th colspan="2" scope="col" class="text-center">상품</th>
 												<th scope="col">주문고객</th>
-												<th scope="col" style="width: 10%;">상태</th>
+												<th scope="col" style="width: 200px;">상태</th>
 												<th scope="col">주문일자</th>
 											</tr>
 										</thead>

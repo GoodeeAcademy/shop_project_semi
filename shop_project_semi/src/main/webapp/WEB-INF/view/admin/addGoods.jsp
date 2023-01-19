@@ -65,11 +65,11 @@
 									<div class="form-group">
 										<label><strong>사진등록</strong></label>
 										<div>
-											<button id="btn-upload0" type="button" class="btn btn-primary">파일 추가</button>
-											<input type="file" name="filename0" accept="image/jpeg, image/png" style="display:none;" id="input_file0">
+											<button id="btn-upload0" type="button" class="btn btn-sm btn-primary mb-1 h-100">파일 추가</button>
+											<input type="file" name="filename0" accept="image/jpeg, image/png" id="input_file0" style="display: none">
 										</div>
-										<div id="target1">
-										</div>
+										<div id="target"></div>
+										<div id="target1"></div>
 									</div>
 									<div align="center">
 										<button type="submit" class="btn btn-primary">등록</button>
@@ -82,39 +82,37 @@
 			</div>
 		</div>
 	</div>
-	
- <script>
- 	// 첫 번째 파일 업로드
+	<script>
 	$(function () {
-	    $('#btn-upload0').click(function (e) {
+		// 파일추가 버튼
+		$('#btn-upload0').click(function (e) {
 	        e.preventDefault();
-	        $('#input_file0').click();
+	        $('#input_file0').click(); // 파일 input 열기
 	    });
-	});
-	const fileInput0 = $("#input_file0").get(0);
-	fileInput0.onchange = () => {
-		/*
-	  const selectedFile = fileInput.files[0];
-	  console.log(selectedFile);
-	  */
-	  // 이미지 미리 띄우고
-	  
-	  // 동적 버튼 생성
-		$('#target1').html(`<button id="btn-upload1" type="button" class="btn btn-primary">파일 추가</button>
-				<input type="file" name="filename1" accept="image/jpeg, image/png" style="display:none;" id="input_file1">`);
-	};
-	
-	// 두 번째 파일 업로드
-	// 동적 버튼 처리
-	$(document).on('click', '#btn-upload1', function(e){    // $(document)로 한 번 더 로딩하는 것
-		e.preventDefault();
-        $('#input_file1').click();
+		$('#input_file0').change(function(e) { // 동적 버튼 생성
+			e.preventDefault();
+			$('#target').html(`<button id="btn-upload1" type="button" class="btn btn-sm btn-primary mb-1 h-100">파일 추가</button>
+			<input type="file" name="filename1" accept="image/jpeg, image/png" style="display:none;" id="input_file1">`);			
+		})
+		
+		// 생성된 동적버튼 1 
+		$(document).on('click', '#btn-upload1', function(e) {
+			e.preventDefault();
+			$('#input_file1').click(); // 파일 input 열기
+			
+			$('#input_file1').change(function() { // 동적 버튼 생성
+				$('#target1').html(`<button id="btn-upload2" type="button" class="btn btn-sm btn-primary h-100">파일 추가</button>
+				<input type="file" name="filename2" accept="image/jpeg, image/png" style="display:none;" id="input_file2">`);			
+			})
+		});
+		
+		// 생성된 동적버튼 2
+		$(document).on('click', '#btn-upload2', function(e) {
+			e.preventDefault();
+			$('#input_file2').click(); // 파일 input 열기
+		});
     });
-	
-	
-	
- </script>
- 
+	</script>
 	<!--**********************************
         Scripts
     ***********************************-->
