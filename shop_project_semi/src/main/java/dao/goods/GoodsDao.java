@@ -13,7 +13,7 @@ public class GoodsDao {
 	// 상품 리스트 (메인)
 	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn, String search) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.category_code categoryCode, gs.hit hit, filename "
+		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.sold_out soldOut, gs.category_code categoryCode, gs.hit hit, filename "
 				+ "FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code "
 				+ "WHERE goods_name LIKE ? "
 				+ "GROUP BY gs.goods_code "
@@ -27,6 +27,7 @@ public class GoodsDao {
 			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("goodsPrice", rs.getInt("goodsPrice"));
+			m.put("soldOut", rs.getString("soldOut"));
 			m.put("categoryCode", rs.getInt("categoryCode"));
 			m.put("hit", rs.getInt("hit"));
 			m.put("filename", rs.getString("fileName"));
@@ -42,7 +43,7 @@ public class GoodsDao {
 	// 상품 리스트(카테고리별, 신상품순)
 	public ArrayList<HashMap<String, Object>> selectGoodsListByCategory(Connection conn, int categoryCode) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.category_code categoryCode, gs.hit hit, gs.category_code, filename\r\n"
+		String sql = "SELECT gs.goods_code goodsCode, goods_name goodsName, goods_price goodsPrice, gs.sold_out soldOut, gs.category_code categoryCode, gs.hit hit, gs.category_code, filename\r\n"
 				+ "FROM goods gs JOIN goods_img gsi ON gs.goods_code = gsi.goods_code\r\n"
 				+ "GROUP BY gs.goods_code HAVING gs.category_code = ?\r\n"
 				+ "ORDER BY gs.createdate DESC";
@@ -55,6 +56,7 @@ public class GoodsDao {
 			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("goodsPrice", rs.getInt("goodsPrice"));
+			m.put("soldOut", rs.getString("soldOut"));
 			m.put("categoryCode", rs.getInt("categoryCode"));
 			m.put("hit", rs.getInt("hit"));
 			m.put("filename", rs.getString("fileName"));

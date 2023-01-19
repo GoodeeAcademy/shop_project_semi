@@ -104,10 +104,8 @@
 								<td>
 									<a class="btn" href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">X</a>
 									<input type="hidden" name="goodsCode" value="${m.goodsCode}">
-									<a class="text-dark" href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
-										<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="상품 이미지"/>
-										${m.goodsName}
-									</a>
+									<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="상품 이미지"/>
+									${m.goodsName}
 								</td>
 								<td>
 									<span class="price">

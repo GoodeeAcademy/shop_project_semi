@@ -30,21 +30,23 @@
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		<div class="row isotope-grid">
 			<c:forEach var="m" items="${list}">
-				<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark">
-					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
-								<img src="${pageContext.request.contextPath}/upload/${m.filename}" alt="IMG-PRODUCT">
-							</a>
-						</div>
-						<div class="d-flex flex-column align-items-end mr-3">
-							<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}" class="text-dark">
-								${m.goodsName}
-							</a> 
-							<span class="text-dark"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>
+				<c:if test="${m.soldOut ne 'Y'}">
+					<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark">
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
+									<img src="${pageContext.request.contextPath}/upload/${m.filename}" alt="IMG-PRODUCT">
+								</a>
+							</div>
+							<div class="d-flex flex-column align-items-end mr-3">
+								<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}" class="text-dark">
+									${m.goodsName}
+								</a> 
+								<span class="text-dark"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 			</c:forEach>
 		</div>
 		<!-- footer -->
