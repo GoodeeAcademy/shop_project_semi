@@ -64,6 +64,15 @@ public class OrderController extends HttpServlet {
 		this.cartService = new CartService();
 		ArrayList<HashMap<String,Object>> cart = cartService.getCartList(loginCustomer.getCustomerId());
 		
+		// 장바구니(cart) 중 품절(soldOut Y)이면 제거
+		ArrayList<HashMap<String, Object>> removed = new ArrayList<>();				
+		for(HashMap<String, Object> m : cart) {
+			if(m.get("soldOut").equals("Y")) {
+				removed.add(m);
+			}
+		}
+		cart.removeAll(removed);
+		
 		request.setAttribute("splitPhone", splitPhone);
 		request.setAttribute("cart", cart);
 		request.setAttribute("address", CustomerAdd);

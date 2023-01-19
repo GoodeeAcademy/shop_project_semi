@@ -41,6 +41,63 @@
 					</thead>
 					<tbody>
 						<c:forEach var="m" items="${list}">
+							<c:if test="${m.soldOut eq 'N'}">
+								<tr>
+									<td>
+										<a class="btn" href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">X</a>
+										<input type="hidden" name="goodsCode" value="${m.goodsCode}">
+										<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="상품 이미지"/>
+										${m.goodsName}
+									</td>
+									<td>
+										<span class="price">
+											<fmt:formatNumber value="${m.goodsPrice}" type="number"/>
+										</span></td>
+									<td>
+										<div class="d-flex justify-content-center">
+											<button type="button" class="btn btn-quantity-down">-</button>
+											<input type="number" class="quantity w-25 text-center" name="quantity" value="${m.quantity}"/>
+											<button type="button" class="btn btn-quantity-up">+</button>
+										</div>
+									</td>
+									<td>
+										<span class="totalPrice">
+											<fmt:formatNumber value="${m.goodsPrice * m.quantity}" type="number"/>
+										</span>
+									</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</form>
+			<!-- 주문 버튼 -->
+			<form class="text-center mt-5" action="${pageContext.request.contextPath}/OrderController" method="get">
+				<button class="btn btn-lg p-2 w-25" type="submit" style="background-color: black; color:white;">ORDER</button>
+			</form>
+			
+			<!-- 품절 -->
+			<table class="table">
+				<!-- 장바구니에 품절 항목이 하나라도 있으면 테이블 헤드 보여주기 -->
+				<c:forEach var="m" items="${list}">
+					<c:if test="${m.soldOut eq 'Y'}">
+						<c:set var="count" value="1"/>
+					</c:if>			
+				</c:forEach>
+				<c:if test="${count eq 1}">
+					<div class="mt-5 fw-bold">품절된 상품</div>
+						<thead>
+							<tr>
+								<td class="text-center">PRODUCT</td>
+								<td>PRICE</td>
+								<td class="text-center">QUANTITY</td>
+								<td>TOTAL</td>
+							</tr>
+						</thead>
+				</c:if>
+				<c:forEach var="m" items="${list}">
+					<c:if test="${m.soldOut eq 'Y'}">
+						<tbody>
 							<tr>
 								<td>
 									<a class="btn" href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">X</a>
@@ -54,9 +111,9 @@
 									</span></td>
 								<td>
 									<div class="d-flex justify-content-center">
-										<button type="button" class="btn btn-quantity-down">-</button>
-										<input type="number" class="quantity w-25 text-center" name="quantity" value="${m.quantity}"/>
-										<button type="button" class="btn btn-quantity-up">+</button>
+										<button type="button" class="btn">-</button>
+										<input type="number" class="w-25 text-center" value="0" disabled="disabled"/>
+										<button type="button" class="btn">+</button>
 									</div>
 								</td>
 								<td>
@@ -65,13 +122,10 @@
 									</span>
 								</td>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</form>
-			<form class="text-center mt-5" action="${pageContext.request.contextPath}/OrderController" method="get">
-				<button class="btn btn-lg p-2 w-25" type="submit" style="background-color: black; color:white;">ORDER</button>
-			</form>
+						</tbody>
+					</c:if>
+				</c:forEach>
+			</table>
 		</div>
 		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>

@@ -44,9 +44,10 @@ public class CartDao {
 	
 	// 장바구니 리스트
 	public ArrayList<HashMap<String, Object>> selectCartList(Connection conn, String customerId) throws Exception {
-		String sql = "SELECT c.goods_code goodsCode, cart_quantity quantity, goods_name goodsName, goods_price goodsPrice, filename"
+		String sql = "SELECT c.goods_code goodsCode, cart_quantity quantity, goods_name goodsName, goods_price goodsPrice, sold_out soldOut, filename"
 				+ " FROM cart c JOIN goods gs ON c.goods_code = gs.goods_code JOIN goods_img gsi ON gs.goods_code = gsi.goods_code"
-				+ " WHERE customer_id = ?";
+				+ " WHERE customer_id = ?"
+				+ " GROUP BY c.goods_code";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		ResultSet rs = stmt.executeQuery();
@@ -58,6 +59,7 @@ public class CartDao {
 			m.put("quantity", rs.getInt("quantity"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("goodsPrice", rs.getInt("goodsPrice"));
+			m.put("soldOut", rs.getString("soldOut"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
 		}
