@@ -86,7 +86,7 @@
 		<!-- 페이징 -->
 		<div class="flex-c-m flex-w w-full p-t-38">
 			<c:if test="${currentPage > 10}">
-				<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${endRow-10}" class="flex-c-m how-pagination1 trans-04 m-all-7">이전</a>
+				<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${startPage-10}" class="flex-c-m how-pagination1 trans-04 m-all-7">이전</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endRow}">
 				<c:if test="${i == currentPage}">
@@ -97,7 +97,7 @@
 				</c:if>
 			</c:forEach>
 			<c:if test="${beginRow+10 < lastPage}">
-				<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${beginRow+11}" class="flex-c-m how-pagination1 trans-04 m-all-7">다음</a>
+				<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${startPage+10}" class="flex-c-m how-pagination1 trans-04 m-all-7">다음</a>
 			</c:if>
 		</div>
 	</div>
