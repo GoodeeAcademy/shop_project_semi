@@ -26,7 +26,7 @@
 		            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
 		                        class="icon icon-single-04"></i><span class="nav-text">Profile</span></a>
 		                <ul aria-expanded="false">
-		                    <li><a href="${pageContext.request.contextPath}/ModifyEmpController">Update</a></li>
+		                    <li><a href="${pageContext.request.contextPath}/ModifyEmpController">My Profile</a></li>
 		                </ul>
 		            </li>
 	            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -56,6 +56,7 @@
 	                <i class="bi bi-question-circle"></i><span class="nav-text">Question</span></a>
 	                <ul aria-expanded="false">   
 	                    <li><a href="${pageContext.request.contextPath}/QuestionListForEmpController">Question List</a></li>
+	                    <li><a href="${pageContext.request.contextPath}/QuestionCommentListController">Comment List</a></li>
 	                </ul>
 	            </li>
 	
