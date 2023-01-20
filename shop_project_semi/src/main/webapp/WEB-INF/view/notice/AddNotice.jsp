@@ -44,8 +44,8 @@
 
 		<div class="content-body">
 		    <div class="container-fluid">
-		    	<div class="row">
-		    		<div class="col-lg-12">
+		    	<div class="row justify-content-center h-100 align-items-center">
+		    		<div class="col-lg-8">
 		    			<div class="card">
 		    				<div class="card-header">
                                 <h4 class="card-title">공지 추가</h4>
