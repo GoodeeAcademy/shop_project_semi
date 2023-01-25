@@ -61,10 +61,30 @@ public class AddCustomerController extends HttpServlet {
 		String paramPhone = request.getParameter("addPhone1")+"-"
 							+request.getParameter("addPhone2")+"-"
 							+request.getParameter("addPhone3");
+		String postcode = "";
+		String address = "";
+		String detailAddress = "";
+		String extraAddress = "";
 		
+		if(request.getParameter("addAddress1") != null) {
+			address = request.getParameter("addAddress1");
+		}
 		
-		String paramAddress = request.getParameter("addAddress1");
+		if(request.getParameter("addAddress2") != null) {
+			detailAddress = request.getParameter("addAddress2");
+		}
 		
+		if(request.getParameter("addAddress3") != null) {
+			extraAddress = request.getParameter("addAddress3");
+		}
+		
+		if(request.getParameter("addAddress4") != null) {
+			postcode = request.getParameter("addAddress4");
+		}
+		
+		String paramAddress = postcode + "/" + address + "/" + detailAddress + "/" +extraAddress;
+		
+	
 		//입력받은 값 -> customer 저장
 		Customer paramCustomer = new Customer();
 		paramCustomer.setCustomerId(paramId);
