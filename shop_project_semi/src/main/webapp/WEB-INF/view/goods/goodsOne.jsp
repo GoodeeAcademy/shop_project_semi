@@ -76,16 +76,22 @@
 							<input type="hidden" name="goodsPrice" value="${m.goodsPrice}">
 							<%-- <input type="hidden" name="goodsPrice" value="${m.goodsPrice}"> --%>
 							<input type="hidden" name="bn" value="false" id="bn">
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-center mb-5">
 								<button type="button" class="btn btn-quantity-down">-</button>
 								<input type="number" class="quantity w-25 text-center" name="quantity" value="1"/>
 								<button type="button" class="btn btn-quantity-up">+</button>
 							</div>
-							<div class="">
-								<button class="" type="submit">ADD TO CART</button>
-								<c:if test="${loginCustomer != null}">
-									<button class="" type="button" id="buyNow">BUY NOW</button>
-								</c:if>
+							<div class="container text-center">
+								<div class="row">
+									<div class="col border p-3" style="background-color: black;">
+										<button class="text-white" type="submit">ADD TO CART</button>
+									</div>
+									<c:if test="${loginCustomer != null}">
+										<div class="col border p-3" style="background-color: black;">
+											<button class="text-white" type="button" id="buyNow">BUY NOW</button>
+										</div>
+									</c:if>
+								</div>
 							</div>
 						</form>
 					</div>
