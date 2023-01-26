@@ -29,10 +29,12 @@
 	<!-- header -->
 	<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 	<div class="row isotope-grid">
-		<c:if test="${empty list}">
-			<div class="d-flex justify-content-center align-items-center" style="height: 100vh; color:black;">등록된 상품이 없습니다.</div>
-		</c:if>
+		<c:set var="ck" value="false"/>
+		
 		<c:forEach var="m" items="${list}">
+			<c:if test="${m.soldOut eq 'Y'}">
+				<c:set var="ck" value="true"/>
+			</c:if>
 			<c:if test="${m.soldOut ne 'Y'}">
 				<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark">
 					<div class="block2">
@@ -51,6 +53,9 @@
 				</div>
 			</c:if>
 		</c:forEach>
+		<c:if test="${ck eq true || empty list}">
+			<div class="d-flex justify-content-center align-items-center" style="height: 100vh; color:black;">등록된 상품이 없습니다.</div>
+		</c:if>
 	</div>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
