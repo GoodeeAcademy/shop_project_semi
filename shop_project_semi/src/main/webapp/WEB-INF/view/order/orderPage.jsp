@@ -177,7 +177,7 @@
 					} else if($('#phone2').val().length < 3 || $('#phone3').val().length < 4) {
 						$('#phone2').focus();
 						alert('올바른 전화번호를 입력하여 주세요.');
-					} else if($('#addAddress1').val().length < 1  || $('#addAddress2').val.length < 1) {
+					} else if($('#postcode').val().length < 1  || $('#address').val.length < 1) {
 						alert('주소를 입력해주세요.');
 					} else if($('#point').val().length < 1) {
 						alert('사용할 포인트를 입력해주세요.');

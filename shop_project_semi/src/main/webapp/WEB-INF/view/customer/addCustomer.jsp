@@ -149,7 +149,7 @@
 					} else if($('#addPhone2').val().length < 3 || $('#addPhone3').val().length < 4) {
 						$('#addPhone2').focus();
 						alert('올바른 전화번호를 입력하여 주세요.');
-					} else if($('#addAddress1').val().length < 1  || $('#addAddress2').val.length < 1) {
+					} else if($('#postcode').val().length < 1  || $('#address').val.length < 1) {
 						alert('주소를 입력해주세요.');
 					} else {
 						allCheck = true;

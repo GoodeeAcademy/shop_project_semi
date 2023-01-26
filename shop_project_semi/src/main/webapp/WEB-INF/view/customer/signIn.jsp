@@ -60,10 +60,10 @@
 				<form method="post" action="${pageContext.request.contextPath}/SignInController" id="loginForm" class="login-form">
 					<div class="login-member__form">
 						<div class="login-input">
-							<input type="text" name="loginId" id="loginId" placeholder="아이디" class="login-input__input">
+							<input type="text" name="loginId" id="loginId" placeholder="아이디" class="login-input__input" value="goodee">
 						</div>
 						<div class="login-input">
-							<input type="password" name="loginPw" id="loginPw" placeholder="비밀번호" class="login-input__input">
+							<input type="password" name="loginPw" id="loginPw" placeholder="비밀번호" class="login-input__input" value="1234">
 						</div>
 						<div class="mt-4">
 							<button type="button" id="submitBtn" class="login-button__item login-button__item--black">SIGN IN</button>
