@@ -18,6 +18,7 @@ import vo.GoodsImg;
 public class GetGoodsOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private GoodsService goodsService;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 파라미터 수집
 		if(request.getParameter("goodsCode") == null || ("").equals(request.getParameter("goodsCode"))) {
@@ -31,6 +32,12 @@ public class GetGoodsOneController extends HttpServlet {
 		HashMap<String, Object> m = goodsService.getGoodsOne(goodsCode);
 		ArrayList<GoodsImg> imgList = goodsService.getAllGoodsImg(goodsCode);
 		ArrayList<HashMap<String, Object>> reviewList = goodsService.getReviewByGoods(goodsCode);
+		if(request.getParameter("star") != null && !request.getParameter("star").equals("0")) {
+			int star = Integer.parseInt(request.getParameter("star"));
+			reviewList = goodsService.getReviewStarByGoods(goodsCode, star);
+		} else {
+			reviewList = goodsService.getReviewByGoods(goodsCode);
+		}
 		
 		// 객체 바인딩 후 페이지 이동
 		request.setAttribute("m", m); // 상품 상세 정보
