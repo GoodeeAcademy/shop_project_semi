@@ -97,13 +97,13 @@
 						<h4 class="login-input" style="color:#000">선택 입력 사항</h4>
 						<div class="d-flex flex-row">
 							<%--<input type="text" name="addAddress1" id="addAddress1" class="login-input__input" placeholder="주소지"> --%>
-							<input type="text" name="addAddress4" id="sample6_postcode" placeholder="우편번호" class="login-input__input">
-							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="login-button__item ml-4" style="width:30%; background-color: #fff"><br>
+							<input type="text" name="addAddress1" id="postcode" placeholder="우편번호" class="login-input__input" readonly="readonly">
+							<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="login-button__item ml-4" style="width:30%; background-color: #fff"><br>
 						</div>
 						<div>
-							<input type="text" name="addAddress1" id="sample6_address" placeholder="주소" class="login-input__input" ><br>
-							<input type="text" name="addAddress2" id="sample6_detailAddress" placeholder="상세주소" class="login-input__input">
-							<input type="text" name="addAddress3" id="sample6_extraAddress" placeholder="참고항목" class="login-input__input" >
+							<input type="text" name="addAddress2" id="address" placeholder="주소" class="login-input__input" readonly="readonly"><br>
+							<input type="text" name="addAddress3" id="detailAddress" placeholder="상세주소" class="login-input__input">
+							<input type="text" name="addAddress4" id="extraAddress" placeholder="참고항목" class="login-input__input" readonly="readonly">
 						</div>
 						<div class="mt-4">
 							<button type="button" id="submitBtn" class="login-button__item login-button__item--black">SIGN UP</button>
@@ -149,6 +149,8 @@
 					} else if($('#addPhone2').val().length < 3 || $('#addPhone3').val().length < 4) {
 						$('#addPhone2').focus();
 						alert('올바른 전화번호를 입력하여 주세요.');
+					} else if($('#addAddress1').val().length < 1  || $('#addAddress2').val.length < 1) {
+						alert('주소를 입력해주세요.');
 					} else {
 						allCheck = true;
 					}
@@ -195,7 +197,7 @@
 		<!-- Daum Address Api -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
-		    function sample6_execDaumPostcode() {
+		    function execDaumPostcode() {
 		        new daum.Postcode({
 		            oncomplete: function(data) {
 		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -228,17 +230,17 @@
 		                        extraAddr = ' (' + extraAddr + ')';
 		                    }
 		                    // 조합된 참고항목을 해당 필드에 넣는다.
-		                    document.getElementById("sample6_extraAddress").value = extraAddr;
+		                    document.getElementById('extraAddress').value = extraAddr;
 		                
 		                } else {
-		                    document.getElementById("sample6_extraAddress").value = '';
+		                    document.getElementById('extraAddress').value = '';
 		                }
 		
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById('sample6_postcode').value = data.zonecode;
-		                document.getElementById("sample6_address").value = addr;
+		                document.getElementById('postcode').value = data.zonecode;
+		                document.getElementById('address').value = addr;
 		                // 커서를 상세주소 필드로 이동한다.
-		                document.getElementById("sample6_detailAddress").focus();
+		                document.getElementById('detailAddress').focus();
 		            }
 		        }).open();
 		    }

@@ -67,19 +67,19 @@ public class AddCustomerController extends HttpServlet {
 		String extraAddress = "";
 		
 		if(request.getParameter("addAddress1") != null) {
-			address = request.getParameter("addAddress1");
+			postcode = request.getParameter("addAddress1");
 		}
 		
 		if(request.getParameter("addAddress2") != null) {
-			detailAddress = request.getParameter("addAddress2");
+			address = request.getParameter("addAddress2");
 		}
 		
 		if(request.getParameter("addAddress3") != null) {
-			extraAddress = request.getParameter("addAddress3");
+			detailAddress = request.getParameter("addAddress3");
 		}
 		
 		if(request.getParameter("addAddress4") != null) {
-			postcode = request.getParameter("addAddress4");
+			extraAddress = request.getParameter("addAddress4");
 		}
 		
 		String paramAddress = postcode + "/" + address + "/" + detailAddress + "/" +extraAddress;

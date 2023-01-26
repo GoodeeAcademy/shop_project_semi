@@ -120,14 +120,14 @@
 						<tr>
 							<th class="col-sm-3 align-middle">주소</th>
 							<td class="col-sm-9 align-middle">
-								<input type="text" id="address" name="address" value="${address}">
+								<%--<input type="text" id="address" name="address" value="${address}">--%>
 								<div class="d-flex flex-row">
-									<input type="text" name="addAddress4" id="sample6_postcode" placeholder="우편번호" class="signin-input__input" style="width:55%; text-align: initial;" value="${add[0]}">
-									<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="login-button__item ml-4" style="width:20%; background-color: #fff"><br>
+									<input type="text" name="addAddress1" id="postcode" placeholder="우편번호" class="signin-input__input" style="width:55%; text-align: initial;" value="${add[0]}" readonly="readonly">
+									<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="login-button__item ml-4" style="width:20%; background-color: #fff"><br>
 								</div>
-								<input type="text" name="addAddress1" id="sample6_address" placeholder="주소" class="signin-input__input" style="width:80%; text-align:initial;" value="${add[1]}"><br>
-								<input type="text" name="addAddress2" id="sample6_detailAddress" placeholder="상세주소" class="signin-input__input" style="width:80%; text-align:initial;" value="${add[2]}">
-								<input type="text" name="addAddress3" id="sample6_extraAddress" placeholder="참고항목" class="signin-input__input" style="width:80%; text-align:initial;" value="${add[3]}">
+								<input type="text" name="addAddress2" id="address" placeholder="주소" class="signin-input__input" style="width:80%; text-align:initial;" value="${add[1]}" readonly="readonly"><br>
+								<input type="text" name="addAddress3" id="detailAddress" placeholder="상세주소" class="signin-input__input" style="width:80%; text-align:initial;" value="${add[2]}">
+								<input type="text" name="addAddress4" id="extraAddress" placeholder="참고항목" class="signin-input__input" style="width:80%; text-align:initial;" value="${add[3]}" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
@@ -177,6 +177,8 @@
 					} else if($('#phone2').val().length < 3 || $('#phone3').val().length < 4) {
 						$('#phone2').focus();
 						alert('올바른 전화번호를 입력하여 주세요.');
+					} else if($('#addAddress1').val().length < 1  || $('#addAddress2').val.length < 1) {
+						alert('주소를 입력해주세요.');
 					} else if($('#point').val().length < 1) {
 						alert('사용할 포인트를 입력해주세요.');
 						$('#point').val('0');
@@ -230,7 +232,7 @@
 				<!-- Daum Address Api -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
-		    function sample6_execDaumPostcode() {
+		    function execDaumPostcode() {
 		        new daum.Postcode({
 		            oncomplete: function(data) {
 		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -263,19 +265,19 @@
 		                        extraAddr = ' (' + extraAddr + ')';
 		                    }
 		                    // 조합된 참고항목을 해당 필드에 넣는다.
-		                    document.getElementById("sample6_extraAddress").value = extraAddr;
+		                    document.getElementById('extraAddress').value = extraAddr;
 		                
 		                } else {
-		                    document.getElementById("sample6_extraAddress").value = '';
+		                    document.getElementById('extraAddress').value = '';
 		                }
 		
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById('sample6_postcode').value = data.zonecode;
-		                document.getElementById("sample6_address").value = addr;
+		                document.getElementById('postcode').value = data.zonecode;
+		                document.getElementById('address').value = addr;
 		                // 기존 DB에 저장된 주소지를 사용하지않고 새롭게 우편 검색시 다른 값을 선택시 상세주소항목을 지운다.
-		                document.getElementById("sample6_detailAddress").value = '';
+		                document.getElementById('detailAddress').value = '';
 		                // 커서를 상세주소 필드로 이동한다.
-		                document.getElementById("sample6_detailAddress").focus();
+		                document.getElementById('detailAddress').focus();
 		            }
 		        }).open();
 		    }

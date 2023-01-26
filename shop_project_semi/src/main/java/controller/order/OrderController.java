@@ -56,10 +56,8 @@ public class OrderController extends HttpServlet {
 		this.customerService = new CustomerService();
 		CustomerAddress cuAdd = customerService.getAddress(loginCustomer);
 		
-		String CustomerAdd = "";
 		String[] addSplit = null;
 		if(cuAdd != null) {
-			CustomerAdd = cuAdd.getAddress();
 			addSplit = cuAdd.getAddress().split("/");
 		}
 		
@@ -77,7 +75,6 @@ public class OrderController extends HttpServlet {
 		
 		request.setAttribute("splitPhone", splitPhone);
 		request.setAttribute("cart", cart);
-		request.setAttribute("address", CustomerAdd);
 		request.setAttribute("add", addSplit);
 		request.setAttribute("orderResult", orderResult);
 		request.getRequestDispatcher("/WEB-INF/view/order/orderPage.jsp").forward(request, response);
@@ -98,6 +95,12 @@ public class OrderController extends HttpServlet {
 		
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		int point = Integer.parseInt(request.getParameter("point"));
+		String address = "";
+		if(request.getParameter("addAddress1") != null || request.getParameter("addAddress1").equals("")
+			|| request.getParameter("addAddress2") != null || request.getParameter("addAddress2").equals("")) {
+			
+			address = request.getParameter("addAddress1")+" "+request.getParameter("addAddress2")+" "+request.getParameter("addAddress3")+" "+request.getParameter("addAddress4");
+		}
 		
 		/*
 		if(point > loginCustomer.getPoint()) {
@@ -120,7 +123,7 @@ public class OrderController extends HttpServlet {
 		Orders order = new Orders();
 		order.setCustomerId(loginCustomer.getCustomerId());
 		order.setOrderName(request.getParameter("orderName"));
-		order.setAddress(request.getParameter("address"));
+		order.setAddress(address);
 		order.setPhone(request.getParameter("phone1")+"-"+request.getParameter("phone2")+"-"+request.getParameter("phone3"));
 		order.setOrderPrice(orderPrice);
 		
