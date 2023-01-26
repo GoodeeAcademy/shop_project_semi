@@ -44,11 +44,11 @@
                                     <form method="post" action="${pageContext.request.contextPath}/LoginEmpController" id="loginEmpForm">
                                         <div class="form-group">
                                             <label><strong>아이디</strong></label>
-                                            <input type="text" name="empId" id="empId" class="form-control">
+                                            <input type="text" name="empId" id="empId" class="form-control" value="admin">
                                         </div>
                                         <div class="form-group">
                                             <label><strong>비밀번호</strong></label>
-                                            <input type="password" name="empPw" id="empPw" class="form-control">
+                                            <input type="password" name="empPw" id="empPw" class="form-control" value="1234">
                                         </div>
 
                                         <div class="text-center">
