@@ -31,6 +31,10 @@
 				font-size: 1.3rem;
 				color: #FF923A;
 			}
+			.select_star {
+				font-size: 1.3rem;
+				color: #FF923A;
+			}
 		</style>
 	</head>
 	<body>
@@ -72,16 +76,22 @@
 							<input type="hidden" name="goodsPrice" value="${m.goodsPrice}">
 							<%-- <input type="hidden" name="goodsPrice" value="${m.goodsPrice}"> --%>
 							<input type="hidden" name="bn" value="false" id="bn">
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-center mb-5">
 								<button type="button" class="btn btn-quantity-down">-</button>
 								<input type="number" class="quantity w-25 text-center" name="quantity" value="1"/>
 								<button type="button" class="btn btn-quantity-up">+</button>
 							</div>
-							<div class="">
-								<button class="" type="submit">ADD TO CART</button>
-								<c:if test="${loginCustomer != null}">
-									<button class="" type="button" id="buyNow">BUY NOW</button>
-								</c:if>
+							<div class="container text-center">
+								<div class="row">
+									<div class="col border p-3" style="background-color: black;">
+										<button class="text-white" type="submit">ADD TO CART</button>
+									</div>
+									<c:if test="${loginCustomer != null}">
+										<div class="col border p-3" style="background-color: black;">
+											<button class="text-white" type="button" id="buyNow">BUY NOW</button>
+										</div>
+									</c:if>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -96,6 +106,18 @@
 						<li class="nav-item p-b-10"><a class="nav-link " data-toggle="tab" href="#description" role="tab">Reviews</a></li>
 					</ul>
 					<div class="container w-75">
+						<!-- 리뷰 점수별 -->
+						<form id="starForm" action="${pageContext.request.contextPath}/goodsOne">
+							<input type="hidden" name="goodsCode" value="${m.goodsCode}">
+							<select class="select_star form-control text-dark w-25" name="star">
+								<option value="0" <c:if test ="">selected="selected"</c:if>>모든 별점 보기</option>
+								<option value="5">★★★★★</option>
+								<option value="4">★★★★☆</option>
+								<option value="3">★★★☆☆</option>
+								<option value="2">★★☆☆☆</option>
+								<option value="1">★☆☆☆☆</option>
+							</select>
+						</form>
 						<c:forEach var="m" items="${reviewList}">
 							<div class="mt-5">
 								<div>
@@ -173,6 +195,12 @@
 						star[i].textContent += '☆';	
 					}
 				}
+				
+				// 별점순
+				$('.select_star').on("change", function() {
+					$('#starForm').submit();
+				})
+				$('.star').text
 				
 				const quantity = document.querySelector('.quantity');
 				const upBtn = document.querySelector('.btn-quantity-up');

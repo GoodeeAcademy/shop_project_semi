@@ -167,6 +167,36 @@ public class GoodsService {
 		return list;
 	}
 	
+	// 해당 상품 리뷰 점수별 보기
+	public ArrayList<HashMap<String, Object>> getReviewStarByGoods(int goodsCode, int star) {
+		ArrayList<HashMap<String, Object>> list = null;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			goodsDao = new GoodsDao();
+			list = goodsDao.selectReviewStarByGoods(conn, goodsCode, star);
+			
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+		
 	// 상품 수정
 	public int modifyGoods(Goods goods, ArrayList<GoodsImg> list, String dir) {
 		int result = 0;
