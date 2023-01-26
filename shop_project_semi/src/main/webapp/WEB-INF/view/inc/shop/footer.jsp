@@ -6,6 +6,11 @@
 			<div class="col-sm-6 col-lg-4 p-b-50">
 				<h4 class="stext-301 cl0 p-b-30 text-dark">SHOP PROJECT</h4>
 				<ul class="p-0">
+					<li>
+						<a href="${pageContext.request.contextPath}/LoginEmpController" class="stext-107 cl7 hov-cl1 trans-04 text-dark fw-bold">
+							<img src="https://img.icons8.com/material-rounded/24/null/github.png"/>&nbsp;&nbsp;쇼핑몰 관리자페이지
+						</a>
+					</li>
 					<li class="p-b-10">
 						<a href="https://github.com/GoodeeAcademy/shop_project_semi.git" class="stext-107 cl7 hov-cl1 trans-04 text-dark fw-bold">
 							<img src="https://img.icons8.com/material-rounded/24/null/github.png"/>&nbsp;&nbsp;PROJECT URL
@@ -36,7 +41,7 @@
 			<div class="col-sm-12 col-lg-4 p-b-50">
 				<h4 class="stext-301 cl0 p-b-30 text-dark">README</h4>
 				<p class="stext-107 cl7 size-201 text-dark fw-bold">
-					쇼핑몰 프로젝트임
+					쇼핑몰 프로젝트
 				</p>
 			</div>
 		</div>
