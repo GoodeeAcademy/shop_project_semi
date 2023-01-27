@@ -37,7 +37,12 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-8">
-                                        <div id="morris-bar-chart"></div>
+                                        <!--<div id="morris-bar-chart"></div>-->
+                                        <div>
+	                                        현재 접속자 수 : ${currentCount}<br>
+											오늘 접속자 수 : ${todayCount}<br>
+											누적 접속자 수 : ${totalCount}<br>
+                                       	</div>
                                     </div>
                                 </div>
                             </div>
