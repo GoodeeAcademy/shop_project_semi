@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import service.customer.CustomerService;
 import vo.Customer;
+import vo.CustomerAddress;
 
 /**
  * Servlet implementation class ModifyCustomerController
@@ -46,11 +47,16 @@ public class ModifyCustomerController extends HttpServlet {
 			modifyFalse = (boolean)request.getAttribute("modifyFalse");
 		}
 		
+		this.customerService = new CustomerService();
 		Customer customer = (Customer)session.getAttribute("loginCustomer");
 		String[] splitPhone = customer.getCustomerPhone().split("-");
 		
+		CustomerAddress customerAdd = customerService.getAddress(customer);
+		String[] splitAdd = customerAdd.getAddress().split("/");
+		
 		request.setAttribute("customer", customer);
 		request.setAttribute("splitPhone", splitPhone);
+		request.setAttribute("splitAdd", splitAdd);
 		request.setAttribute("modifyFalse", modifyFalse);
 		
 		request.getRequestDispatcher("/WEB-INF/view/customer/modifyCustomer.jsp").forward(request, response);
@@ -90,8 +96,11 @@ public class ModifyCustomerController extends HttpServlet {
 										+request.getParameter("modifyPhone3"));
 		paramCustomer.setCustomerPw(request.getParameter("customerPw"));
 		
+		String paramAdd = request.getParameter("addAddress1")+"/"+request.getParameter("addAddress2")+"/"+request.getParameter("addAddress3")+"/"+request.getParameter("addAddress4");
+		
+		
 		this.customerService = new CustomerService();
-		if(customerService.getModifyCustomerName(paramCustomer) == 0) {
+		if(customerService.getModifyCustomer(paramCustomer, paramAdd) == 0) {
 			System.out.println("수정 실패\n 예상 사유:비밀번호");
 			request.setAttribute("modifyFalse",true);
 			

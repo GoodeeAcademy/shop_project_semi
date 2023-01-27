@@ -292,6 +292,21 @@ public class CustomerDao {
 		return result;
 	}
 	
+	//주소 수정하기
+	public int modifyCustomerAdd(Connection conn, String paramAddress, String customerId) throws Exception {
+		int row = 0;
+		String sql = "UPDATE customer_address SET address = ?, updatedate = NOW()"
+					+ " WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, paramAddress);
+		stmt.setString(2, customerId);
+		
+		row = stmt.executeUpdate();
+		
+		stmt.close();
+		return row;
+	}
+	
 	// 포인트 수정(사용)
 	public int modifyCustomerPoint(Connection conn, Orders order, int point) throws Exception {
 		int row = 0;

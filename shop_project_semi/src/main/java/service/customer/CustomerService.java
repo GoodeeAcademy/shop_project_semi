@@ -106,15 +106,26 @@ public class CustomerService {
 		return list;
 	}
 	
-	//고객 정보 수정(이름)
-	public int getModifyCustomerName(Customer customer) {
+	//고객 정보 수정(비밀번호 제외)
+	public int getModifyCustomer(Customer customer, String customerAdd) {
 		int row = 0;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			this.customerDao = new CustomerDao();
 			//정보 수정(이름)
-			row = customerDao.modifyCustomer(conn, customer);
+			if(customerDao.modifyCustomer(conn, customer) == 0) {
+				new Exception();
+				System.out.println("수정실패 : 이름변경");
+			} else {
+				if(customerDao.modifyCustomerAdd(conn, customerAdd, customer.getCustomerId()) == 0) {
+					new Exception();
+					System.out.println("수정실패 : 주소변경");
+				} else {
+					System.out.println("수정성공");
+					row = 1;
+				}
+			}
 			conn.commit();
 		} catch(Exception e) {
 			try {
@@ -280,4 +291,6 @@ public class CustomerService {
 		
 		return result;
 	}
+	
+	
 }
