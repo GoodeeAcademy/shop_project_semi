@@ -69,7 +69,7 @@
 													<input type="file" name="filename${i}" accept="image/jpeg, image/png" style="display: none" id="filename${i}">
 													<input type="hidden" name="oldFilename${i}" value="${imgList[i].filename}"/><span id="file_name${i}">${imgList[i].filename}</span>
 													<input type="hidden" name="goodsImgCode${i}" value="${imgList[i].goodsImgCode}"/>
-													<input type="hidden" name="listSize" value="${listSize-1}"/>
+													<input type="hidden" name="listSize" value="${listSize}"/>
 												</div>
 											</c:forEach>
 										</div>
@@ -131,8 +131,6 @@
 					alert('판매상태를 선택해 주세요');
 				}else if(!$.isNumeric(hit.val())){
 					alert('추천상품 수치를 입력해 주세요');
-				}else if($('#filename0').get(0).files[0] == null){
-					alert('대표 사진을 등록해 주세요');
 				}else {
 					allCheck = true;
 				}

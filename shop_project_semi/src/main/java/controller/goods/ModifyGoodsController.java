@@ -84,7 +84,8 @@ public class ModifyGoodsController extends HttpServlet {
 		ArrayList<HashMap<String, Object>> fileList = new ArrayList<>();
 		int fileSeq = 0;
 		int listSize = Integer.parseInt(mreq.getParameter("listSize"));
-		for(int i = 0; i < listSize; i++) {
+		System.out.println("이미지 수정 시작 전 기존 사진 개수 출력 :" + listSize);
+		for(fileSeq = 0; fileSeq < listSize; fileSeq++) {
 			HashMap<String, Object> fileMap = new HashMap<String, Object>();
 			
 			String goodsImgCode = mreq.getParameter("goodsImgCode"+fileSeq);
@@ -94,15 +95,10 @@ public class ModifyGoodsController extends HttpServlet {
 			fileMap.put("contentType", mreq.getContentType("filename"+fileSeq));	// 파일 확장자
 
 			fileMap.put("seq", fileSeq);	//기존 이미지 삭제를 위해 ①
-			fileSeq++;
-			if(fileMap.get("contentType") == null) {
-				continue;		// 처음 사진 외 다른 사진들을 수정할 수 있으므로 break가 아닌 continue
+			if(fileMap.get("contentType") != null) {
+				fileMap.put("check", true);	// 기존 이미지 삭제를 위해 ②
+				fileList.add(fileMap);
 			}
-			fileMap.put("check", true);	// 기존 이미지 삭제를 위해 ②
-			if(fileSeq >= listSize) {
-				break;
-			}
-			fileList.add(fileMap);
 		}
 		
 		// 2) 이미지 추가
