@@ -19,10 +19,10 @@
 							</ul>
 						</li>
 						<li><a href="#">ABOUT</a></li>
-						<c:if test="${loginCustomer == null }">
+						<c:if test="${loginCustomer == null && loginEmp == null}">
 							<li><a href="${pageContext.request.contextPath}/SignInController">LOGIN</a></li>
 						</c:if>
-						<c:if test="${loginCustomer != null }">
+						<c:if test="${loginCustomer != null && loginEmp == null}">
 							<li><a href="${pageContext.request.contextPath}/SignOutController">LOGOUT</a></li>
 							<li><a href="${pageContext.request.contextPath}/CustomerOneController">MY PAGE</a></li>
 						</c:if>
