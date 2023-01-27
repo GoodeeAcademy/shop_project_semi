@@ -116,32 +116,10 @@ public class GoodsDao {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		String sql = "SELECT review_memo reviewMemo, star, rv.createdate createdate, customer_id customerId"
 				+ " FROM review rv JOIN orders ods ON rv.order_code = ods.order_code"
-				+ " WHERE goods_code = ?";
+				+ " WHERE goods_code = ?"
+				+ " ORDER BY createdate DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsCode);
-		ResultSet rs = stmt.executeQuery();
-		
-		while(rs.next()) {
-			HashMap<String, Object> m = new HashMap<>();
-			m.put("reviewMemo", rs.getString("reviewMemo"));
-			m.put("star", rs.getInt("star"));
-			m.put("createdate", rs.getString("createdate"));
-			m.put("customerId", rs.getString("customerId"));
-			list.add(m);
-		}
-		
-		return list;
-	}
-	
-	// 해당 상품 리뷰 점수별 보기
-	public ArrayList<HashMap<String, Object>> selectReviewStarByGoods(Connection conn, int goodsCode, int star) throws Exception {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		String sql = "SELECT review_memo reviewMemo, star, rv.createdate createdate, customer_id customerId"
-				+ " FROM review rv JOIN orders ods ON rv.order_code = ods.order_code"
-				+ " WHERE goods_code = ? AND star = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, goodsCode);
-		stmt.setInt(2, star);
 		ResultSet rs = stmt.executeQuery();
 		
 		while(rs.next()) {

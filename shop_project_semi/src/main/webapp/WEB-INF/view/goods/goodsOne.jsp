@@ -97,42 +97,26 @@
 					</div>
 				</div>
 			</div>
-			<div class="bor10 m-t-50 p-t-43 p-b-40">
-				<!-- Tab -->
-				<div class="tab01">
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
-						<!-- 탭 추가 -->
-						<li class="nav-item p-b-10"><a class="nav-link " data-toggle="tab" href="#description" role="tab">Reviews</a></li>
-					</ul>
-					<div class="container w-75">
-						<!-- 리뷰 점수별 -->
-						<form id="starForm" action="${pageContext.request.contextPath}/goodsOne">
-							<input type="hidden" name="goodsCode" value="${m.goodsCode}">
-							<select class="select_star form-control text-dark w-25" name="star">
-								<option value="0" <c:if test ="">selected="selected"</c:if>>모든 별점 보기</option>
-								<option value="5">★★★★★</option>
-								<option value="4">★★★★☆</option>
-								<option value="3">★★★☆☆</option>
-								<option value="2">★★☆☆☆</option>
-								<option value="1">★☆☆☆☆</option>
-							</select>
-						</form>
-						<c:forEach var="m" items="${reviewList}">
-							<div class="mt-5">
-								<div>
-									<div class="customerName">${m.customerId}</div>
-									<div class="mb-3">
-										<span class="star">${m.star}</span>
-										<small>${m.createdate}</small>
-									</div>
-									<p>${m.reviewMemo}</p>
-								</div>
-								<hr style="border-bottom: 1px solid rgb(51, 51, 51);;"/>
+			<hr style="border-bottom: 1px solid rgb(51, 51, 51);;"/>
+			<div class="container w-75 mt-5">
+				<c:set var="reviewCnt" value="0"/>
+				<c:forEach var="m" items="${reviewList}">
+					<c:set var="reviewCnt" value="${reviewCnt = reviewCnt+1}"/>
+				</c:forEach>
+				<h4 style="color:black;">reviews (${reviewCnt})</h4>
+				<c:forEach var="m" items="${reviewList}">
+					<div class="mt-5">
+						<div>
+							<div class="customerName">${m.customerId}</div>
+							<div class="mb-3">
+								<span class="star">${m.star}</span>
+								<small>${m.createdate}</small>
 							</div>
-						</c:forEach>
+							<p>${m.reviewMemo}</p>
+						</div>
+						<hr style="border-bottom: 1px solid rgb(51, 51, 51);;"/>
 					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</section>
 		<!-- footer -->
@@ -195,12 +179,6 @@
 						star[i].textContent += '☆';	
 					}
 				}
-				
-				// 별점순
-				$('.select_star').on("change", function() {
-					$('#starForm').submit();
-				})
-				$('.star').text
 				
 				const quantity = document.querySelector('.quantity');
 				const upBtn = document.querySelector('.btn-quantity-up');
