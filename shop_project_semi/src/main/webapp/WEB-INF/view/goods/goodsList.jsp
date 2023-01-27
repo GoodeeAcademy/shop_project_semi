@@ -7,6 +7,7 @@
 		<meta charset="UTF-8">
 		<title>goods list</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
@@ -31,10 +32,10 @@
 		<div class="row isotope-grid">
 			<c:forEach var="m" items="${list}">
 				<c:if test="${m.soldOut ne 'Y'}">
-					<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark">
+					<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark hide">
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
+								<a class="product" href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
 									<img src="${pageContext.request.contextPath}/upload/${m.filename}" alt="IMG-PRODUCT">
 								</a>
 							</div>
@@ -48,7 +49,28 @@
 					</div>
 				</c:if>
 			</c:forEach>
+			<button class="p-4 border-top border-dark" type="button" id="more" style="margin-top:-1px;">more</button>
 		</div>
+		<script>
+			const showMore = 8; // 더 보여줄 상품 개수
+			let showProduct = 12;
+			
+			if($('.product').length > showProduct) {
+				for(let i = showProduct; i < $('.product').length; i++) {
+					$('.hide').eq(i).hide();					
+				}
+			} 
+			
+			$('#more').on('click', function() {
+				if($('.product').length > showProduct) {
+					for(let i = showProduct; i < showProduct + showMore ; i++) {
+						$('.hide').eq(i).show();					
+					}
+				} 
+				
+				showProduct += showMore;	
+			})
+		</script>
 		<!-- footer -->
 		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		<!--===============================================================================================-->
