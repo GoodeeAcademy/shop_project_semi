@@ -103,7 +103,7 @@
 					</c:if>
 					<!-- 직원 -->
 					<c:if test="${loginCustomer == null}">
-					<form method="post" action="${pageContext.request.contextPath}/AddCommentController">
+					<form method="post" action="${pageContext.request.contextPath}/emp/comment/add">
 						<div class="row p-b-25">
 							<div class="col-sm-6 p-b-5">
 								<label class="stext-102 cl3">문의번호</label>

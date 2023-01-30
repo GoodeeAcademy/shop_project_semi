@@ -87,7 +87,7 @@
 			</div>
 			<div class="orderInfo">
 				<h3 style="color: #000; margin-top: 40px; margin-bottom: 20px;">CUSTOMER</h3>
-				<form method="post" id="orderPage" action="${pageContext.request.contextPath}/OrderController">
+				<form method="post" id="orderPage" action="${pageContext.request.contextPath}/member/order">
 					<table class="table">
 						<tr>
 							<th class="col-sm-3">주문자</th>

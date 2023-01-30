@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * Servlet implementation class OrderOneController
  */
-@WebServlet("/OrderOneController")
+@WebServlet("/member/order/detail")
 public class OrderOneController extends HttpServlet {
 	private OrderService orderService;
 	private static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ public class OrderOneController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		String orderCode = request.getParameter("orderCode");

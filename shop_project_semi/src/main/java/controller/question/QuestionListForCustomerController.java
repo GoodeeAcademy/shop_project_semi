@@ -14,7 +14,7 @@ import service.question.QuestionService;
 import vo.Customer;
 import vo.Question;
 
-@WebServlet("/QuestionListForCustomerController")
+@WebServlet("/member/question")
 public class QuestionListForCustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QuestionService questionService;
@@ -24,7 +24,7 @@ public class QuestionListForCustomerController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		

@@ -15,7 +15,7 @@ import service.question.QuestionService;
 import vo.Customer;
 import vo.Question;
 
-@WebServlet("/AddQuestionController")
+@WebServlet("/member/question/add")
 public class AddQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	GoodsService goodsService = new GoodsService();
@@ -26,7 +26,7 @@ public class AddQuestionController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -34,7 +34,7 @@ public class AddQuestionController extends HttpServlet {
 		int orderCode = 0;
 		if(request.getParameter("orderCode") == null) {
 			// 주문 내역으로 돌아가기
-			response.sendRedirect(request.getContextPath()+"/OrderListController");
+			response.sendRedirect(request.getContextPath()+"/member/order/list");
 			return;
 		}
 		orderCode = Integer.parseInt(request.getParameter("orderCode"));
@@ -43,7 +43,7 @@ public class AddQuestionController extends HttpServlet {
 		// 해당 주문을 한 고객만 접근 가능
 		if(!questionService.getCustomerByOrderCode(loginCustomer, orderCode)) {
 			// 주문 내역으로 돌아가기
-				response.sendRedirect(request.getContextPath()+"/OrderListController");
+				response.sendRedirect(request.getContextPath()+"/member/order/list");
 				return;
 		}
 
@@ -51,7 +51,7 @@ public class AddQuestionController extends HttpServlet {
 		int goodsCode = 0;
 		if(request.getParameter("goodsCode") == null) {
 			// 주문 내역으로 돌아가기
-			response.sendRedirect(request.getContextPath()+"/OrderListController");
+			response.sendRedirect(request.getContextPath()+"/member/order/list");
 			return;
 		}
 		goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
@@ -87,7 +87,7 @@ public class AddQuestionController extends HttpServlet {
 		
 		// 내 문의내역으로
 		System.out.println("문의 추가 성공");
-		response.sendRedirect(request.getContextPath()+"/QuestionListForCustomerController");
+		response.sendRedirect(request.getContextPath()+"/member/question");
 	}
 
 }

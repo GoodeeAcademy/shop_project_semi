@@ -17,7 +17,7 @@ import vo.Emp;
 import vo.Question;
 import vo.QuestionComment;
 
-@WebServlet("/QuestionOneController")
+@WebServlet("/emp/question/detail")
 public class QuestionOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	GoodsService goodsService;
@@ -29,17 +29,17 @@ public class QuestionOneController extends HttpServlet {
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		if(loginEmp == null && loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
 		// 문의 상세보기
 		if(request.getParameter("questionCode") == null) {
 			if(loginEmp != null) {	// 직원이 보는 상태라면
-				response.sendRedirect(request.getContextPath()+"/QuestionListForEmpController");
+				response.sendRedirect(request.getContextPath()+"/emp/question");
 			}
 			if(loginCustomer != null) {	// 고객이 보는 상태라면
-				response.sendRedirect(request.getContextPath()+"/QuestionListForCustomerController");
+				response.sendRedirect(request.getContextPath()+"/member/question");
 			}
 			return;
 		}
@@ -57,7 +57,7 @@ public class QuestionOneController extends HttpServlet {
 		if(loginCustomer != null) {	// 고객이 보는 상태라면
 			// 아이디 일치여부 확인
 			if(!loginCustomer.getCustomerId().equals(question.getCustomerId())) {
-				response.sendRedirect(request.getContextPath()+"/QuestionListForCustomerController"); // 내 문의내역으로
+				response.sendRedirect(request.getContextPath()+"/member/question"); // 내 문의내역으로
 				return;
 			}
 		}

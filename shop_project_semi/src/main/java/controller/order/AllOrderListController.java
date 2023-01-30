@@ -15,7 +15,7 @@ import service.order.OrderService;
 import vo.Emp;
 import vo.OrderGoods;
 
-@WebServlet("/AllOrderListController")
+@WebServlet("/emp/order/list")
 public class AllOrderListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderService orderService = new OrderService();
@@ -25,7 +25,7 @@ public class AllOrderListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		
@@ -90,12 +90,12 @@ public class AllOrderListController extends HttpServlet {
 		System.out.println(row);	// 디버깅
 		if(row < 1) {
 			System.out.println("주문상태 변경 실패");
-			response.sendRedirect(request.getContextPath() + "/AllOrderListController");
+			response.sendRedirect(request.getContextPath() + "/emp/order/list");
 			return;
 		}
 		
 		System.out.println("주문상태 변경 성공");
-		response.sendRedirect(request.getContextPath() + "/AllOrderListController");
+		response.sendRedirect(request.getContextPath() + "/emp/order/list");
 	}
 
 }

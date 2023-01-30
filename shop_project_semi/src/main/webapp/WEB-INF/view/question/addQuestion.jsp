@@ -62,7 +62,7 @@
 	
 	<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto" style="margin-top: 5%; margin-bottom: 5%;">
 		<div class="p-b-30 m-lr-15-sm">
-			<form method="post" action="${pageContext.request.contextPath}/AddQuestionController" id="form">
+			<form method="post" action="${pageContext.request.contextPath}/member/question/add" id="form">
 				<div class="row p-b-25">
 					<div class="col-sm-6 p-b-5">
 							<input type="hidden" name="orderCode" value="${orderCode}">

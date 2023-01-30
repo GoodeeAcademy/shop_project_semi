@@ -9,7 +9,7 @@
 				<ul class="p-0">
 					<c:if test="${loginCustomer == null}">
 						<li>
-							<a href="${pageContext.request.contextPath}/LoginEmpController" class="stext-107 cl7 hov-cl1 trans-04 text-dark fw-bold">
+							<a href="${pageContext.request.contextPath}/emp/signin" class="stext-107 cl7 hov-cl1 trans-04 text-dark fw-bold">
 								<img src="https://img.icons8.com/material-rounded/24/null/github.png"/>&nbsp;&nbsp;쇼핑몰 관리자페이지
 							</a>
 						</li>

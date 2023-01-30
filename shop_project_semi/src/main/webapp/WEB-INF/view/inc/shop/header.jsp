@@ -11,27 +11,27 @@
 					<ul class="main-menu">
 						<li><a href="#">SHOP</a>
 							<ul class="sub-menu">
-								<li><a href="${pageContext.request.contextPath}/goodsList">ALL</a></li>
-								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=1">Outwear</a></li> 
-								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=2">Top</a></li>
-								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=3">Bottom</a></li>
-								<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=4">Accessories</a></li>
+								<li><a href="${pageContext.request.contextPath}/goods">ALL</a></li>
+								<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=1">Outwear</a></li> 
+								<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=2">Top</a></li>
+								<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=3">Bottom</a></li>
+								<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=4">Accessories</a></li>
 							</ul>
 						</li>
 						<li><a href="#">ABOUT</a></li>
 						<c:if test="${loginCustomer == null && loginEmp == null}">
-							<li><a href="${pageContext.request.contextPath}/SignInController">LOGIN</a></li>
+							<li><a href="${pageContext.request.contextPath}/member/signin">LOGIN</a></li>
 						</c:if>
 						<c:if test="${loginCustomer != null && loginEmp == null}">
-							<li><a href="${pageContext.request.contextPath}/SignOutController">LOGOUT</a></li>
-							<li><a href="${pageContext.request.contextPath}/CustomerOneController">MY PAGE</a></li>
+							<li><a href="${pageContext.request.contextPath}/member/signout">LOGOUT</a></li>
+							<li><a href="${pageContext.request.contextPath}/member/mypage">MY PAGE</a></li>
 						</c:if>
-						<li><a href="${pageContext.request.contextPath}/cartList">CART</a></li>
+						<li><a href="${pageContext.request.contextPath}/member/cart">CART</a></li>
 						<li><a href="#" class="js-show-modal-search">SEARCH</a></li>
 					</ul>
 				</div>
 				<!-- Logo desktop -->
-				<a href="${pageContext.request.contextPath}/HomeController">
+				<a href="${pageContext.request.contextPath}/main">
 					<img src="${pageContext.request.contextPath}/assets/shop/images/logo.png" alt="logo" style="height: 30px;">
 				</a>
 			</nav>
@@ -42,7 +42,7 @@
 	<div class="wrap-header-mobile">
 		<!-- Logo moblie -->
 		<div class="logo-mobile">
-			<a href="${pageContext.request.contextPath}/HomeController">
+			<a href="${pageContext.request.contextPath}/main">
 				<img src="${pageContext.request.contextPath}/assets/shop/images/logo.png" alt="logo" style="height: 30px;">
 			</a>
 		</div>
@@ -57,23 +57,23 @@
 		<ul class="main-menu-m p-0 bg-white">
 			<li><a href="#" class="text-dark">SHOP</a>
 				<ul class="sub-menu-m">
-					<li><a href="${pageContext.request.contextPath}/goodsList">ALL</a></li>
-					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=1">Outwear</a></li> 
-					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=2">Top</a></li>
-					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=3">Bottom</a></li>
-					<li><a href="${pageContext.request.contextPath}/GoodsListByCategoryController?categoryCode=4">Accessories</a></li>
+					<li><a href="${pageContext.request.contextPath}/goods">ALL</a></li>
+					<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=1">Outwear</a></li> 
+					<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=2">Top</a></li>
+					<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=3">Bottom</a></li>
+					<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=4">Accessories</a></li>
 				</ul> 
 				<span class="arrow-main-menu-m"><i class="fa fa-angle-right text-dark" aria-hidden="true"></i></span>
 			</li>
 			<li><a href="#" class="text-dark">ABOUT</a></li>
 			<c:if test="${loginCustomer == null }">
-				<li><a href="${pageContext.request.contextPath}/SignInController" class="text-dark">LOGIN</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/signin" class="text-dark">LOGIN</a></li>
 			</c:if>
 			<c:if test="${loginCustomer != null }">
-				<li><a href="${pageContext.request.contextPath}/SignOutController" class="text-dark">LOGOUT</a></li>
-				<li><a href="${pageContext.request.contextPath}/CustomerOneController" class="text-dark">MY PAGE</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/signout" class="text-dark">LOGOUT</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/mypage" class="text-dark">MY PAGE</a></li>
 			</c:if>
-			<li><a href="${pageContext.request.contextPath}/cartList" class="text-dark">CART</a></li>
+			<li><a href="${pageContext.request.contextPath}/member/cart" class="text-dark">CART</a></li>
 			<li><a href="#" class="js-show-modal-search text-dark">SEARCH</a></li>
 		</ul>
 	</div>
@@ -106,15 +106,15 @@
 
 		<div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
 			<ul class="sidebar-link w-full">
-				<li class="p-b-13"><a href="${pageContext.request.contextPath}/HomeController" class="stext-102 cl2 hov-cl1 trans-04"> Home </a></li>
-				<li class="p-b-13"><a href="${pageContext.request.contextPath}/cartList" class="stext-102 cl2 hov-cl1 trans-04"> CART </a></li>
+				<li class="p-b-13"><a href="${pageContext.request.contextPath}/main" class="stext-102 cl2 hov-cl1 trans-04"> Home </a></li>
+				<li class="p-b-13"><a href="${pageContext.request.contextPath}/member/cart" class="stext-102 cl2 hov-cl1 trans-04"> CART </a></li>
 				<!-- 비회원 -> 로그인창 -->
 				<c:if test="${empty session.loginCustomer}">
-					<li class="p-b-13"><a href="${pageContext.request.contextPath}/SignInController" class="stext-102 cl2 hov-cl1 trans-04"> ORDER </a></li>
+					<li class="p-b-13"><a href="${pageContext.request.contextPath}/member/signin" class="stext-102 cl2 hov-cl1 trans-04"> ORDER </a></li>
 				</c:if>
 				<!-- 회원 -> 주문목록 -->
 				<c:if test="${not empty session.loginCustomer}">
-					<li class="p-b-13"><a href="${pageContext.request.contextPath}/OrderListController" class="stext-102 cl2 hov-cl1 trans-04"> ORDER </a></li>
+					<li class="p-b-13"><a href="${pageContext.request.contextPath}/member/order/list" class="stext-102 cl2 hov-cl1 trans-04"> ORDER </a></li>
 				</c:if>
 			</ul>
 			<div class="sidebar-gallery w-full">

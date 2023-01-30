@@ -71,7 +71,7 @@
 						<c:forEach var="g" items="${m['goodsList']}" varStatus="d" >
 							<c:if test="${d.first}">
 								<tr class="align-middle">
-									<td rowspan="${m['orderQuantity']}" class="align-middle col-sm-1"><a href="${pageContext.request.contextPath}/OrderOneController?orderCode=${m['orderCode']}">${m['orderCode']}</a></td>
+									<td rowspan="${m['orderQuantity']}" class="align-middle col-sm-1"><a href="${pageContext.request.contextPath}/member/order/detail?orderCode=${m['orderCode']}">${m['orderCode']}</a></td>
 									<td rowspan="${m['orderQuantity']}" class="align-middle col-sm-2">${m['createdate']}</td>
 									<td class="align-middle col-sm-1">
 										<img src="${pageContext.request.contextPath}/upload/${g['fileName']}" width="50px" height="50px" alt="이미지" >
@@ -105,15 +105,15 @@
 									<td class="align-middle col-sm-2">
 										<c:if test="${empty g['qCheck']}">
 											<div>
-												<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+												<a href="${pageContext.request.contextPath}/member/question/add?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
 											</div>
 										</c:if>
 										<c:if test="${not empty g['qCheck']}">
 											<div>
-												<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+												<a href="${pageContext.request.contextPath}/member/question/add?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
 											</div>
 											<div>
-												<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">${g['qCheck']}</a>
+												<a href="${pageContext.request.contextPath}/member/question">${g['qCheck']}</a>
 											</div>
 										</c:if>
 									</td>
@@ -153,15 +153,15 @@
 									<td class="align-middle col-sm-2">
 										<c:if test="${empty g['qCheck']}">
 											<div>
-												<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+												<a href="${pageContext.request.contextPath}/member/question/add?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
 											</div>
 										</c:if>
 										<c:if test="${not empty g['qCheck']}">
 											<div>
-												<a href="${pageContext.request.contextPath}/AddQuestionController?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
+												<a href="${pageContext.request.contextPath}/member/question/add?orderCode=${m['orderCode']}&goodsCode=${g['goodsCode']}">문의하기</a>
 											</div>
 											<div>
-												<a href="${pageContext.request.contextPath}/QuestionListForCustomerController">${g['qCheck']}</a>
+												<a href="${pageContext.request.contextPath}/member/question">${g['qCheck']}</a>
 											</div>
 										</c:if>
 									</td>
@@ -177,23 +177,23 @@
 		<div class="text-center" style="margin-bottom: 20px;">
 			<ul class="pagination justify-content-center">
 				<li class="page-item">
-					<a href="${pageContext.request.contextPath}/OrderListController?currentPage=1" class="page-link">처음</a>
+					<a href="${pageContext.request.contextPath}/member/order/list?currentPage=1" class="page-link">처음</a>
 				</li>
 				<c:if test="${currentPage > 1}">
 					<li class="page-item">
-						<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${currentPage-1}" class="page-link">이전</a>
+						<a href="${pageContext.request.contextPath}/member/order/list?currentPage=${currentPage-1}" class="page-link">이전</a>
 					</li>
 				</c:if>
 				<c:if test="${endPage <= lastPage}">
 					<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
 						<c:if test="${currentPage == i}">
 							<li class="page-item active">
-								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+								<a href="${pageContext.request.contextPath}/member/order/list?currentPage=${i}" class="page-link">${i}</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage != i}">
 							<li class="page-item">
-								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+								<a href="${pageContext.request.contextPath}/member/order/list?currentPage=${i}" class="page-link">${i}</a>
 							</li>
 						</c:if>
 					</c:forEach>
@@ -202,23 +202,23 @@
 					<c:forEach var="i" begin="${beginPage}" end="${lastPage}" step="1">
 						<c:if test="${currentPage == i}">
 							<li class="page-item active">
-								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+								<a href="${pageContext.request.contextPath}/member/order/list?currentPage=${i}" class="page-link">${i}</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage != i}">
 							<li class="page-item">
-								<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${i}" class="page-link">${i}</a>
+								<a href="${pageContext.request.contextPath}/member/order/list?currentPage=${i}" class="page-link">${i}</a>
 							</li>
 						</c:if>
 					</c:forEach>
 				</c:if>
 				<c:if test="${currentPage < lastPage}">
 					<li class="page-item">
-						<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${currentPage+1}" class="page-link">다음</a>
+						<a href="${pageContext.request.contextPath}/member/order/list?currentPage=${currentPage+1}" class="page-link">다음</a>
 					</li>
 				</c:if>
 				<li class="page-item">
-					<a href="${pageContext.request.contextPath}/OrderListController?currentPage=${lastPage}" class="page-link">마지막</a>
+					<a href="${pageContext.request.contextPath}/member/order/list?currentPage=${lastPage}" class="page-link">마지막</a>
 				</li>
 			</ul>
 		</div>

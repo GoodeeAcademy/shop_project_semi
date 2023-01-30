@@ -58,7 +58,7 @@
 		<div class="container content" style="margin-top:5%">
 			<div class="login-member">
 				<h1 class="login-form" style="color:#000">회원 비밀번호 수정</h1>
-				<form action="${pageContext.request.contextPath}/ModifyCustomerPwController" method="post" id="modifyPwForm" class="login-form">
+				<form action="${pageContext.request.contextPath}/member/modifypw" method="post" id="modifyPwForm" class="login-form">
 					<div class="login-member__form">
 						<div class="login-input d-flex flex-row">
 							<span class="signin col-sm-2">ID</span>

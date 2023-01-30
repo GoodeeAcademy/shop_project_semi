@@ -14,7 +14,7 @@ import vo.Customer;
 /**
  * Servlet implementation class ModifyCustomerPwController
  */
-@WebServlet("/ModifyCustomerPwController")
+@WebServlet("/member/modifypw")
 public class ModifyCustomerPwController extends HttpServlet {
 	private CustomerService customerService;
 	private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class ModifyCustomerPwController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		
@@ -59,7 +59,7 @@ public class ModifyCustomerPwController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
 			System.out.println("로그인 안한 상태로 수정페이지 접근");
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		
@@ -87,7 +87,7 @@ public class ModifyCustomerPwController extends HttpServlet {
 			return;
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/CustomerOneController");
+		response.sendRedirect(request.getContextPath()+"/member/mypage");
 	}
 
 }

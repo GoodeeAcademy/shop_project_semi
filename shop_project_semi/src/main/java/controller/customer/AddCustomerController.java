@@ -14,7 +14,7 @@ import vo.Customer;
 /**
  * Servlet implementation class AddCustomerController
  */
-@WebServlet("/AddCustomerController")
+@WebServlet("/member/signup")
 public class AddCustomerController extends HttpServlet {
 	private CustomerService customerService;
 	private static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ public class AddCustomerController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") != null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -105,7 +105,7 @@ public class AddCustomerController extends HttpServlet {
 		
 		
 		//추후 Home 대신 login 컨트롤러로 이동으로 수정
-		response.sendRedirect(request.getContextPath()+"/HomeController");
+		response.sendRedirect(request.getContextPath()+"/main");
 	}
 
 }

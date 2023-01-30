@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.question.QuestionService;
 import vo.QuestionComment;
 
-@WebServlet("/AddCommentController")
+@WebServlet("/emp/comment/add")
 public class AddCommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QuestionService questionService = new QuestionService();
@@ -29,12 +29,12 @@ public class AddCommentController extends HttpServlet {
 		int row = questionService.addComment(comment);
 		if(row != 1) {
 			System.out.println("답변 추가 실패");
-			response.sendRedirect(request.getContextPath()+"/QuestionOneController?questionCode="+questionCode);
+			response.sendRedirect(request.getContextPath()+"/emp/question/detail?questionCode="+questionCode);
 			return;
 		}
 		
 		// 해당 문의 상세보기로
-		response.sendRedirect(request.getContextPath()+"/QuestionOneController?questionCode="+questionCode);
+		response.sendRedirect(request.getContextPath()+"/emp/question/detail?questionCode="+questionCode);
 	}
 
 }

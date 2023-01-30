@@ -62,10 +62,10 @@
 				<span>현재 사용 가능한 포인트는 ${loginCustomer.point}원 입니다.</span>
 			</div>
 			<div class="d-flex flex-row justify-content-center buttonBox">
-				<a href="${pageContext.request.contextPath}/OrderListController" class="login-button__item infoButton">주문/결제내역</a>
-				<a href="${pageContext.request.contextPath}/cartList" class="login-button__item infoButton infoButton">장바구니</a>
-				<a href="${pageContext.request.contextPath}/ModifyCustomerController" class="login-button__item infoButton">회원정보 수정</a>
-				<a href="${pageContext.request.contextPath}/SignOutController" class="login-button__item infoButton">로그아웃</a>
+				<a href="${pageContext.request.contextPath}/member/order/list" class="login-button__item infoButton">주문/결제내역</a>
+				<a href="${pageContext.request.contextPath}/member/cart" class="login-button__item infoButton infoButton">장바구니</a>
+				<a href="${pageContext.request.contextPath}/member/modify" class="login-button__item infoButton">회원정보 수정</a>
+				<a href="${pageContext.request.contextPath}/member/signout" class="login-button__item infoButton">로그아웃</a>
 			</div>
 		</div>
 		

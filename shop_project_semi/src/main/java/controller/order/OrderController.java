@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * Servlet implementation class OrderController
  */
-@WebServlet("/OrderController")
+@WebServlet("/member/order")
 public class OrderController extends HttpServlet {
 	private CartService cartService;
 	private CustomerService customerService;
@@ -43,7 +43,7 @@ public class OrderController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		String orderResult = null;
@@ -89,7 +89,7 @@ public class OrderController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		
@@ -138,7 +138,7 @@ public class OrderController extends HttpServlet {
 		loginCustomer.setPoint(loginCustomer.getPoint()-point);
 		session.setAttribute("loginCustomer", loginCustomer);
 		
-		response.sendRedirect(request.getContextPath()+"/OrderListController");
+		response.sendRedirect(request.getContextPath()+"/member/order/list");
 	}
 
 }

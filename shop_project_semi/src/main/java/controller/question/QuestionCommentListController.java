@@ -14,7 +14,7 @@ import service.question.QuestionService;
 import vo.Emp;
 import vo.QuestionComment;
 
-@WebServlet("/QuestionCommentListController")
+@WebServlet("/emp/comment")
 public class QuestionCommentListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QuestionService questionService;
@@ -24,7 +24,7 @@ public class QuestionCommentListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		

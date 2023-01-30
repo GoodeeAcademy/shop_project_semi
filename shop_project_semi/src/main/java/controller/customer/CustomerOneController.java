@@ -13,7 +13,7 @@ import vo.Customer;
 /**
  * Servlet implementation class CustomerOneController
  */
-@WebServlet("/CustomerOneController")
+@WebServlet("/member/mypage")
 public class CustomerOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,7 +34,7 @@ public class CustomerOneController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer) session.getAttribute("loginCustomer");
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		

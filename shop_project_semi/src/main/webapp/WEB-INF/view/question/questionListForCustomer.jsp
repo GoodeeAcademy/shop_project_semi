@@ -66,14 +66,14 @@
 						<td>${q.orderCode}</td>
 						<td>${q.category}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/QuestionOneController?questionCode=${q.questionCode}">${q.questionTitle}</a>
+							<a href="${pageContext.request.contextPath}/emp/question/detail?questionCode=${q.questionCode}">${q.questionTitle}</a>
 						</td>
 						<td>${q.createdate}</td>
 						<!-- 답변 여부에 따라 분기 -->
 						<c:if test="${!q.commentPresence}">
 						<td>
 							<span>답변대기</span>
-							<a href="${pageContext.request.contextPath}/RemoveQuestionController?questionCode=${q.questionCode}">삭제</a>
+							<a href="${pageContext.request.contextPath}/emp/question/remove?questionCode=${q.questionCode}">삭제</a>
 						</td>
 						</c:if>
 						<c:if test="${q.commentPresence}">
@@ -86,18 +86,18 @@
 		<!-- 페이징 -->
 		<div class="flex-c-m flex-w w-full p-t-38">
 			<c:if test="${currentPage > 10}">
-				<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${startPage-10}" class="flex-c-m how-pagination1 trans-04 m-all-7">이전</a>
+				<a href="${pageContext.request.contextPath}/member/question?currentPage=${startPage-10}" class="flex-c-m how-pagination1 trans-04 m-all-7">이전</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endRow}">
 				<c:if test="${i == currentPage}">
-						<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${i}</a>
+						<a href="${pageContext.request.contextPath}/member/question?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${i}</a>
 				</c:if>
 				<c:if test="${i != currentPage}">
-						<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7">${i}</a>
+						<a href="${pageContext.request.contextPath}/member/question?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7">${i}</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${beginRow+10 < lastPage}">
-				<a href="${pageContext.request.contextPath}/QuestionListForCustomerController?currentPage=${startPage+10}" class="flex-c-m how-pagination1 trans-04 m-all-7">다음</a>
+				<a href="${pageContext.request.contextPath}/member/question?currentPage=${startPage+10}" class="flex-c-m how-pagination1 trans-04 m-all-7">다음</a>
 			</c:if>
 		</div>
 	</div>

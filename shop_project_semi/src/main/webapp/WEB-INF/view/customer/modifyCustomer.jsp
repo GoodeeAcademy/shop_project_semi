@@ -59,7 +59,7 @@
 		<div class="container content" style="margin-top:5%">
 			<div class="login-member">
 				<h1 class="login-form" style="color:#000">회원정보 수정</h1>
-				<form action="${pageContext.request.contextPath}/ModifyCustomerController" method="post" id="modifyCustomerForm" class="login-form">
+				<form action="${pageContext.request.contextPath}/member/modify" method="post" id="modifyCustomerForm" class="login-form">
 					<div class="login-member__form">
 						<div class="login-input d-flex flex-row">
 							<span class="signin">ID</span>
@@ -113,7 +113,7 @@
 						<div class="login-input d-flex flex-row">
 							<span class="signin">비밀번호</span>
 							<input type="password" name="customerPw" id="customerPw" class="signin-input__input" placeholder="비밀번호" style="width:50%;">
-							<a href="${pageContext.request.contextPath}/ModifyCustomerPwController" class="login-button__item align-content-end" style="width:25%; margin-left:3%; text-align: center;">회원 비밀번호 수정</a>
+							<a href="${pageContext.request.contextPath}/member/modifypw" class="login-button__item align-content-end" style="width:25%; margin-left:3%; text-align: center;">회원 비밀번호 수정</a>
 						</div>
 						<div class="login-input d-flex flex-row">
 							<span class="signin">비밀번호 확인</span>
@@ -127,7 +127,7 @@
 					</div>
 					<div class="mt-4 d-lfex flex-row justify-content-end">
 						<div>
-							<a href="${pageContext.request.contextPath}/RemoveCustomerController">회원탈퇴</a>
+							<a href="${pageContext.request.contextPath}/member/remove">회원탈퇴</a>
 						</div>
 					</div>
 				</form>

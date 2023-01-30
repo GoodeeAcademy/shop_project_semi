@@ -13,7 +13,7 @@ import service.question.QuestionService;
 import vo.Customer;
 
 
-@WebServlet("/RemoveQuestionController")
+@WebServlet("/emp/question/remove")
 public class RemoveQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     QuestionService questionService;
@@ -23,7 +23,7 @@ public class RemoveQuestionController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -39,7 +39,7 @@ public class RemoveQuestionController extends HttpServlet {
 		}
 		
 		System.out.println("문의 삭제 성공");
-		response.sendRedirect(request.getContextPath()+"/QuestionListForCustomerController");
+		response.sendRedirect(request.getContextPath()+"/member/question");
 	}
 
 }

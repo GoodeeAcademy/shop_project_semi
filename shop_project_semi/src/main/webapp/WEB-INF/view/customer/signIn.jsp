@@ -57,7 +57,7 @@
 		<div class="container content" style="margin-top: 5%">
 			<div class="login-member">
 				<h1 class="login-form" style="color:#000">SIGN IN</h1>
-				<form method="post" action="${pageContext.request.contextPath}/SignInController" id="loginForm" class="login-form">
+				<form method="post" action="${pageContext.request.contextPath}/member/signin" id="loginForm" class="login-form">
 					<div class="login-member__form">
 						<div class="login-input">
 							<input type="text" name="loginId" id="loginId" placeholder="아이디" class="login-input__input" value="goodee">
@@ -73,7 +73,7 @@
 			</div>
 			<div class="mt-2 p-4 text-center">
 				<span style="color:blue; margin-right: 10px;">가입 시 구매금액 1% 적립</span>
-				<a href="${pageContext.request.contextPath}/AddCustomerController" class="btn" style="background-color: white; color: blue; height: 30px; outline: 1px solid;">회원가입</a>
+				<a href="${pageContext.request.contextPath}/member/signup" class="btn" style="background-color: white; color: blue; height: 30px; outline: 1px solid;">회원가입</a>
 			</div>
 		</div>
 		<!-- footer -->

@@ -14,7 +14,7 @@ import vo.Customer;
 /**
  * Servlet implementation class RemoveCustomerController
  */
-@WebServlet("/RemoveCustomerController")
+@WebServlet("/member/remove")
 public class RemoveCustomerController extends HttpServlet {
 	private CustomerService customerService;
 	private static final long serialVersionUID = 1L;
@@ -37,7 +37,7 @@ public class RemoveCustomerController extends HttpServlet {
 		
 		if(session.getAttribute("loginCustomer") == null) {
 			System.out.println("로그인 안한 상태로 수정페이지 접근");
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		
@@ -61,7 +61,7 @@ public class RemoveCustomerController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
 			System.out.println("로그인 안한 상태로 수정페이지 접근");
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		if(!request.getParameter("customerPw").equals(request.getParameter("checkPw"))) {
@@ -95,7 +95,7 @@ public class RemoveCustomerController extends HttpServlet {
 		}
 		
 		session.invalidate();
-		response.sendRedirect(request.getContextPath()+"/SignInController");
+		response.sendRedirect(request.getContextPath()+"/member/signin");
 	}
 
 }

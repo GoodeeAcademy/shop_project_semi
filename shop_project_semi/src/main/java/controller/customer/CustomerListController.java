@@ -37,7 +37,7 @@ public class CustomerListController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		

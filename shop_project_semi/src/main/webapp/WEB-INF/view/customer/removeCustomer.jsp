@@ -60,7 +60,7 @@
 		<div class="container content" style="margin-top:5%">
 			<div class="login-memeber">
 				<h1 class="login-form" style="color:#000">회원 탈퇴</h1>
-				<form action="${pageContext.request.contextPath}/RemoveCustomerController" method="post" id="removeCustomerForm" class="login-form">
+				<form action="${pageContext.request.contextPath}/member/remove" method="post" id="removeCustomerForm" class="login-form">
 					<div class="login-member__form">
 						<div class="login-input d-flex flex-row">
 							<span class="signin col-sm-2">ID</span>

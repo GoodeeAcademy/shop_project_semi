@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * Servlet implementation class SignInController
  */
-@WebServlet("/SignInController")
+@WebServlet("/member/signin")
 public class SignInController extends HttpServlet {
 	private CustomerService customerService;
 	private CartService cartService;
@@ -39,7 +39,7 @@ public class SignInController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") != null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -93,7 +93,7 @@ public class SignInController extends HttpServlet {
 		session.setAttribute("loginCustomer", loginCustomer);
 		
 		//추후 homeController로 이동하도록 수정하기!
-		response.sendRedirect(request.getContextPath()+"/CustomerOneController");
+		response.sendRedirect(request.getContextPath()+"/main");
 	}
 
 }

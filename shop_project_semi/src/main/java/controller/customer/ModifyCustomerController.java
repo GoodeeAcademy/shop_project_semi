@@ -15,7 +15,7 @@ import vo.CustomerAddress;
 /**
  * Servlet implementation class ModifyCustomerController
  */
-@WebServlet("/ModifyCustomerController")
+@WebServlet("/member/modify")
 public class ModifyCustomerController extends HttpServlet {
 	private CustomerService customerService;
 	private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class ModifyCustomerController extends HttpServlet {
 		
 		if(session.getAttribute("loginCustomer") == null) {
 			System.out.println("로그인 안한 상태로 수정페이지 접근");
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		
@@ -73,7 +73,7 @@ public class ModifyCustomerController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
 			System.out.println("로그인 안한 상태로 수정페이지 접근");
-			response.sendRedirect(request.getContextPath()+"/SignInController");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		if(!request.getParameter("customerPw").equals(request.getParameter("checkPw"))) {
@@ -110,7 +110,7 @@ public class ModifyCustomerController extends HttpServlet {
 			loginCustomer = customerService.getSingIn(paramCustomer);
 			session.setAttribute("loginCustomer", loginCustomer);
 		}
-		response.sendRedirect(request.getContextPath()+"/CustomerOneController");
+		response.sendRedirect(request.getContextPath()+"/member/mypage");
 	}
 
 }

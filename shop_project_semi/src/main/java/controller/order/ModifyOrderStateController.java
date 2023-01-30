@@ -12,7 +12,7 @@ import service.order.OrderService;
 import vo.Customer;
 import vo.OrderGoods;
 
-@WebServlet("/modifyOrderState")
+@WebServlet("/member/order/modify")
 public class ModifyOrderStateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderService orderService;
@@ -41,10 +41,10 @@ public class ModifyOrderStateController extends HttpServlet {
 		
 		if(result == 1) {
 			System.out.println("상품 상태 변경 성공");
-			response.sendRedirect(request.getContextPath() + "/OrderListController");
+			response.sendRedirect(request.getContextPath() + "/member/order/list");
 		} else {
 			System.out.println("상품 상태 변경 실패");
-			response.sendRedirect(request.getContextPath() + "/OrderListController");
+			response.sendRedirect(request.getContextPath() + "/member/order/list");
 		}
 	}
 }

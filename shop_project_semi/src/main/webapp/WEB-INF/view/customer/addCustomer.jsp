@@ -60,7 +60,7 @@
 		<div class = "container content" style="margin-top: 5%;">
 			<div class="login-member">
 				<h1 class="login-form" style="color:#000;">SIGN UP</h1>
-				<form action="${pageContext.request.contextPath}/AddCustomerController" method="post" id="addCustomerForm" class="login-form">
+				<form action="${pageContext.request.contextPath}/member/signup" method="post" id="addCustomerForm" class="login-form">
 					<div class="login-member__form">
 						<h4 class="login-input" style="color:#000">필수 입력 사항</h4>
 						<div class="login-input">
@@ -113,7 +113,7 @@
 			</div>
 			<div class="mt-2 p-4 text-center">
 				<span style="color:blue; margin-right: 10px;">이미 가입한 회원이라면?</span>
-				<a href="${pageContext.request.contextPath}/SignInController" class="btn" style="background-color: white; color: blue; height: 30px; outline: 1px solid; align-content:center;">SIGN IN</a>
+				<a href="${pageContext.request.contextPath}/member/signin" class="btn" style="background-color: white; color: blue; height: 30px; outline: 1px solid; align-content:center;">SIGN IN</a>
 			</div>
 		</div>
 		
