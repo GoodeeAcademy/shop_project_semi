@@ -15,7 +15,7 @@ import service.cart.CartService;
 import vo.Cart;
 import vo.Customer;
 
-@WebServlet("/removeCart")
+@WebServlet("/member/cart/remove")
 public class RemoveCartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartService cartService;
@@ -44,7 +44,7 @@ public class RemoveCartController extends HttpServlet {
 				}
 			}
 			
-			response.sendRedirect(request.getContextPath() + "/cartList");
+			response.sendRedirect(request.getContextPath() + "/member/cart");
 			return;
 		}
 		
@@ -71,6 +71,6 @@ public class RemoveCartController extends HttpServlet {
 			}			
 		}
 		
-		response.sendRedirect(request.getContextPath() + "/cartList");
+		response.sendRedirect(request.getContextPath() + "/member/cart");
 	}
 }

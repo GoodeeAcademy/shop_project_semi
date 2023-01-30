@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import service.goods.GoodsService;
 
-@WebServlet("/goodsList")
+@WebServlet("/goods")
 public class GetGoodsListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private GoodsService goodsService;

@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>goods list</title>
+	<title>CATEGORY GOODSLIST | TYPESERVICE</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,12 +40,12 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark hide">
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<a class="product" href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
+							<a class="product" href="${pageContext.request.contextPath}/goods/detail?goodsCode=${m.goodsCode}">
 								<img src="${pageContext.request.contextPath}/upload/${m.filename}" alt="IMG-PRODUCT">
 							</a>
 						</div>
 						<div class="d-flex flex-column align-items-end mr-3">
-							<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}" class="text-dark">
+							<a href="${pageContext.request.contextPath}/goods/detail?goodsCode=${m.goodsCode}" class="text-dark">
 								${m.goodsName}
 							</a> 
 							<span class="text-dark"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>

@@ -15,13 +15,13 @@ import service.cart.CartService;
 import vo.Cart;
 import vo.Customer;
 
-@WebServlet("/modifyCart")
+@WebServlet("/member/cart/modify")
 public class ModifyCartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartService cartService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath()+"/cartList");
+		response.sendRedirect(request.getContextPath()+"/member/cart");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -55,7 +55,7 @@ public class ModifyCartController extends HttpServlet {
 				}				
 			}
 			
-			response.sendRedirect(request.getContextPath() + "/cartList");
+			response.sendRedirect(request.getContextPath() + "/member/cart");
 			return;
 		}
 		
@@ -92,11 +92,11 @@ public class ModifyCartController extends HttpServlet {
 		
 		if(result != 1) {
 			System.out.println("장바구니 수정 실패");
-			response.sendRedirect(request.getContextPath() + "/cartList");
+			response.sendRedirect(request.getContextPath() + "/member/cart");
 			return;
 		}
 		
 		System.out.println("장바구니 수정 성공");
-		response.sendRedirect(request.getContextPath() + "/cartList");
+		response.sendRedirect(request.getContextPath() + "/member/cart");
 	}
 }

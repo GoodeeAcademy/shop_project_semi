@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>addReview</title>
+		<title>ADD REVIEW | TYPESERVICE</title>
 		<link rel="icon" type="image/png" href="#" />
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<div>
-				<form id="addReview" action="${pageContext.request.contextPath}/addReview" method="post">
+				<form id="addReview" action="${pageContext.request.contextPath}/member/review/add" method="post">
 					<input type="hidden" name="point" value="${m.point}"/>
 					<input type="hidden" name="orderCode" value="${m.orderCode}">
 					<input type="hidden" name="goodsCode" value="${m.goodsCode}">

@@ -16,19 +16,22 @@ import service.cart.CartService;
 import vo.Cart;
 import vo.Customer;
 
-@WebServlet("/addCart")
+@WebServlet("/member/cart/add")
 public class AddCartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private CartService cartService;
     private ArrayList<HashMap<String, Object>> list;
     
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	response.sendRedirect(request.getContextPath() + "/goods");
+    }
 	
 	@SuppressWarnings("unchecked")
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 파라미터 수집
 		if(request.getParameter("goodsCode") == null || ("").equals(request.getParameter("goodsCode"))
 				|| request.getParameter("quantity") == null || ("").equals(request.getParameter("quantity"))) {
-			response.sendRedirect(request.getContextPath() + "/goodsList");
+			response.sendRedirect(request.getContextPath() + "/goods");
 			return;
 		}
 		
@@ -85,9 +88,8 @@ public class AddCartController extends HttpServlet {
 		String customerId = loginCustomer.getCustomerId();
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		System.out.println(request.getParameter("bn"));
 		boolean buyNow = Boolean.parseBoolean(request.getParameter("bn")); 
-		System.out.println(buyNow);
+		System.out.println("바로구매 : "+ buyNow);
 		
 		// vo 
 		Cart cart = new Cart();
@@ -102,7 +104,7 @@ public class AddCartController extends HttpServlet {
 		// 1성공 -1중복 0실패
 		if(result == 1) {
 			if(buyNow) { // 회원 바로구매
-				response.sendRedirect(request.getContextPath() + "/OrderController");
+				response.sendRedirect(request.getContextPath() + "/member/order");
 				return;
 			} else {
 				System.out.println("장바구니 추가 성공");
@@ -111,7 +113,7 @@ public class AddCartController extends HttpServlet {
 			}
 		} else if(result == -1){
 			if(buyNow) { // 회원 바로구매
-				response.sendRedirect(request.getContextPath() + "/OrderController");
+				response.sendRedirect(request.getContextPath() + "/member/order");
 				return;
 			} else {
 				System.out.println("장바구니 중복 상품");

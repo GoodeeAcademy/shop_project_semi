@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>cart list</title>
+		<title>CARTLIST | TYPESERVICE</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
 	<body oncopy="return false" oncut="return false" onpaste="return false">
 		<jsp:include page="/WEB-INF/view/inc/shop/header.jsp"></jsp:include>
 		<div class="container p-3">
-			<form action="${pageContext.request.contextPath}/modifyCart" method="post" id="updateForm">
+			<form action="${pageContext.request.contextPath}/member/cart/modify" method="post" id="updateForm">
 				<table class="table">
 					<thead>
 						<tr>
@@ -44,9 +44,9 @@
 							<c:if test="${m.soldOut eq 'N'}">
 								<tr>
 									<td>
-										<a class="btn" href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">X</a>
+										<a class="btn" href="${pageContext.request.contextPath}/member/cart/remove?goodsCode=${m.goodsCode}">X</a>
 										<input type="hidden" name="goodsCode" value="${m.goodsCode}">
-										<a class="text-dark" href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
+										<a class="text-dark" href="${pageContext.request.contextPath}/goods/detail?goodsCode=${m.goodsCode}">
 											<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="상품 이미지"/>
 											${m.goodsName}
 										</a>
@@ -74,7 +74,7 @@
 				</table>
 			</form>
 			<!-- 주문 버튼 -->
-			<form class="text-center mt-5" action="${pageContext.request.contextPath}/OrderController" method="get">
+			<form class="text-center mt-5" action="${pageContext.request.contextPath}/member/order" method="get">
 				<button class="btn btn-lg p-2 w-25" type="submit" style="background-color: black; color:white;">ORDER</button>
 			</form>
 			
@@ -102,7 +102,7 @@
 						<tbody>
 							<tr>
 								<td>
-									<a class="btn" href="${pageContext.request.contextPath}/removeCart?goodsCode=${m.goodsCode}">X</a>
+									<a class="btn" href="${pageContext.request.contextPath}/member/cart/remove?goodsCode=${m.goodsCode}">X</a>
 									<input type="hidden" name="goodsCode" value="${m.goodsCode}">
 									<img src="${pageContext.request.contextPath}/upload/${m.filename}" width="50px" height="50px" alt="상품 이미지"/>
 									${m.goodsName}

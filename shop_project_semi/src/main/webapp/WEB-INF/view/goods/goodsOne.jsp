@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>goods one</title>
+		<title>DETAIL | TYPESERVICE</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -69,7 +69,7 @@
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">${m.goodsName}</h4>
 						<span class="price mtext-106 cl2"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>
-						<form action="${pageContext.request.contextPath}/addCart" method="get" id="updateForm">
+						<form action="${pageContext.request.contextPath}/member/cart/add" method="post" id="updateForm">
 							<input type="hidden" name="goodsCode" value="${m.goodsCode}">
 							<input type="hidden" name="filename" value="${m.filename}">
 							<input type="hidden" name="goodsName" value="${m.goodsName}">

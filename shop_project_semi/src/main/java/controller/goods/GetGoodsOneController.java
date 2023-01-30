@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import service.goods.GoodsService;
 import vo.GoodsImg;
 
-@WebServlet("/goodsOne")
+@WebServlet("/goods/detail")
 public class GetGoodsOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private GoodsService goodsService;
@@ -22,7 +22,7 @@ public class GetGoodsOneController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 파라미터 수집
 		if(request.getParameter("goodsCode") == null || ("").equals(request.getParameter("goodsCode"))) {
-			response.sendRedirect(request.getContextPath() + "/goodsList");
+			response.sendRedirect(request.getContextPath() + "/goods");
 			return;
 		}
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));

@@ -16,7 +16,7 @@ import vo.Customer;
 import vo.PointHistory;
 import vo.Review;
 
-@WebServlet("/addReview")
+@WebServlet("/member/review/add")
 public class addReviewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ReviewService reviewService;
@@ -27,7 +27,7 @@ public class addReviewController extends HttpServlet {
 		
 		if(loginCustomer == null || request.getParameter("orderCode") == null 
 				|| request.getParameter("goodsCode") == null || request.getParameter("totalPrice") == null) {
-			response.sendRedirect(request.getContextPath() + "/goodsList");
+			response.sendRedirect(request.getContextPath() + "/goods");
 			return;
 		}
 		
@@ -59,7 +59,7 @@ public class addReviewController extends HttpServlet {
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath() + "/goodsList");
+			response.sendRedirect(request.getContextPath() + "/goods");
 			return;
 		}
 		

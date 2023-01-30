@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import service.goods.GoodsService;
 
-@WebServlet("/removeGoods")
+@WebServlet("/emp/goods/remove")
 public class RemoveGoodsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private GoodsService goodsService;
@@ -21,14 +21,14 @@ public class RemoveGoodsController extends HttpServlet {
 		// 직원이 아니라면 직원 로그인 창으로 페이지 전환
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginEmp") == null) {
-			response.sendRedirect(request.getContextPath() + "/LoginEmpController");
+			response.sendRedirect(request.getContextPath() + "/emp/signin");
 			return;
 		}
 		
 		// 파라미터 수집
 		if(request.getParameter("goodsCode") == null || ("").equals(request.getParameter("goodsCode"))
 				|| request.getParameter("filename") == null || ("").equals(request.getParameter("filename"))) {
-			response.sendRedirect(request.getContextPath() + "/goodsList");
+			response.sendRedirect(request.getContextPath() + "/goods");
 			return;
 		}
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
@@ -49,6 +49,6 @@ public class RemoveGoodsController extends HttpServlet {
 		}
 		
 		// 페이지 이동
-		response.sendRedirect(request.getContextPath() + "/goodsList");
+		response.sendRedirect(request.getContextPath() + "/goods");
 	}
 }

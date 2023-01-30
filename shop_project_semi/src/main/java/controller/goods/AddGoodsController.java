@@ -22,7 +22,7 @@ import vo.Emp;
 import vo.Goods;
 import vo.GoodsImg;
 
-@WebServlet("/addGoods")
+@WebServlet("/emp/goods/add")
 public class AddGoodsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private GoodsService goodsService;
@@ -31,7 +31,7 @@ public class AddGoodsController extends HttpServlet {
 		// 직원이 아니라면 직원 로그인 창으로 페이지 전환
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginEmp") == null) {
-			response.sendRedirect(request.getContextPath() + "/LoginEmpController");
+			response.sendRedirect(request.getContextPath() + "/emp/signin");
 			return;
 		}
 		
@@ -46,7 +46,7 @@ public class AddGoodsController extends HttpServlet {
 		// 직원이 아니라면 직원 로그인 창으로 페이지 전환
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginEmp") == null) {
-			response.sendRedirect(request.getContextPath() + "/LoginEmpController");
+			response.sendRedirect(request.getContextPath() + "/emp/signin");
 			return;
 		}
 		
@@ -119,7 +119,7 @@ public class AddGoodsController extends HttpServlet {
 			System.out.println("상품 추가 실패");
 		}
 
-		response.sendRedirect(request.getContextPath() + "/goodsOne?goodsCode="+autoKey);
+		response.sendRedirect(request.getContextPath() + "/goods/detail?goodsCode="+autoKey);
 	}
 
 }

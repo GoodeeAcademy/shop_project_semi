@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import service.cart.CartService;
 import vo.Customer;
 
-@WebServlet("/cartList")
+@WebServlet("/member/cart")
 public class GetCartListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartService cartService;
