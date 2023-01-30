@@ -10,7 +10,7 @@
 <body>
 	<!-- nav-header -->
 	<div class="nav-header">
-	    <a href="${pageContext.request.contextPath}/EmpMainController" class="brand-logo">
+	    <a href="${pageContext.request.contextPath}/emp/main" class="brand-logo">
 		    <img class="brand-title" src="${pageContext.request.contextPath}/assets/emp/images/logo2.png">
 	        <img class="logo-compact" src="${pageContext.request.contextPath}/assets/emp/images/logo2.png">
 	    </a>

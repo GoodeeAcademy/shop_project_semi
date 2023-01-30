@@ -46,6 +46,9 @@
 				<p class="stext-107 cl7 size-201 text-dark fw-bold">
 					쇼핑몰 프로젝트
 				</p>
+				<p class="stext-107 cl7 size-201 text-dark fw-bold">
+					현재 ${currentCount} 명이 보고 있습니다.
+				</p>
 			</div>
 		</div>
 	</div>
