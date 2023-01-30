@@ -59,7 +59,7 @@
                                 <h4 class="card-title">직원 비밀번호 변경</h4>
                             </div>
                             <div class="auth-form">
-								<form method="post" action="${pageContext.request.contextPath}/ModifyEmpPwController" id="modifyEmpPwForm">
+								<form method="post" action="${pageContext.request.contextPath}/emp/modifypw" id="modifyEmpPwForm">
 									<div class="form-group">
 										<label><strong>현재 비밀번호</strong></label>
 										<input type="password" name="currentPw" id="currentPw" class="form-control">

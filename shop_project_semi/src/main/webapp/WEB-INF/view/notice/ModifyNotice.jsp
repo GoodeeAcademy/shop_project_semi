@@ -51,7 +51,7 @@
                                 <h4 class="card-title">공지 수정</h4>
                             </div>
                             <div class="auth-form">
-								<form method="post" action="${pageContext.request.contextPath}/ModifyNoticeController" id="form">
+								<form method="post" action="${pageContext.request.contextPath}/emp/notice/modify" id="form">
 									<input type="hidden" name="noticeCode" value="${notice.noticeCode}">
 									<div class="form-group">
 										<label><strong>제목</strong></label>

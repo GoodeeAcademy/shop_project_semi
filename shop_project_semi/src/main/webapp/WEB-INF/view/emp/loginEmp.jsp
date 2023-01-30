@@ -41,7 +41,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <form method="post" action="${pageContext.request.contextPath}/LoginEmpController" id="loginEmpForm">
+                                    <form method="post" action="${pageContext.request.contextPath}//emp/signin" id="loginEmpForm">
                                         <div class="form-group">
                                             <label><strong>아이디</strong></label>
                                             <input type="text" name="empId" id="empId" class="form-control" value="admin">
@@ -56,7 +56,7 @@
                                         </div>
                                     </form>
                                     <div class="new-account mt-3 text-center">
-                                        <p><a href="${pageContext.request.contextPath}/AddEmpController" class="text-primary">회원가입</a></p>
+                                        <p><a href="${pageContext.request.contextPath}/emp/add/emp" class="text-primary">회원가입</a></p>
                                     </div>
                                 </div>
                             </div>

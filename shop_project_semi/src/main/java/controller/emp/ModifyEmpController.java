@@ -14,7 +14,7 @@ import service.emp.EmpService;
 import vo.Emp;
 
 
-@WebServlet("/ModifyEmpController")
+@WebServlet("/emp/modify")
 public class ModifyEmpController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     EmpService empService; 

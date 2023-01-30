@@ -29,7 +29,7 @@
                                 <h4 class="card-title">전체 직원 목록</h4>
                             </div>
                             <div class="card-body">
-								<form method="post" action="${pageContext.request.contextPath}/ModifyEmpActiveController">
+								<form method="post" action="${pageContext.request.contextPath}/emp/active/modify">
 									<table class="table">
 										<thead class="thead-primary">
 											<tr>
@@ -61,8 +61,8 @@
 													</td>
 												</c:if>
 												<c:if test="${loginEmp.authCode < 2}">
-													<td><a href="${pageContext.request.contextPath}/ModifyEmpByAdminController?empId=${e.empId}">등급조정</a></td>
-													<td><a href="${pageContext.request.contextPath}/RemoveEmpController?empId=${e.empId}">퇴사</a></td>
+													<td><a href="${pageContext.request.contextPath}/emp/admin/modify?empId=${e.empId}">등급조정</a></td>
+													<td><a href="${pageContext.request.contextPath}/emp/remove?empId=${e.empId}">퇴사</a></td>
 												</c:if>
 											</tr>
 										</c:forEach>
@@ -77,24 +77,24 @@
 								<ul class="pagination">
 									<li class="page-item page-indicator">
 										<c:if test="${currentPage > 10}">
-											<a href="${pageContext.request.contextPath}/EmpListController?currentPage=${startPage-10}" class="page-link"><i class="icon-arrow-left"></i></a>
+											<a href="${pageContext.request.contextPath}/emp/emp?currentPage=${startPage-10}" class="page-link"><i class="icon-arrow-left"></i></a>
 										</c:if>
 									</li>
 									<c:forEach var="i" begin="${startPage}" end="${endRow}">
 										<li class="page-item active">
 											<c:if test="${i == currentPage}">
-												<a href="${pageContext.request.contextPath}/EmpListController?currentPage=${i}" class="page-link">${i}</a>
+												<a href="${pageContext.request.contextPath}/emp/emp?currentPage=${i}" class="page-link">${i}</a>
 											</c:if>
 										</li>
 										<li class="page-item">
 											<c:if test="${i != currentPage}">
-												<a href="${pageContext.request.contextPath}/EmpListController?currentPage=${i}" class="page-link">${i}</a>
+												<a href="${pageContext.request.contextPath}/emp/emp?currentPage=${i}" class="page-link">${i}</a>
 											</c:if>
 										</li>
 									</c:forEach>
 									<li class="page-item page-indicator">
 										<c:if test="${beginRow+10 < lastPage}">
-											<a href="${pageContext.request.contextPath}/EmpListController?currentPage=${startPage+10}" class="page-link"><i class="icon-arrow-right"></i></a>
+											<a href="${pageContext.request.contextPath}/emp/emp?currentPage=${startPage+10}" class="page-link"><i class="icon-arrow-right"></i></a>
 										</c:if>
 									</li>
 								</ul>

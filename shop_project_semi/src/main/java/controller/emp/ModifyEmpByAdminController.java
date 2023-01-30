@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import service.emp.EmpService;
 import vo.Emp;
 
-@WebServlet("/ModifyEmpByAdminController")
+@WebServlet("/emp/admin/modify")
 public class ModifyEmpByAdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EmpService empService = new EmpService();

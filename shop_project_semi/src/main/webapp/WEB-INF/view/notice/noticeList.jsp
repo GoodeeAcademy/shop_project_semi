@@ -68,7 +68,7 @@
 					<tr class="row_for_text">
 						<td>${n.noticeCode}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/NoticeOneController?noticeCode=${n.noticeCode}">${n.noticeTitle}</a>
+							<a href="${pageContext.request.contextPath}/notice/detail?noticeCode=${n.noticeCode}">${n.noticeTitle}</a>
 						</td>
 						<td>${n.empName}</td>
 						<td>${n.createdate}</td>
@@ -80,18 +80,18 @@
 		<!-- 페이징 -->
 		<div class="flex-c-m flex-w w-full p-t-38">
 			<c:if test="${currentPage > 10}">
-				<a href="${pageContext.request.contextPath}/NoticeListController?currentPage=${startPage-10}" class="flex-c-m how-pagination1 trans-04 m-all-7">이전</a>
+				<a href="${pageContext.request.contextPath}/notice?currentPage=${startPage-10}" class="flex-c-m how-pagination1 trans-04 m-all-7">이전</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endRow}">
 				<c:if test="${i == currentPage}">
-						<a href="${pageContext.request.contextPath}/NoticeListController?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${i}</a>
+						<a href="${pageContext.request.contextPath}/notice?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${i}</a>
 				</c:if>
 				<c:if test="${i != currentPage}">
-						<a href="${pageContext.request.contextPath}/NoticeListController?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7">${i}</a>
+						<a href="${pageContext.request.contextPath}/notice?currentPage=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7">${i}</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${beginRow+10 < lastPage}">
-				<a href="${pageContext.request.contextPath}/NoticeListController?currentPage=${startPage+10}" class="flex-c-m how-pagination1 trans-04 m-all-7">다음</a>
+				<a href="${pageContext.request.contextPath}/notice?currentPage=${startPage+10}" class="flex-c-m how-pagination1 trans-04 m-all-7">다음</a>
 			</c:if>
 		</div>
 	</div>

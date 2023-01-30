@@ -74,8 +74,8 @@
 
 		<!-- 직원은 공지 수정/삭제 가능 -->
 		<c:if test="${loginEmp != null}">
-			<a href="${pageContext.request.contextPath}/ModifyNoticeController?noticeCode=${notice.noticeCode}">수정</a>
-			<a href="${pageContext.request.contextPath}/RemoveNoticeController?noticeCode=${notice.noticeCode}">삭제</a>
+			<a href="${pageContext.request.contextPath}/emp/notice/modify?noticeCode=${notice.noticeCode}">수정</a>
+			<a href="${pageContext.request.contextPath}/emp/notice/remove?noticeCode=${notice.noticeCode}">삭제</a>
 		</c:if>
 	</div>
 

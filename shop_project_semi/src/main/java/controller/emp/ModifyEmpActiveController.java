@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.emp.EmpService;
 
-@WebServlet("/ModifyEmpActiveController")
+@WebServlet("/emp/active/modify")
 public class ModifyEmpActiveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EmpService empService = new EmpService();

@@ -13,7 +13,7 @@ import service.notice.NoticeService;
 import vo.Notice;
 
 
-@WebServlet("/NoticeListController")
+@WebServlet("/notice")
 public class NoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private NoticeService noticeService; 

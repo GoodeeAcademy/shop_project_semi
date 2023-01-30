@@ -21,7 +21,7 @@ import vo.Notice;
 import vo.Question;
 
 
-@WebServlet("/EmpMainController")
+@WebServlet("/emp/main")
 public class EmpMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderService orderService = new OrderService();

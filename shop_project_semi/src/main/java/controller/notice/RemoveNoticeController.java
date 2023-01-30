@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import service.notice.NoticeService;
 import vo.Emp;
 
-@WebServlet("/RemoveNoticeController")
+@WebServlet("/emp/notice/remove")
 public class RemoveNoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private NoticeService noticeService;

@@ -146,7 +146,7 @@
 					<div class="col-lg-6">
 					    <div class="card">
 					        <div class="card-header">
-					            <h4 class="card-title"><a href="${pageContext.request.contextPath}/AllOrderListController" class="colorBlack">최근 주문</a></h4>
+					            <h4 class="card-title"><a href="${pageContext.request.contextPath}/emp/order/list" class="colorBlack">최근 주문</a></h4>
 					        </div>
 					        <div class="card-body">
 					            <div class="table-responsive">
@@ -189,7 +189,7 @@
 					<div class="col-lg-6">
 					    <div class="card">
 					        <div class="card-header">
-					            <h4 class="card-title"><a href="${pageContext.request.contextPath}/QuestionListForEmpController" class="colorBlack">최근 문의</a></h4>
+					            <h4 class="card-title"><a href="${pageContext.request.contextPath}/emp/question" class="colorBlack">최근 문의</a></h4>
 					        </div>
 					        <div class="card-body">
 					            <div class="table-responsive">
@@ -209,7 +209,7 @@
 													<td>${q.orderCode}</td>
 													<td>${q.category}</td>
 													<td>	
-														<a href="${pageContext.request.contextPath}/QuestionOneController?questionCode=${q.questionCode}">${q.questionTitle}</a>
+														<a href="${pageContext.request.contextPath}/emp/question/detail?questionCode=${q.questionCode}">${q.questionTitle}</a>
 													</td>
 													<td>${q.createdate}</td>
 													<td>
@@ -235,7 +235,7 @@
 					<div class="col-lg-12">
 					    <div class="card">
 					        <div class="card-header">
-					            <h4 class="card-title"><a href="${pageContext.request.contextPath}/QuestionListForEmpController" class="colorBlack">최근 공지</a></h4>
+					            <h4 class="card-title"><a href="${pageContext.request.contextPath}/emp/question" class="colorBlack">최근 공지</a></h4>
 					        </div>
 					        <div class="card-body">
 					            <div class="table-responsive">
@@ -253,7 +253,7 @@
 												<tr>
 													<td>${n.noticeCode}</td>
 													<td>
-														<a href="${pageContext.request.contextPath}/NoticeOneController?noticeCode=${n.noticeCode}">${n.noticeTitle}</a>
+														<a href="${pageContext.request.contextPath}/notice/detail?noticeCode=${n.noticeCode}">${n.noticeTitle}</a>
 													</td>
 													<td>${n.empName}</td>
 													<td>${n.createdate}</td>

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TYPESERVICE | 직원 회원가입</title>
+<title>EMPLOYEE SIGN UP｜TYPESERVICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -57,7 +57,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <form method="post" action="${pageContext.request.contextPath}/AddEmpController" id="addEmpForm">
+                                    <form method="post" action="${pageContext.request.contextPath}/emp/add/emp" id="addEmpForm">
                                     	<!-- 아이디 -->
                                         <div class="form-group">
                                             <label><strong>아이디</strong></label>
@@ -93,7 +93,7 @@
                                         </div>
                                     </form>
                                     <div class="new-account mt-3 text-center">
-                                        <p><a href="${pageContext.request.contextPath}/LoginEmpController" class="text-primary">로그인</a></p>
+                                        <p><a href="${pageContext.request.contextPath}/emp/signin" class="text-primary">로그인</a></p>
                                     </div>
                                 </div>
                             </div>

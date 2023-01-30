@@ -30,7 +30,7 @@
                                 <h4 class="card-title">직원 등급 조정</h4>
                             </div>
                             <div class="auth-form">
-								<form action="${pageContext.request.contextPath}/ModifyEmpByAdminController" method="post">
+								<form action="${pageContext.request.contextPath}/emp/admin/modify" method="post">
 									<div class="form-group">
 										<label><strong>아이디</strong></label>
 												${emp.empId}

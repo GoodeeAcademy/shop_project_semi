@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import service.emp.EmpService;
 import vo.Emp;
 
-@WebServlet("/EmpListController")
+@WebServlet("/emp/emp")
 public class EmpListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	EmpService empService;

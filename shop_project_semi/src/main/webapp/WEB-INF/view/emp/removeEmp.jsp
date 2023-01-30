@@ -47,7 +47,7 @@
                                 <h4 class="card-title">직원 퇴사</h4>
                             </div>
                             <div class="auth-form">
-								<form method="post" action="${pageContext.request.contextPath}/RemoveEmpController" id="removeEmpForm">
+								<form method="post" action="${pageContext.request.contextPath}/emp/remove" id="removeEmpForm">
 									<div class="form-group">
 										<label><strong>사원번호</strong></label>
 										${targetEmp.empCode}

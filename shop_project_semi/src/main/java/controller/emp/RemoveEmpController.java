@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import service.emp.EmpService;
 import vo.Emp;
 
-@WebServlet("/RemoveEmpController")
+@WebServlet("/emp/remove")
 public class RemoveEmpController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     EmpService empService;

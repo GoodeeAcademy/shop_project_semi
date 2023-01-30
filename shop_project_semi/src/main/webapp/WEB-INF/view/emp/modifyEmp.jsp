@@ -57,7 +57,7 @@
                                 <h4 class="card-title">직원 정보</h4>
                             </div>
                             <div class="auth-form">
-								<form method="post" action="${pageContext.request.contextPath}/ModifyEmpController" id="modifyEmpForm">
+								<form method="post" action="${pageContext.request.contextPath}/emp/modify" id="modifyEmpForm">
 									<div class="form-group">
 										<label><strong>아이디</strong></label>
 										${loginEmp.empId}
