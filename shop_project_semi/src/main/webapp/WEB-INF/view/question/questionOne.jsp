@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>문의 | ${question.questionMemo}</title>
+	<title>Q&amp;A ${question.questionMemo}｜TYPESERVICE</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
@@ -46,7 +46,7 @@
 	<!-- 사진 파일 변경 필요 -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/assets/shop/images/bg-03.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
-			Question & Answer
+			Question Q&amp;A Answer
 		</h2>
 	</section>
 	
