@@ -74,7 +74,7 @@
 					<c:forEach var="m" items="${orderList}">
 						<tr>
 							<td class="align-middle col-sm-2 text-center"><img src="${pageContext.request.contextPath}/upload/${m['fileName']}" width="100px" height="100px"></td>
-							<td class="align-middle col-sm-5 text-center"><a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m['goodsCode']}">${m['goodsName']}</a></td>
+							<td class="align-middle col-sm-5 text-center"><a href="${pageContext.request.contextPath}/goods/detail?goodsCode=${m['goodsCode']}">${m['goodsName']}</a></td>
 							<td class="align-middle col-sm-2 text-center"><fmt:formatNumber value="${m['price']}" type="number"/>원</td>
 							<td class="align-middle col-sm-1 text-center">${m['quantity']}개</td>
 							<td class="align-middle col-sm-2 text-center"><fmt:formatNumber value="${m['price']*m['quantity']}" type="number"/>원</td>
