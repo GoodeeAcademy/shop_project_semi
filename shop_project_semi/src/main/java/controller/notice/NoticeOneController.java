@@ -22,7 +22,7 @@ public class NoticeOneController extends HttpServlet {
 		request.getSession().getAttribute("loginEmp");
 		
 		if(request.getParameter("noticeCode") == null) {
-			response.sendRedirect(request.getContextPath()+"/NoticeListController");
+			response.sendRedirect(request.getContextPath()+"/notice");
 			return;
 		}
 		int noticeCode = Integer.parseInt(request.getParameter("noticeCode"));

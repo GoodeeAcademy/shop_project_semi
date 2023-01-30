@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>상품 수정</title>
+	<title>EMPLOYEE MODIFY GOODS | TYPESERVICE</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/emp/images/favicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.theme.default.min.css">
@@ -30,7 +30,7 @@
                                 <h4 class="card-title">상품 수정</h4>
                             </div>
                             <div class="auth-form">
-								<form action="${pageContext.request.contextPath}/modifyGoods" method="post" enctype="multipart/form-data" id="form">
+								<form action="${pageContext.request.contextPath}/emp/goods/modify" method="post" enctype="multipart/form-data" id="form">
 									<div class="form-group">
 										<label><strong>상품코드</strong></label>
 										<input type="hidden" name="goodsCode" value="${m.goodsCode}">

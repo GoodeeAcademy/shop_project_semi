@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-		<title>goods list</title>
+		<title>EMPLOYEE GOODS LIST | TYPESERVICE</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
@@ -45,12 +45,12 @@
 						<div class="col-sm-6 col-md-4 col-lg-3 isotope-item p-0 border-bottom border-start border-dark">
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}">
+									<a href="${pageContext.request.contextPath}/goods/detail?goodsCode=${m.goodsCode}">
 										<img src="${pageContext.request.contextPath}/upload/${m.filename}" alt="IMG-PRODUCT">
 									</a>
 								</div>
 								<div class="d-flex flex-column align-items-end mr-3">
-									<a href="${pageContext.request.contextPath}/goodsOne?goodsCode=${m.goodsCode}" class="text-dark">
+									<a href="${pageContext.request.contextPath}/goods/detail?goodsCode=${m.goodsCode}" class="text-dark">
 										${m.goodsName}
 									</a> 
 									<span class="text-dark"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>

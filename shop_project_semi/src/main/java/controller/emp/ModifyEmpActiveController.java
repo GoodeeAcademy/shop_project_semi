@@ -41,12 +41,12 @@ public class ModifyEmpActiveController extends HttpServlet {
 		// 페이지에 있는 직원들 모두 변경됐는지 확인
 		if(row != empId.length) {
 			System.out.println("직원 활성화 실패");
-			response.sendRedirect(request.getContextPath()+"/EmpListController");
+			response.sendRedirect(request.getContextPath()+"/emp/emp");
 			return;
 		}
 		
 		System.out.println("직원 활성화 성공");
-		response.sendRedirect(request.getContextPath()+"/EmpListController");
+		response.sendRedirect(request.getContextPath()+"/emp/emp");
 	}
 
 }

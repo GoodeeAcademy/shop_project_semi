@@ -30,7 +30,7 @@
                                 <h4 class="card-title">상품 등록</h4>
                             </div>
                             <div class="auth-form">
-								<form action="/shop_project_semi/addGoods" method="post" enctype="multipart/form-data" id="form">	
+								<form action="/shop_project_semi/emp/goods/add" method="post" enctype="multipart/form-data" id="form">	
 									<div class="form-group">
 										<label><strong>상품코드</strong></label>
 										자동생성

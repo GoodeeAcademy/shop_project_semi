@@ -24,7 +24,7 @@ public class LoginEmpController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp != null) {
-			response.sendRedirect(request.getContextPath()+"/EmpMainController");
+			response.sendRedirect(request.getContextPath()+"/emp/main");
 			return;
 		}
 		
@@ -49,7 +49,7 @@ public class LoginEmpController extends HttpServlet {
 			System.out.println("로그인 실패");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('아이디와 비밀번호를 정확히 입력해 주세요'); location.href='"+request.getContextPath()+"/LoginEmpController';</script>"); 
+			writer.println("<script>alert('아이디와 비밀번호를 정확히 입력해 주세요'); location.href='"+request.getContextPath()+"/emp/signin';</script>"); 
 			writer.close();
 			//response.sendRedirect(request.getContextPath()+"/LoginEmpController");
 			return;
@@ -59,7 +59,7 @@ public class LoginEmpController extends HttpServlet {
 			System.out.println("비 활성화 ID");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('비활성화 된 ID입니다.'); location.href='"+request.getContextPath()+"/LoginEmpController';</script>");
+			writer.println("<script>alert('비활성화 된 ID입니다.'); location.href='"+request.getContextPath()+"/emp/signin';</script>");
 			writer.close();
 			//response.sendRedirect(request.getContextPath()+"/LoginEmpController");
 			return;
@@ -68,7 +68,7 @@ public class LoginEmpController extends HttpServlet {
 		// 로그인 성공 --> session에 값 넣기
 		System.out.println("로그인 성공");
 		session.setAttribute("loginEmp", loginEmp);
-		response.sendRedirect(request.getContextPath()+"/EmpMainController");
+		response.sendRedirect(request.getContextPath()+"/emp/main");
 	}
 
 }

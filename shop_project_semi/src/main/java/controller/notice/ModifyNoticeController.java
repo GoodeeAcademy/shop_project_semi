@@ -23,7 +23,7 @@ public class ModifyNoticeController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -42,7 +42,7 @@ public class ModifyNoticeController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -63,7 +63,7 @@ public class ModifyNoticeController extends HttpServlet {
 		}
 		
 		System.out.println("공지 수정 성공");
-		response.sendRedirect(request.getContextPath()+"/NoticeOneController?noticeCode="+noticeCode);
+		response.sendRedirect(request.getContextPath()+"/notice/detail?noticeCode="+noticeCode);
 	}
 
 }

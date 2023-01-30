@@ -35,11 +35,11 @@
 	                            <span>${loginEmp.empName} 님</span><i class="mdi mdi-account"></i>
 	                        </a>
 	                        <div class="dropdown-menu dropdown-menu-right">
-	                            <a href="${pageContext.request.contextPath}/ModifyEmpController" class="dropdown-item">
+	                            <a href="${pageContext.request.contextPath}/emp/modify" class="dropdown-item">
 	                                <i class="icon-user"></i>
 	                                <span class="ml-2">Profile Update</span>
 	                            </a>
-	                            <a href="${pageContext.request.contextPath}/LogoutEmpController" class="dropdown-item">
+	                            <a href="${pageContext.request.contextPath}/emp/signout" class="dropdown-item">
 	                                <i class="icon-key"></i>
 	                                <span class="ml-2">Logout </span>
 	                            </a>

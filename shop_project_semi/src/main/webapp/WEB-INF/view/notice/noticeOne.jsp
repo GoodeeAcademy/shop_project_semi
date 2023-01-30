@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>공지 | ${notice.noticeTitle}</title>
+	<title>NOTICE | ${notice.noticeTitle} | TYPESERVICE</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">

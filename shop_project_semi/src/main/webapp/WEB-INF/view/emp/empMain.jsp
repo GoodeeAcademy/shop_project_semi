@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>직원페이지</title>
+	<title>EMPLOYEE MAIN | TYPESERVICE</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/emp/images/favicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.theme.default.min.css">
@@ -39,7 +39,6 @@
                                     <div class="col-xl-12 col-lg-8">
                                         <!--<div id="morris-bar-chart"></div>-->
                                         <div>
-	                                        현재 접속자 수 : ${currentCount}<br>
 											오늘 접속자 수 : ${todayCount}<br>
 											누적 접속자 수 : ${totalCount}<br>
                                        	</div>

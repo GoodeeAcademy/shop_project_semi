@@ -65,7 +65,7 @@ public class AllOrderListController extends HttpServlet {
 		request.setAttribute("stateList", stateList);
 				
 		// view
-		request.getRequestDispatcher("WEB-INF/view/admin/orderList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/admin/orderList.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -25,7 +25,7 @@ public class ModifyEmpController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		
@@ -45,7 +45,7 @@ public class ModifyEmpController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 				
@@ -76,9 +76,9 @@ public class ModifyEmpController extends HttpServlet {
 			System.out.println("정보 수정 실패");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('정보 수정에 실패했습니다'); location.href='"+request.getContextPath()+"//ModifyEmpController"+"';</script>"); 
+			writer.println("<script>alert('정보 수정에 실패했습니다'); location.href='"+request.getContextPath()+"/emp/modify"+"';</script>"); 
 			writer.close();
-			response.sendRedirect(request.getContextPath()+"/ModifyEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/modify");
 			return;
 		}
 		
@@ -86,7 +86,7 @@ public class ModifyEmpController extends HttpServlet {
 		// 수정한 이름/업데이트 날짜 session에 갱신
 		Emp returnEmp = empService.getEmpOne(empId);
 		session.setAttribute("loginEmp", returnEmp);
-		response.sendRedirect(request.getContextPath()+"/EmpMainController");
+		response.sendRedirect(request.getContextPath()+"/emp/main");
 	}
 
 }

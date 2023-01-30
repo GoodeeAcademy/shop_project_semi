@@ -24,7 +24,7 @@ public class ModifyEmpPwController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		
@@ -44,7 +44,7 @@ public class ModifyEmpPwController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		request.setCharacterEncoding("UTF-8");	// 한글 인코딩
@@ -70,9 +70,9 @@ public class ModifyEmpPwController extends HttpServlet {
 			System.out.println("비밀번호 수정 실패");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('비밀번호 수정에 실패했습니다'); location.href='"+request.getContextPath()+"//ModifyEmpPwController"+"';</script>"); 
+			writer.println("<script>alert('비밀번호 수정에 실패했습니다'); location.href='"+request.getContextPath()+"/emp/modifypw"+"';</script>"); 
 			writer.close();
-			response.sendRedirect(request.getContextPath()+"/ModifyEmpPwController");
+			response.sendRedirect(request.getContextPath()+"/emp/modifypw");
 			return;
 		}
 		
@@ -80,7 +80,7 @@ public class ModifyEmpPwController extends HttpServlet {
 		// 수정한 비밀번호/업데이트 날짜 session에 갱신
 		Emp returnEmp = empService.getEmpOne(empId);
 		session.setAttribute("loginEmp", returnEmp);
-		response.sendRedirect(request.getContextPath()+"/EmpMainController");
+		response.sendRedirect(request.getContextPath()+"/emp/main");
 		
 	}
 

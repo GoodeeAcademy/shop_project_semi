@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>전체 주문내역</title>
+	<title>EMPLOYEE ALL ORDER LIST | TYPESERVICE</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/emp/images/favicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/emp/vendor/owl-carousel/css/owl.theme.default.min.css">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="card-body">
 								<!-- 모든 주문 내역(관리자) -->
-								<form method="post" action="${pageContext.request.contextPath}/AllOrderListController">
+								<form method="post" action="${pageContext.request.contextPath}/emp/order/list">
 									<table class="table">
 										<thead class="thead-primary">
 											<tr>
@@ -82,24 +82,24 @@
 								<ul class="pagination">
 									<li class="page-item page-indicator">
 										<c:if test="${currentPage > 10}">
-											<a href="${pageContext.request.contextPath}/AllOrderListController?currentPage=${startPage-10}" class="page-link"><i class="icon-arrow-left"></i></a>
+											<a href="${pageContext.request.contextPath}/emp/order/list?currentPage=${startPage-10}" class="page-link"><i class="icon-arrow-left"></i></a>
 										</c:if>
 									</li>
 									<c:forEach var="i" begin="${startPage}" end="${endRow}">
 										<li class="page-item active">
 											<c:if test="${i == currentPage}">
-												<a href="${pageContext.request.contextPath}/AllOrderListController?currentPage=${i}" class="page-link">${i}</a>
+												<a href="${pageContext.request.contextPath}/emp/order/list?currentPage=${i}" class="page-link">${i}</a>
 											</c:if>
 										</li>
 										<li class="page-item">
 											<c:if test="${i != currentPage}">
-												<a href="${pageContext.request.contextPath}/AllOrderListController?currentPage=${i}" class="page-link">${i}</a>
+												<a href="${pageContext.request.contextPath}/emp/order/list?currentPage=${i}" class="page-link">${i}</a>
 											</c:if>
 										</li>
 									</c:forEach>
 									<li class="page-item page-indicator">
 										<c:if test="${beginRow+10 < lastPage}">
-											<a href="${pageContext.request.contextPath}/AllOrderListController?currentPage=${startPage+10}" class="page-link"><i class="icon-arrow-right"></i></a>
+											<a href="${pageContext.request.contextPath}/emp/order/list?currentPage=${startPage+10}" class="page-link"><i class="icon-arrow-right"></i></a>
 										</c:if>
 									</li>
 								</ul>

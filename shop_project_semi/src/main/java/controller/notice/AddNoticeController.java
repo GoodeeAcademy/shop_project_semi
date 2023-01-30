@@ -23,7 +23,7 @@ public class AddNoticeController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -36,7 +36,7 @@ public class AddNoticeController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/HomeController");
+			response.sendRedirect(request.getContextPath()+"/main");
 			return;
 		}
 		
@@ -56,7 +56,7 @@ public class AddNoticeController extends HttpServlet {
 		}
 		
 		System.out.println("공지 추가 성공");
-		response.sendRedirect(request.getContextPath()+"/NoticeListController");
+		response.sendRedirect(request.getContextPath()+"/notice");
 	}
 
 }

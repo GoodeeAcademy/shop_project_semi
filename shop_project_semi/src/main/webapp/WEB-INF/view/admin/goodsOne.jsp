@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-		<title>goods one</title>
+		<title>EMPLOYEE GOODS ONE | TYPESERVICE</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/shop/vendor/bootstrap/css/bootstrap.min.css">
@@ -82,8 +82,8 @@
 								<span class="price mtext-106 cl2">추천상품 ${m.hit}</span>
 							</div>
 							<div style="margin-top: 10%;">
-								<a href="${pageContext.request.contextPath}/modifyGoods?goodsCode=${m.goodsCode}" class="price mtext-106 cl2">수정</a>
-								<a href="${pageContext.request.contextPath}/removeGoods?goodsCode=${m.goodsCode}&filename=${m.filename}" class="price mtext-106 cl2">삭제</a>
+								<a href="${pageContext.request.contextPath}/emp/goods/modify?goodsCode=${m.goodsCode}" class="price mtext-106 cl2">수정</a>
+								<a href="${pageContext.request.contextPath}/emp/goods/remove?goodsCode=${m.goodsCode}&filename=${m.filename}" class="price mtext-106 cl2">삭제</a>
 							</div>
 						</div>
 						

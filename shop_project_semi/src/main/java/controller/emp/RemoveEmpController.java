@@ -17,14 +17,14 @@ import vo.Emp;
 public class RemoveEmpController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     EmpService empService;
-    String targetUrl = "/EmpListController";
+    String targetUrl = "/emp/emp";
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 관리자만 접근 가능
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {	// 등급 회의 후 조건 추가
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		
@@ -47,7 +47,7 @@ public class RemoveEmpController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {	// 등급 회의 후 조건 추가
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		
@@ -60,7 +60,7 @@ public class RemoveEmpController extends HttpServlet {
 			System.out.println("비밀번호 불일치");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('비밀번호를 정확하게 입력해 주세요'); location.href='"+request.getContextPath()+"/RemoveEmpController"+"';</script>"); 
+			writer.println("<script>alert('비밀번호를 정확하게 입력해 주세요'); location.href='"+request.getContextPath()+"/emp/remove"+"';</script>"); 
 			writer.close();
 			response.sendRedirect(request.getContextPath()+targetUrl);
 			return;
@@ -73,7 +73,7 @@ public class RemoveEmpController extends HttpServlet {
 			System.out.println("직원 삭제 실패");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('퇴사 처리에 실패했습니다'); location.href='"+request.getContextPath()+"/RemoveEmpController?empId="+targetEmpId+"';</script>"); 
+			writer.println("<script>alert('퇴사 처리에 실패했습니다'); location.href='"+request.getContextPath()+"/emp/remove?empId="+targetEmpId+"';</script>"); 
 			writer.close();
 			response.sendRedirect(request.getContextPath()+targetUrl);
 			return;

@@ -25,7 +25,7 @@ public class AddEmpController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp != null) {
-			response.sendRedirect(request.getContextPath()+"/EmpMainController");
+			response.sendRedirect(request.getContextPath()+"/emp/main");
 			return;
 		}
 		
@@ -51,15 +51,15 @@ public class AddEmpController extends HttpServlet {
 		if(check) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('중복된 아이디입니다'); location.href='"+request.getContextPath()+"/AddEmpController"+"';</script>"); 
+			writer.println("<script>alert('중복된 아이디입니다'); location.href='"+request.getContextPath()+"/emp/add/emp"+"';</script>"); 
 			writer.close();
-			response.sendRedirect(request.getContextPath()+"/AddEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/add/emp");
 			return;
 		}
 		if(request.getParameter("empPw") == null || request.getParameter("empPw").equals("")
 			|| request.getParameter("empName") == null || request.getParameter("empName").equals("")) {
 			request.setAttribute("empId", empId);
-			response.sendRedirect(request.getContextPath()+"/AddEmpController?empId="+empId);
+			response.sendRedirect(request.getContextPath()+"/emp/add/emp?empId="+empId);
 			return;
 		}
 		String empPw = request.getParameter("empPw");
@@ -74,12 +74,12 @@ public class AddEmpController extends HttpServlet {
 		
 		if(row != 1) {	// 직원 가입 실패
 			System.out.println("직원 가입 실패");
-			response.sendRedirect(request.getContextPath()+"/AddEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/add/emp");
 			return;
 		}
 		
 		System.out.println("직원 가입 성공");
-		response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+		response.sendRedirect(request.getContextPath()+"/emp/signin");
 	}
 
 }

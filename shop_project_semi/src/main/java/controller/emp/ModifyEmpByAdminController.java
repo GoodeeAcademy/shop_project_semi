@@ -25,7 +25,7 @@ public class ModifyEmpByAdminController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null || loginEmp.getAuthCode() > 1) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 
@@ -63,14 +63,14 @@ public class ModifyEmpByAdminController extends HttpServlet {
 			System.out.println("정보 수정 실패");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('정보 수정에 실패했습니다'); location.href='"+request.getContextPath()+"//ModifyEmpController"+"';</script>"); 
+			writer.println("<script>alert('정보 수정에 실패했습니다'); location.href='"+request.getContextPath()+"/emp/admin/modify"+"';</script>"); 
 			writer.close();
-			response.sendRedirect(request.getContextPath()+"/EmpListController");
+			response.sendRedirect(request.getContextPath()+"/emp/emp");
 			return;
 		}
 		
 		System.out.println("정보 수정 성공");
-		response.sendRedirect(request.getContextPath()+"/EmpListController");
+		response.sendRedirect(request.getContextPath()+"/emp/emp");
 	}
 
 }

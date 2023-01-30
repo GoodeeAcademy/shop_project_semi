@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TYPESERVICE | 직원 로그인</title>
+<title>EMPLOYEE SIGN IN | TYPESERVICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -41,7 +41,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <form method="post" action="${pageContext.request.contextPath}//emp/signin" id="loginEmpForm">
+                                    <form method="post" action="${pageContext.request.contextPath}/emp/signin" id="loginEmpForm">
                                         <div class="form-group">
                                             <label><strong>아이디</strong></label>
                                             <input type="text" name="empId" id="empId" class="form-control" value="admin">

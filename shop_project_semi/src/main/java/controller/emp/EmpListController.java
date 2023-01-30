@@ -23,7 +23,7 @@ public class EmpListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		

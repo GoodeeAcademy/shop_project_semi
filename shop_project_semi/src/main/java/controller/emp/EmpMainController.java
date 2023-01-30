@@ -35,7 +35,7 @@ public class EmpMainController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
-			response.sendRedirect(request.getContextPath()+"/LoginEmpController");
+			response.sendRedirect(request.getContextPath()+"/emp/signin");
 			return;
 		}
 		
@@ -65,7 +65,7 @@ public class EmpMainController extends HttpServlet {
 		request.setAttribute("totalCount", totalCount);
 		
 		// view
-		request.getRequestDispatcher("WEB-INF/view/emp/empMain.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/emp/empMain.jsp").forward(request, response);
 	}
 
 }
