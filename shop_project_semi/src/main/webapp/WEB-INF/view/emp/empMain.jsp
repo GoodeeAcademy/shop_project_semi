@@ -32,18 +32,10 @@
                     <div class="col-xl-8 col-lg-8 col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">방문자 통계(데이터 필요)</h4>
+                                <h4 class="card-title">방문자 통계</h4>
                             </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-8">
-                                        <!--<div id="morris-bar-chart"></div>-->
-                                        <div>
-											오늘 접속자 수 : ${todayCount}<br>
-											누적 접속자 수 : ${totalCount}<br>
-                                       	</div>
-                                    </div>
-                                </div>
+                            	<div id="curve_chart" class="col-xl-12 col-lg-8" style="height: 400px"></div>
                             </div>
                         </div>
                     </div>
@@ -268,7 +260,41 @@
 			</div>
 		</div>
 	</div>
-	
+    <!-- 차트 -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['countDate', '방문자 수'],
+          ['${countList.get(0).get("countDate")}', ${countList.get(0).get("countNum")}],
+          ['${countList.get(1).get("countDate")}', ${countList.get(1).get("countNum")}],
+          ['${countList.get(2).get("countDate")}', ${countList.get(2).get("countNum")}],
+          ['${countList.get(3).get("countDate")}', ${countList.get(3).get("countNum")}],
+          ['${countList.get(4).get("countDate")}', ${countList.get(4).get("countNum")}],
+          ['${countList.get(5).get("countDate")}', ${countList.get(5).get("countNum")}],
+          ['${countList.get(6).get("countDate")}', ${countList.get(6).get("countNum")}]
+        ]);
+
+        var options = {
+          curveType: 'function',
+          lineWidth: 5,
+          vAxis: {
+              viewWindow: {
+                  min: 0
+              }
+          },
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    
 	<!--**********************************
         Scripts
     ***********************************-->

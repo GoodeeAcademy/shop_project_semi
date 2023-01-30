@@ -52,17 +52,23 @@ public class EmpMainController extends HttpServlet {
 		// 최근 공지
 		ArrayList<Notice> noticeList = noticeService.getNoticeList(beginRow, rowPerPage);	
 		// 방문자수
-		int todayCount = siteCountService.getTodayCount();
-		System.out.println("오늘 접속자 : "+todayCount);
-		int totalCount = siteCountService.getTotalCount();
+//		int todayCount = siteCountService.getTodayCount();
+//		int totalCount = siteCountService.getTotalCount();
+		ArrayList<HashMap<String, Object>> countList = siteCountService.getTotalCountByWeek();
+//		디버깅
+//		for(HashMap<String, Object> m : countList) {
+//			m.get("countDate");
+//			m.get("countNum");
+//		}
 		
 		// 저장
 		request.setAttribute("orderList", orderList);
 		request.setAttribute("list", list);
 		request.setAttribute("starList", starList);
 		request.setAttribute("noticeList", noticeList);
-		request.setAttribute("todayCount", todayCount);
-		request.setAttribute("totalCount", totalCount);
+//		request.setAttribute("todayCount", todayCount);
+//		request.setAttribute("totalCount", totalCount);
+		request.setAttribute("countList", countList);
 		
 		// view
 		request.getRequestDispatcher("/WEB-INF/view/emp/empMain.jsp").forward(request, response);

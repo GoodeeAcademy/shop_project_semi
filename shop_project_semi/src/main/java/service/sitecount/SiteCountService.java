@@ -2,6 +2,8 @@ package service.sitecount;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import dao.sitecount.SiteCountDao;
 import util.DBUtil;
@@ -103,5 +105,30 @@ public class SiteCountService {
 			e.printStackTrace();
 		}
 		return totalCount;
+	}
+	
+	// 일주일간 접속자 수
+	public ArrayList<HashMap<String, Object>> getTotalCountByWeek(){
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			list = siteCountDao.selectTotalCountByWeek(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}finally {
+				try {
+					conn.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
