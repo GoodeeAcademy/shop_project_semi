@@ -35,7 +35,7 @@ public class OrderListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginCustomer") == null) {
-			response.sendRedirect(request.getContextPath()+"member/signin");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return;
 		}
 		
