@@ -29,7 +29,7 @@
 		$('#modifyEmpPwBtn').click(function(){
 			if(currentPw.val().length < 1 || currentPw.val().indexOf(' ') != -1){
 				alert('현재 비밀번호를 입력해 주세요');
-			}else if(newPw.val().length < 1 || newPw.val().val().trim() == ''){
+			}else if(newPw.val().length < 1 || newPw.val().trim() == ''){
 				alert('새 비밀번호를 올바르게 입력해 주세요');
 			}else if(newPw.val() != newPwCk.val()){
 				alert('비밀번호가 일치하지 않습니다');
