@@ -30,7 +30,7 @@
 		<section class="section-slide">
 			<div class="wrap-slick1 rs1-slick1">
 				<div class="slick1">
-					<div class="item-slick1" style="background-image: url(${pageContext.request.contextPath}/upload/test.jpg), url(${pageContext.request.contextPath}/upload/cap_denim1.jpg), url(${pageContext.request.contextPath}/upload/top_line.jpg);
+					<div class="item-slick1" style="background-image: url(${pageContext.request.contextPath}/assets/shop/images/main_01.jpg), url(${pageContext.request.contextPath}/assets/shop/images/main_02.jpg), url(${pageContext.request.contextPath}/assets/shop/images/main_03.jpg);
 						background-size: contain; background-position:left,center,right; background-repeat: no-repeat;">
 						<div class="container h-full">
 							<div class="flex-col-l-m h-full p-t-100 p-b-30">
@@ -40,8 +40,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="item-slick1" style="background-image: url(${pageContext.request.contextPath}/upload/muffler_yellow.jpg), url(${pageContext.request.contextPath}/upload/muffler_black.jpg), url(${pageContext.request.contextPath}/upload/muffler_ivory.jpg);
-						background-size: contain; background-position:left,center,right; background-repeat: no-repeat;">
+					<div class="item-slick1" style="background-image: url(${pageContext.request.contextPath}/assets/shop/images/main_04.jpg);
+						background-size: cover; background-repeat: no-repeat;">
 						<div class="container h-full">
 							<div class="flex-col-l-m h-full p-t-100 p-b-30">
 								<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -53,6 +53,7 @@
 				</div>
 			</div>
 		</section>
+		<img alt="메인 이미지" src="${pageContext.request.contextPath}/assets/shop/images/main_02.jpg">
 		<jsp:include page="/WEB-INF/view/inc/shop/footer.jsp"></jsp:include>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/jquery/jquery-3.2.1.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/shop/vendor/animsition/js/animsition.min.js"></script>

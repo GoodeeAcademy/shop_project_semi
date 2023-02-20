@@ -18,7 +18,7 @@
 								<li><a href="${pageContext.request.contextPath}/category/goods?categoryCode=4">Accessories</a></li>
 							</ul>
 						</li>
-						<li><a href="#">ABOUT</a></li>
+						<li><a target="_blank" href="https://github.com/GoodeeAcademy/shop_project_semi.git">ABOUT</a></li>
 						<c:if test="${loginCustomer == null && loginEmp == null}">
 							<li><a href="${pageContext.request.contextPath}/member/signin">LOGIN</a></li>
 						</c:if>
@@ -65,7 +65,7 @@
 				</ul> 
 				<span class="arrow-main-menu-m"><i class="fa fa-angle-right text-dark" aria-hidden="true"></i></span>
 			</li>
-			<li><a href="#" class="text-dark">ABOUT</a></li>
+			<li><a href="https://github.com/GoodeeAcademy/shop_project_semi.git" class="text-dark">ABOUT</a></li>
 			<c:if test="${loginCustomer == null }">
 				<li><a href="${pageContext.request.contextPath}/member/signin" class="text-dark">LOGIN</a></li>
 			</c:if>

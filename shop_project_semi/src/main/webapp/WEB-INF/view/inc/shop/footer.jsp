@@ -54,13 +54,16 @@
 	</div>
 		<div class="p-t-40">
 			<p class="stext-107 cl6 txt-center text-dark">
+				<img alt="메인_바텀" src="${pageContext.request.contextPath}/assets/shop/images/bottom_logo.png" width="100%" height="100px;">
 				Copyright &copy;
-				<script>
-					document.write(new Date().getFullYear());
-				</script>
+				2023
 				All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> 
 				by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 				&amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+				<br/>
+				Copyright &copy;
+				2023
+				All rights reserved | <a href="https://typeserviceweb.com" target="_blank">typeservice</a>
 			</p>
 		</div>
 </footer>
