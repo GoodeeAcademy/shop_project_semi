@@ -71,10 +71,10 @@
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">${m.goodsName}</h4>
 							<span class="price mtext-106 cl2"><fmt:formatNumber value="${m.goodsPrice}" type="number"/>원</span>
 							<div>
-								<c:if test="${m.soldOut eq 'Y'}">
+								<c:if test="${m.soldOut eq 'N'}">
 									<span class="price mtext-106 cl2">판매중</span>
 								</c:if>
-								<c:if test="${m.soldOut eq 'N'}">
+								<c:if test="${m.soldOut eq 'Y'}">
 									<span class="price mtext-106 cl2">품절</span>
 								</c:if>
 							</div>

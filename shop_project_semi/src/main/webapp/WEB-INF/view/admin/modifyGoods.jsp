@@ -90,12 +90,12 @@
 									<div class="form-group">
 										<label><strong>판매상태</strong></label>
 										<c:if test="${m.soldOut eq 'Y'}">
-											<label class="radio-inline"><input type="radio" name="soldOut" value="Y" checked="checked" class="soldOut">판매</label>
-											<label class="radio-inline"><input type="radio" name="soldOut" value="N" class="soldOut">품절</label>
-										</c:if>
-										<c:if test="${m.soldOut eq 'N'}">
 											<label class="radio-inline"><input type="radio" name="soldOut" value="Y" class="soldOut">판매</label>
 											<label class="radio-inline"><input type="radio" name="soldOut" value="N" checked="checked" class="soldOut">품절</label>
+										</c:if>
+										<c:if test="${m.soldOut eq 'N'}">
+											<label class="radio-inline"><input type="radio" name="soldOut" value="Y" checked="checked" class="soldOut">판매</label>
+											<label class="radio-inline"><input type="radio" name="soldOut" value="N" class="soldOut">품절</label>
 										</c:if>
 									</div>
 									<div class="form-group">			
