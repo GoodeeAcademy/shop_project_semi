@@ -7,13 +7,11 @@
 			<div class="col-sm-6 col-lg-4 p-b-50">
 				<h4 class="stext-301 cl0 p-b-30 text-dark">SHOP PROJECT</h4>
 				<ul class="p-0">
-					<c:if test="${loginCustomer == null}">
-						<li>
-							<a href="${pageContext.request.contextPath}/emp/signin" class="stext-107 cl7 hov-cl1 trans-04 text-dark fw-bold">
-								<img src="https://img.icons8.com/material-rounded/24/null/github.png"/>&nbsp;&nbsp;쇼핑몰 관리자페이지
-							</a>
-						</li>
-					</c:if>
+					<li>
+						<a href="${pageContext.request.contextPath}/emp/signin" class="stext-107 cl7 hov-cl1 trans-04 text-dark fw-bold">
+							<img src="https://img.icons8.com/material-rounded/24/null/github.png"/>&nbsp;&nbsp;쇼핑몰 관리자페이지
+						</a>
+					</li>
 					<li class="p-b-10">
 						<a href="https://github.com/GoodeeAcademy/shop_project_semi.git" class="stext-107 cl7 hov-cl1 trans-04 text-dark fw-bold">
 							<img src="https://img.icons8.com/material-rounded/24/null/github.png"/>&nbsp;&nbsp;PROJECT URL
