@@ -60,6 +60,22 @@
 													<input type="hidden" name="oldFilename0" value="${imgList[0].filename}"/><span id="file_name0">${imgList[0].filename}</span>
 													<input type="hidden" name="goodsImgCode0" value="${imgList[0].goodsImgCode}"/>
 												</div>
+											<!-- 1개 -->
+											<c:if test="${listSize == 1}">
+												<div style="display: none">
+													<span id="currentImg1">
+														<img src="${pageContext.request.contextPath}/upload/${imgList[1].filename}" width="100px" height="100px" alt="상품 이미지"/>
+													</span>
+													<div>
+														<button id="currentFileBtn1" type="button" class="btn btn-sm btn-primary mb-1 h-100">사진 변경</button>
+														<input type="file" name="filename1" accept="image/jpeg, image/png" style="display: none" id="filename${1}">
+														<input type="hidden" name="oldFilename1" value="${imgList[1].filename}"/><span id="file_name${1}">${imgList[1].filename}</span>
+														<input type="hidden" name="goodsImgCode1" value="${imgList[1].goodsImgCode}"/>
+														<input type="hidden" name="listSize" value="${listSize}"/>
+													</div>
+												</div>
+											</c:if>
+											<!-- 2개 이상 -->
 											<c:forEach var="i" begin="1" end="${listSize-1}">
 												<span id="currentImg${i}">
 													<img src="${pageContext.request.contextPath}/upload/${imgList[i].filename}" width="100px" height="100px" alt="상품 이미지"/>
@@ -89,13 +105,13 @@
 									</div>
 									<div class="form-group">
 										<label><strong>판매상태</strong></label>
-										<c:if test="${m.soldOut eq 'Y'}">
-											<label class="radio-inline"><input type="radio" name="soldOut" value="Y" class="soldOut">판매</label>
-											<label class="radio-inline"><input type="radio" name="soldOut" value="N" checked="checked" class="soldOut">품절</label>
+										<c:if test="${m.soldOut eq 'Y'}">	<!-- 품절상태 -->
+											<label class="radio-inline"><input type="radio" name="soldOut" value="N" class="soldOut">판매</label>
+											<label class="radio-inline"><input type="radio" name="soldOut" value="Y" checked="checked" class="soldOut">품절</label>
 										</c:if>
-										<c:if test="${m.soldOut eq 'N'}">
-											<label class="radio-inline"><input type="radio" name="soldOut" value="Y" checked="checked" class="soldOut">판매</label>
-											<label class="radio-inline"><input type="radio" name="soldOut" value="N" class="soldOut">품절</label>
+										<c:if test="${m.soldOut eq 'N'}">	<!-- 판매중 상태 -->
+											<label class="radio-inline"><input type="radio" name="soldOut" value="N" checked="checked" class="soldOut">판매</label>
+											<label class="radio-inline"><input type="radio" name="soldOut" value="Y" class="soldOut">품절</label>
 										</c:if>
 									</div>
 									<div class="form-group">			
